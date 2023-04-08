@@ -21,7 +21,11 @@ module.exports = {
         light: '#FFDAC0'
       }
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'home-page': "url('./img/bg-desktop.png')",
+      }
+    },
   },
   plugins: [],
 }

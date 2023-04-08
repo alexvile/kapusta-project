@@ -9,7 +9,6 @@ import {
 } from "@remix-run/react";
 
 import stylesheet from "~/tailwind.css";
-import Header from "./components/header";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -25,7 +24,6 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Header/>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
