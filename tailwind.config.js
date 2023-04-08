@@ -23,8 +23,11 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'home-page': "url('./img/bg-desktop.png')",
-      }
+        'home-page': "url('../public/img/bg-desktop.png')",
+      },
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
+      },
     },
   },
   plugins: [],
