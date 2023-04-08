@@ -10,7 +10,7 @@ export default function Index() {
   return (
     <Layout>
     <Outlet/>
-      <h1>test</h1>
+      <h1>Home page</h1>
     </Layout>
  
   );
