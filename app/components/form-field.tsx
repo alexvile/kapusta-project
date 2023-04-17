@@ -5,6 +5,7 @@ interface FormFieldProps {
   label: string;
   type?: string;
   value?: any;
+  // ariaInvalid?: boolean;
   onChange?: (...args: any) => any;
   error?: string;
 }
@@ -14,6 +15,7 @@ export function FormField({
   label,
   type = "text",
   value,
+  // ariaInvalid,
   onChange = () => {},
   error = "",
 }: FormFieldProps) {
@@ -38,8 +40,10 @@ export function FormField({
         name={htmlFor}
         className="bg-bg-input w-full rounded-3xl font-roboto text-sm py-4 px-5 text-placeholder"
         value={value}
+        // aria-invalid={ariaInvalid}
       />
-      <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
+      {/* text-xs font-semibold text-center tracking-wide text-red-500 w-full */}
+      <div className="form-validation-error" role="alert">
         {errorText || ""}
       </div>
     </div>
