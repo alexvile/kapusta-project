@@ -10,8 +10,9 @@ type LoginForm = {
 export async function register({  email, password,
   }: LoginForm) {
     const passwordHash = await bcrypt.hash(password, 10);
+
     const user = await db.user.create({
-      data: { email, password: passwordHash },
+      data: { email, passwordHash },
     });
     return { id: user.id, email };
   }
@@ -60,7 +61,7 @@ const storage = createCookieSessionStorage({
     try {
       const user = await db.user.findUnique({
         where: { id: userId },
-        select: { id: true, username: true },
+        select: { id: true, email: true },
       });
       return user;
     } catch {
