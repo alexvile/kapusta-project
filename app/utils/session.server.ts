@@ -2,22 +2,16 @@ import bcrypt from "bcryptjs";
 import { db } from "./db.server";
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
-type LoginForm = {
-  email: string;
-  password: string;
-};
-// type RegisterForm = {
-//   email: string;
-//   password: string;
-//   firstName: string;
-//   lastName: string;
-// };
-
-export async function register({ email, password }: LoginForm) {
+export async function register({
+  email,
+  password,
+  firstName,
+  lastName,
+}: RegisterForm) {
   const passwordHash = await bcrypt.hash(password, 10);
 
   const user = await db.user.create({
-    data: { email, passwordHash },
+    data: { email, passwordHash, profile: { firstName, lastName } },
   });
   return { id: user.id, email };
 }
