@@ -5,7 +5,7 @@ export function Layout({
   user,
 }: {
   children: React.ReactNode;
-  user: User | undefined;
+  user?: User;
 }) {
   return (
     <>

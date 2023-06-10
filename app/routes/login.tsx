@@ -18,7 +18,6 @@ import {
 } from "~/utils/validators.server";
 import { createUserSession, login, register } from "~/utils/session.server";
 import { useState } from "react";
-import Svg from "~/components/svg/Svg";
 
 function validateUrl(url: any) {
   if (typeof url === "string") {
@@ -117,7 +116,7 @@ export const action = async ({ request }: ActionArgs) => {
           formError: `User with email ${email} already exists`,
         });
       }
-      const user = await register({ email, password });
+      const user = await register({ email, password, firstName, lastName });
       if (!user) {
         return badRequest({
           fieldErrors: null,
@@ -171,11 +170,10 @@ export default function Login() {
     }
   };
 
-  console.log("actionData", actionData);
+  // console.log("actionData", actionData);
 
   return (
     <>
-      <Svg name="Logo" />
       <Layout>
         <div className="p-4 temporary">
           <div className="bg-light  w-[500px] shadow-[0_10px_60px_0_rgba(170,178,197,0.2)] text-center py-14 px-14 rounded-[30px]">

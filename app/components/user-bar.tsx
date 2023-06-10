@@ -1,11 +1,11 @@
 import { Link } from "@remix-run/react";
 
-export const UserBar = ({ user }) => {
+export const UserBar = ({ user }: { user?: User }) => {
   return (
     <>
       {user ? (
         <div>
-          <div>User name: {user.email}</div>
+          <div>User email: {user.email}</div>
           <div>
             <form action="/logout" method="post">
               <button type="submit">Sign Out</button>

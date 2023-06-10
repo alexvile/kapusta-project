@@ -8,7 +8,6 @@ export const meta: V2_MetaFunction = () => {
 };
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request);
-  console.log(user);
   return json({ user });
 };
 export default function Index() {
