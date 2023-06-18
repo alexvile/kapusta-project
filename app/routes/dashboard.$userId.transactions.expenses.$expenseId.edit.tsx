@@ -57,7 +57,8 @@ export const action: ActionFunction = async ({ request, params }) => {
   ) {
     return json({ error: `Invalid Form Data` }, { status: 400 });
   }
-  await updateExpenseById(expenseId, {
+  await updateExpenseById({
+    id: expenseId,
     createdTime,
     description,
     type: type as ExpenseKind,

@@ -1,3 +1,4 @@
+import { ExpenseKind } from "@prisma/client";
 import {
   LoaderFunction,
   redirect,
@@ -48,8 +49,15 @@ export const action: ActionFunction = async ({ request }) => {
   ) {
     return json({ error: `Invalid Form Data` }, { status: 400 });
   }
+
   // console.log(ownerId);
-  await createExpense({ ownerId, createdTime, description, type, value });
+  await createExpense({
+    ownerId,
+    createdTime,
+    description,
+    type: type as ExpenseKind,
+    value,
+  });
   // return redirect("/home");
   return { ownerId, description, type, createdTime, value };
   // return null;
