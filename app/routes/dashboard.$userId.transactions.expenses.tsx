@@ -1,5 +1,5 @@
 import { LoaderFunction, redirect, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { getAllExpensesByUserId } from "~/utils/transaction.server";
 import type { Expense as IExpense } from "@prisma/client";
 import { Expense } from "~/components/expense";
@@ -28,6 +28,8 @@ export default function Expenses() {
           <Expense key={expense.id} {...expense} />
         ))}
       </ul>
+      <Link to="new">Create new expense</Link>
+      <Outlet />
     </>
   );
 }
