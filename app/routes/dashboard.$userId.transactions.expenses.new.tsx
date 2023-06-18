@@ -19,6 +19,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   return userId;
 };
 
+// todo: decide where hide user ID or use it from action/loader data
 export const action: ActionFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
 
@@ -30,9 +31,9 @@ export const action: ActionFunction = async ({ request }) => {
   const valueS = form.get("value");
   const value = Number(valueS);
 
-  console.log(description, type, createdTime, typeof value);
+  // console.log(description, type, createdTime, typeof value);
 
-  // '2023-06-13T22:24:39:12'  --- from input
+  // '2023-06-13T22:24:39'  --- from input
 
   // 2023-06-10T18:49:13.387+00:00 ---- in db
   // 2023-06-10T18:49:13.387Z  --- in response from db
@@ -47,7 +48,7 @@ export const action: ActionFunction = async ({ request }) => {
   ) {
     return json({ error: `Invalid Form Data` }, { status: 400 });
   }
-  console.log(ownerId);
+  // console.log(ownerId);
   await createExpense({ ownerId, createdTime, description, type, value });
   // return redirect("/home");
   return { ownerId, description, type, createdTime, value };
@@ -56,13 +57,13 @@ export const action: ActionFunction = async ({ request }) => {
 
 // todo - change actionData to form data from state.
 // todo - add value and react state
-export default function New() {
+export default function NewExpense() {
   // var offset = new Date().getTimezoneOffset();
   // console.log(offset);
 
   const { user } = useLoaderData();
   const actionData = useActionData();
-  console.log("actionData", actionData);
+  // console.log("actionData", actionData);
 
   return (
     <>
