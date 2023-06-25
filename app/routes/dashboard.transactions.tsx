@@ -1,14 +1,10 @@
-import { LoaderFunction, json } from "@remix-run/node";
+import { LoaderFunction, json, redirect } from "@remix-run/node";
 import { Link, Outlet } from "@remix-run/react";
+import { requireUserId } from "~/utils/session.server";
 
-export const loader: LoaderFunction = async ({ request, params }) => {
-  // const { userId } = params;
-  // console.log(request);
-  // console.log(params);
+export const loader: LoaderFunction = async ({ request }) => {
+  const userId = await requireUserId(request);
 
-  // if (typeof userId !== "string") {
-  //   return redirect("/home");
-  // }
   // const recipient = await getUserById(userId);
 
   // const user = await getUser(request);
@@ -16,6 +12,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   return json({});
 };
 
+// todo: decide if use requireuserID or getUserId
 export default function Transactions() {
   return (
     <>

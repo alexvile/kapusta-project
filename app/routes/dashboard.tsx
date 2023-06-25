@@ -13,7 +13,7 @@ export const meta: V2_MetaFunction = () => {
 };
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request);
-  console.log(user);
+  // console.log(user);
   return json({ user });
 };
 // export const action = async ({ request }: ActionArgs) => {
@@ -23,12 +23,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 // };
 export default function Index() {
   const { user }: { user: User } = useLoaderData();
-  const url = `${user.id}/transactions`;
+  // const url = `${user.id}/transactions`;
   return (
     <>
       <Layout user={user}>
         <h1>Home page</h1>
-        <Link to={url} title="" aria-label="">
+        <Link to="transactions" title="" aria-label="">
           transactions - link
         </Link>
         <Outlet />
