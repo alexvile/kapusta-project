@@ -10,10 +10,13 @@ type ConditionalProps =
   | {
       type: "modal";
       onClose?: never;
+      backTo: string;
+      // todo - it should be url not simple string
     }
   | {
       type: "popup";
       onClose: () => void;
+      backTo?: never;
     };
 
 interface props {
@@ -29,11 +32,12 @@ export const Modal: React.FC<props & ConditionalProps> = ({
   isOpen,
   ariaLabel,
   className,
+  backTo,
   onClose,
 }) => {
   const navigate = useNavigate();
   if (!isOpen) return null;
-  console.log(ariaLabel);
+  // console.log(ariaLabel);
 
   //  todo: create not modal route, but popup
   return (
@@ -44,11 +48,7 @@ export const Modal: React.FC<props & ConditionalProps> = ({
         role="dialog"
         aria-modal="true"
         onClick={() => {
-          type === "modal"
-            ? navigate(
-                "/dashboard/6484b3d1c1dc8cc1be2c6234/transactions/expenses"
-              )
-            : onClose();
+          type === "modal" ? navigate(backTo) : onClose();
         }}
 
         // todo: normal navigate
@@ -60,11 +60,7 @@ export const Modal: React.FC<props & ConditionalProps> = ({
           {children}
           <button
             onClick={() => {
-              type === "modal"
-                ? navigate(
-                    "/dashboard/6484b3d1c1dc8cc1be2c6234/transactions/expenses"
-                  )
-                : onClose();
+              type === "modal" ? navigate(backTo) : onClose();
             }}
           >
             CLOSE
