@@ -37,11 +37,15 @@ model Expense {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  createdTime DateTime    @default(now())
+  createdTime String
   owner       User        @relation(references: [id], fields: [ownerId], "MyExpense")
   ownerId     String      @db.ObjectId
   type        ExpenseKind @default(OTHER)
   description String?
+  value       Int
 }
+
+// createdTime change to DateTime Format not String. String is temporary solution
+// todo : check if we can filter by date, using date as String in db. If no, we should find another solution
 
 // todo - type Date to createdTime to return object, not string
