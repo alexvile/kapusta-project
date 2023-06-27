@@ -31,7 +31,7 @@ export const Modal: React.FC<props & ConditionalProps> = ({
   children,
   isOpen,
   ariaLabel,
-  className,
+  className = "",
   backTo,
   onClose,
 }) => {
@@ -40,6 +40,13 @@ export const Modal: React.FC<props & ConditionalProps> = ({
   // console.log(ariaLabel);
 
   //  todo: create not modal route, but popup
+
+  const popupStyles =
+    "min-w-[380px] min-h-[194px]  flex justify-center flex-col items-center";
+  const modalStyles = "p-7";
+  // const defaultSt = "p-4 bg-gray-200  max-h-screen md:rounded-xl";
+
+  // todo - create separate styles lists to popup and modal
   return (
     <Portal wrapperId="modal">
       <div
@@ -50,20 +57,22 @@ export const Modal: React.FC<props & ConditionalProps> = ({
         onClick={() => {
           type === "modal" ? navigate(backTo) : onClose();
         }}
-
-        // todo: normal navigate
       ></div>
+
       <div className="fixed inset-0 pointer-events-none flex justify-center items-center max-h-screen overflow-scroll">
         <div
-          className={`${className} p-4 bg-gray-200 pointer-events-auto max-h-screen md:rounded-xl`}
+          className={`pointer-events-auto bg-light rounded-3xl relative ${
+            type === "modal" ? modalStyles : popupStyles
+          }  ${className}`}
         >
           {children}
           <button
+            className="absolute top-4 right-4"
             onClick={() => {
               type === "modal" ? navigate(backTo) : onClose();
             }}
           >
-            CLOSE
+            X
           </button>
         </div>
       </div>
