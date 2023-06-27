@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import EyeOpen from "./svg/EyeOpen";
 
+// todo - finish form-fields logic
 interface FormFieldProps {
   htmlFor: string;
   label: string;
@@ -10,8 +11,11 @@ interface FormFieldProps {
   validateHandler?: (...args: any) => any;
   onInputChange?: (...args: any) => any;
   error?: string;
+  defaultValue?: any;
+  // todo - defaultValue
 }
 
+// todo - add name separate prop to form-field
 export function FormField({
   htmlFor,
   label,
@@ -20,12 +24,14 @@ export function FormField({
   onInputChange = () => {},
   validateHandler = () => {},
   error = "",
+  defaultValue,
 }: FormFieldProps) {
   const [errorText, setErrorText] = useState(error);
   const [toggledType, setToggledType] = useState("password");
 
   // console.log("error inside input0: ", validateEmail("asdasda"));
 
+  // todo-all input components update, add own
   useEffect(() => {
     // console.log("error inside input: ", error);
     setErrorText(error);
@@ -57,6 +63,7 @@ export function FormField({
           value={value}
           aria-invalid={Boolean(errorText)}
           aria-errormessage={errorText}
+          defaultValue={defaultValue}
         />
         {type === "password" ? (
           <span
@@ -82,3 +89,5 @@ export function FormField({
     </div>
   );
 }
+
+// todo backto and arialabel errors in console

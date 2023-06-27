@@ -6,12 +6,16 @@ import {
   ActionFunction,
   ActionArgs,
 } from "@remix-run/node";
-import { useActionData, useLoaderData } from "@remix-run/react";
+import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import { Button } from "~/components/button";
+import { DateInput } from "~/components/date-input";
+import { FormField } from "~/components/form-field";
 import { Modal } from "~/components/modal";
+import { SelectBox } from "~/components/select-box";
+import { ExpenseKinds } from "~/utils/constants";
 import { getUserId, requireUserId } from "~/utils/session.server";
 import { createExpense } from "~/utils/transaction.server";
 // import type { Expense as IExpense } from "@prisma/client";
-// import { Form } from "@remix-run/react";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -39,19 +43,6 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
   }
   const createdTime = new Date(localTime).toISOString();
 
-  // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
-
-  // console.log(description, type, createdTime, typeof value);
-
-  // '2023-06-13T22:24:39'  --- from input
-  // 2023-06-10T18:49:13.387+00:00 ---- in db
-  // 2023-06-10T18:49:13.387Z  --- in response from db
-
-  // todo - right format to DB with timeZONE !!!!!!!!!!!!!!!!!!
-
-  // todo - after registration give user ability to accept/change his timezone
-  // todo- add timezone to context and take it from context together with user
-
   if (
     typeof description !== "string" ||
     typeof type !== "string" ||
@@ -61,7 +52,6 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
     return json({ error: `Invalid Form Data` }, { status: 400 });
   }
 
-  // console.log(ownerId);
   await createExpense({
     ownerId,
     createdTime,
@@ -91,56 +81,67 @@ export default function NewExpense() {
       <Modal
         isOpen={true}
         ariaLabel="New expense"
-        className="w-2/3 p-10"
         type="modal"
         backTo="/dashboard/transactions/expenses"
       >
-        <div className="m-2 outline w-fit">
+        <div className="m-2 p-2 outline w-fit">
           <h4>New expense</h4>
 
-          <form method="post">
+          <Form method="post">
+            {/* todo - think how add ownerId, not useing inpu type hidden */}
             <input type="hidden" value={user} name="ownerId" />
-            <label>
-              <span className="block">Description</span>
-              <input
-                type="text"
-                name="description"
-                defaultValue={actionData?.description}
-              />
-            </label>
-            <span className="block">Select Type</span>
-            <select
+            <FormField
+              type="text"
+              htmlFor="description"
+              label="Description"
+              defaultValue={actionData?.description}
+              // value={email}
+              // error={actionData?.fieldErrors?.email}
+            />
+            <SelectBox
+              options={ExpenseKinds}
               name="type"
               id="type"
-              className="block"
-              defaultValue={actionData?.type}
-            >
-              <option value="RENT">RENT</option>
-              <option value="COMMUNAL">COMMUNAL</option>
-              <option value="MARKETING">MARKETING</option>
-              <option value="CONSUMABLES">CONSUMABLES</option>
-              <option value="OTHER">OTHER</option>
-            </select>
-
-            <span className="block"> Select time</span>
-
+              // value={formData.style.backgroundColor}
+              // onChange={(e) => handleStyleChange(e, "backgroundColor")}
+              label="Select Expense Type"
+              // containerClassName="w-36"
+              // className="w-full rounded-xl px-3 py-2 text-gray-400"
+            />
             {/* todo input datetime - but global or including local */}
-
-            <input
-              type="datetime-local"
+            <DateInput
               name="createdTime"
+              id="createdTime"
               // step="1"
+              label="Select time of creation"
               defaultValue={actionData?.createdTime}
-            ></input>
-
-            <span className="block"> Select value</span>
-            <input type="number" name="value" />
-            <button type="submit" className="block outline mt-1">
-              Submit
-            </button>
-          </form>
+            />
+            <FormField
+              type="number"
+              htmlFor="value"
+              label="Select value of exp"
+              defaultValue={actionData?.value}
+              // value={email}
+              // error={actionData?.fieldErrors?.email}
+            />
+            <Button type="submit" label="submit" />
+            Reset BTN
+          </Form>
         </div>
       </Modal>
     </>
   );
 }
+
+// console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
+
+// console.log(description, type, createdTime, typeof value);
+
+// '2023-06-13T22:24:39'  --- from input
+// 2023-06-10T18:49:13.387+00:00 ---- in db
+// 2023-06-10T18:49:13.387Z  --- in response from db
+
+// todo - right format to DB with timeZONE !!!!!!!!!!!!!!!!!!
+
+// todo - after registration give user ability to accept/change his timezone
+// todo- add timezone to context and take it from context together with user
