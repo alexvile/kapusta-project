@@ -5,6 +5,7 @@ interface ButtonProps {
   name?: string;
   value?: string;
   className?: string;
+  onClick?: () => void;
 }
 // todo: use Pick to get some of props
 
@@ -15,6 +16,7 @@ export function Button({
   name,
   value,
   className,
+  onClick,
 }: ButtonProps) {
   let s =
     "inline-flex items-center text-center justify-center px-4 py-3 min-w-[7rem] font-bold tracking-wide rounded-2xl font-roboto text-xs uppercase hover:opacity-50 active:opacity-50 focus:opacity-50 transition-opacity ";
@@ -43,6 +45,7 @@ export function Button({
         className={`${s} + ${className}`}
         name={name}
         value={value}
+        onClick={onClick}
       >
         {label}
       </button>
