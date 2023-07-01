@@ -1,5 +1,5 @@
 import { db } from "./db.server";
-import type { Expense as IExpense } from "@prisma/client";
+import type { Expense as IExpense, Prisma } from "@prisma/client";
 
 // const {
 //   createRequestHandler,
@@ -29,6 +29,20 @@ import type { Expense as IExpense } from "@prisma/client";
 
 export const getAllExpensesByUserId = async (userId: string) => {
   return await db.expense.findMany({
+    where: {
+      ownerId: userId,
+    },
+  });
+};
+
+export const getFilteredExpenses = async (
+  userId: string,
+  sortFilter: Prisma.ExpenseOrderByWithRelationInput
+) => {
+  return await db.expense.findMany({
+    orderBy: {
+      ...sortFilter,
+    },
     where: {
       ownerId: userId,
     },
@@ -102,3 +116,30 @@ export const deleteExpenseById = async (id: string) => {
 };
 
 // todo: catch an error boundaries
+
+// todo - do we need to select only some field we give to frontend ???
+// export const getFilteredKudos = async (
+//   userId: string,
+//   sortFilter: Prisma.KudoOrderByWithRelationInput,
+//   whereFilter: Prisma.KudoWhereInput
+// ) => {
+//   return await prisma.kudo.findMany({
+//     select: {
+//       id: true,
+//       style: true,
+//       message: true,
+//       author: {
+//         select: {
+//           profile: true,
+//         },
+//       },
+//     },
+//     orderBy: {
+//       ...sortFilter,
+//     },
+//     where: {
+//       recipientId: userId,
+//       ...whereFilter,
+//     },
+//   });
+// };

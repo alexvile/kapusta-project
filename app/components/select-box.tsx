@@ -9,17 +9,17 @@ interface ISelectBox {
   name: string;
   label?: string;
   defaultValue?: any;
-  // value?: any;
-  // onChange?: (...args: any) => any;
+  value?: any;
+  onChange?: (...args: any) => any;
 }
 export function SelectBox({
   options = [],
-  //   onChange = () => {},
+  onChange = () => {},
   //   className = "",
   //   containerClassName = "",
   name,
   id,
-  //   value,
+  value,
   label,
   defaultValue,
 }: ISelectBox) {
@@ -32,6 +32,8 @@ export function SelectBox({
           id={id}
           defaultValue={defaultValue}
           className="outline"
+          onChange={onChange}
+          value={value || ""}
         >
           {options.map((option) => (
             <option key={option.name} value={option.value}>
