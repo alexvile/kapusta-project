@@ -9,19 +9,95 @@ import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import {
   deleteExpenseById,
   getAllExpensesByUserId,
+  getFilteredExpenses,
 } from "~/utils/transaction.server";
-import type { Expense as IExpense } from "@prisma/client";
+import type { Expense as IExpense, Prisma } from "@prisma/client";
 import { Expense } from "~/components/expense";
 import { requireUserId } from "~/utils/session.server";
-
+import { SortAndFilterBar } from "~/components/sort-and-filter-bar";
+import { ExpenseKind } from "@prisma/client";
+import {
+  localDateFromToIsoString,
+  localDateToToIsoString,
+} from "~/helpers/timeConvertor";
 export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
-  const allExpenses: IExpense[] = await getAllExpensesByUserId(userId);
-  return json({ allExpenses });
+  // const allExpenses: IExpense[] = await getAllExpensesByUserId(userId);
+
+  // console.log(request.url);
+  const url = new URL(request.url);
+  const sort = url.searchParams.get("sort");
+  const filter = url.searchParams.get("filter");
+  const dir = url.searchParams.get("dir");
+  const from = url.searchParams.get("from");
+  const to = url.searchParams.get("to");
+  const category = url.searchParams.get("category");
+
+  const direction: Prisma.SortOrder = dir as Prisma.SortOrder;
+
+  let sortOptions: Prisma.ExpenseOrderByWithRelationInput = {};
+  if (sort) {
+    // console.log(111, sort);
+    // console.log(222, dir);
+    if (sort === "date") {
+      sortOptions = { createdTime: `${direction}` };
+    }
+    if (sort === "value") {
+      sortOptions = { value: `${direction}` };
+    }
+    if (sort === "category") {
+      sortOptions = { type: `${direction}` };
+    }
+  }
+
+  // todo - default by today !!!
+  let whereFilter: Prisma.ExpenseWhereInput = {};
+
+  let dateFilter: Prisma.ExpenseWhereInput = {};
+  if (to && from) {
+    dateFilter = {
+      createdTime: {
+        lte: localDateToToIsoString(to),
+        gte: localDateFromToIsoString(from),
+      },
+    };
+  }
+  let textFilter: Prisma.ExpenseWhereInput = {};
+  if (filter) {
+    console.log(filter);
+    textFilter = {
+      description: { mode: "insensitive", contains: filter },
+    };
+  }
+  let categoryFilter: Prisma.ExpenseWhereInput = {};
+
+  // const categoryValue: ExpenseKind = category as ExpenseKind;
+
+  if (category !== "ALL" && category) {
+    categoryFilter = {
+      type: { equals: category },
+    };
+  }
+  // fix ts error !!!!!!!!!!!!!!!
+  whereFilter = { ...dateFilter, ...textFilter, ...categoryFilter };
+  // todo - get by TODAY for default
+  // todo - add PAGINATION !!!!
+  // todo - default sorting by craetedTime asc
+
+  // todo complex filters name = "111" + category = "22" + timeGap = "from 25 to 26.06"
+  // todo - filter by title
+  // todo - filter by product category by select
+
+  const filteredExpenses: IExpense[] = await getFilteredExpenses(
+    userId,
+    sortOptions,
+    whereFilter
+    // timeGap
+  );
+
+  return json({ filteredExpenses });
 };
-
 //  todo: create separate route or logic to delete !!!!!!!!!!!!!!!!
-
 export const action = async ({ params, request }: ActionArgs) => {
   const form = await request.formData();
   // console.log(form);
@@ -53,14 +129,11 @@ export const action = async ({ params, request }: ActionArgs) => {
 };
 
 export default function Expenses() {
-  const { allExpenses } = useLoaderData();
-  // console.log(allExpenses);
+  const { filteredExpenses } = useLoaderData();
   return (
     <>
       <div>Expenses</div>
-
-      {/* Filters etc */}
-      <div>Filter etc</div>
+      <SortAndFilterBar />
       <table className="table-auto">
         <thead>
           <tr>
@@ -73,8 +146,8 @@ export default function Expenses() {
           </tr>
         </thead>
         <tbody>
-          {allExpenses?.length > 0 &&
-            allExpenses.map((expense: IExpense) => (
+          {filteredExpenses?.length > 0 &&
+            filteredExpenses.map((expense: IExpense) => (
               <Expense key={expense.id} {...expense} />
             ))}
         </tbody>
@@ -88,9 +161,6 @@ export default function Expenses() {
 }
 //  todo : fix "expense" underline ts bug ??
 
-// todo - use $dynamic only for transaction, not for user
-// todo - pass all props using {... props}
-
-// https://medium.com/coding-at-dawn/how-to-pass-all-props-to-a-child-component-in-react-bded9e38bb62
-
 // todo - filters and sort by !!!!!!!!!!!!!!! very complicated !!!!!
+
+// todo - clear URL, remove query params if you dont use it !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

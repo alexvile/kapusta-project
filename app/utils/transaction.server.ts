@@ -37,7 +37,8 @@ export const getAllExpensesByUserId = async (userId: string) => {
 
 export const getFilteredExpenses = async (
   userId: string,
-  sortFilter: Prisma.ExpenseOrderByWithRelationInput
+  sortFilter: Prisma.ExpenseOrderByWithRelationInput,
+  whereFilter: Prisma.ExpenseWhereInput
 ) => {
   return await db.expense.findMany({
     orderBy: {
@@ -45,10 +46,12 @@ export const getFilteredExpenses = async (
     },
     where: {
       ownerId: userId,
+      ...whereFilter,
     },
   });
 };
 
+// todo - default from date now() 00:00 to 23:59
 //  todo right naming, delete user from naming becuse you can get only your own transactions
 export const getExpenseByIdAndUserId = async (
   userId: string,

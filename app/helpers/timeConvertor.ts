@@ -28,3 +28,18 @@ export function formatIsoUTCStringToLocalWithoutSeconds(isoUTCString: string) {
   });
   return localTime;
 }
+// for search and filter
+
+export function localDateFromToIsoString(localDateFrom: string) {
+  const localDateWithTime = localDateFrom + "T00:00:00";
+  const dateObject = new Date(localDateWithTime);
+  const UTCIsoString = dateObject.toISOString();
+  return UTCIsoString;
+}
+
+export function localDateToToIsoString(localDateTo: string) {
+  const localDateWithTime = localDateTo + "T23:59:59";
+  const dateObject = new Date(localDateWithTime);
+  const UTCIsoString = dateObject.toISOString();
+  return UTCIsoString;
+}
