@@ -15,6 +15,8 @@ import {
   updateExpenseById,
 } from "~/utils/transaction.server";
 import { Modal } from "~/components/modal";
+
+import { convertFromUTCToLocalISO } from "~/helpers/timeConvertor";
 // import { requireUserId } from "~/utils/session.server";
 // import { createExpense } from "~/utils/transaction.server";
 // import type { Expense as IExpense } from "@prisma/client";
@@ -52,10 +54,17 @@ export const action: ActionFunction = async ({
 
   const description = form.get("description");
   const type = form.get("type");
-  const createdTime = form.get("createdTime");
+  const localTime = form.get("createdTime");
   const valueS = form.get("value");
   const value = Number(valueS);
 
+  // console.log(2, localTime);
+  if (typeof localTime !== "string") {
+    return alert("wrong local timeformat");
+  }
+  const createdTime = new Date(localTime).toISOString();
+
+  // console.log(createdTime);
   // todo: typeof type should be enum
   if (
     typeof description !== "string" ||
@@ -66,6 +75,7 @@ export const action: ActionFunction = async ({
   ) {
     return json({ error: `Invalid Form Data` }, { status: 400 });
   }
+
   await updateExpenseById({
     id: expenseId,
     createdTime,
@@ -86,14 +96,14 @@ export const action: ActionFunction = async ({
 export default function EditExpense() {
   const { userId, expenseId, expenseById } = useLoaderData();
   const actionData = useActionData();
-  // console.log("actionData11", actionData);
 
-  // console.log("loaderData", expenseById);
+  const timeInUTC = expenseById?.createdTime;
+  const localTime = convertFromUTCToLocalISO(timeInUTC);
+  // console.log("actionData11", actionData);
   // todo: logic to update
   // todo: for options we use CONSTANT in separate file
-
   // todo add checking if we have this expense if no -404
-
+  // todo !!!! when edit date is lost !!!
   return (
     <>
       <Modal
@@ -136,7 +146,7 @@ export default function EditExpense() {
               type="datetime-local"
               name="createdTime"
               // step="1"
-              defaultValue={expenseById?.createdTime}
+              defaultValue={localTime}
             ></input>
             <span className="block"> Select value</span>
             <input
@@ -191,3 +201,10 @@ export default function EditExpense() {
 //   await db.joke.delete({ where: { id: params.jokeId } });
 //   return redirect("/jokes");
 // };
+
+// const localTime2 = new Date(UTCTimeString).toLocaleString("hu-HU");
+// console.log(localTime2);
+// const localTimeForInput1 = localTime2.replaceAll(". ", "-");
+// console.log(2, localTimeForInput1);
+// // const localTimeForInput1 = "2023-06-30T20:01";
+// // console.log(3, localTimeForInput1);

@@ -24,17 +24,13 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
 
 export const action = async ({ params, request }: ActionArgs) => {
   const form = await request.formData();
-  console.log(form);
-  console.log(form.get("intent"));
-  // console.log(form.get("id"));
-  // console.log("1111111111111111", form);
-
+  // console.log(form);
+  // console.log(form.get("intent"));
   if (form.get("intent") !== "delete") {
     throw new Response(`The intent ${form.get("intent")} is not supported`, {
       status: 400,
     });
   }
-
   const expenseId = form.get("id");
   // const userId = await requireUserId(request);
   // const joke = await db.joke.findUnique({
@@ -62,15 +58,29 @@ export default function Expenses() {
   return (
     <>
       <div>Expenses</div>
-      <ul>
-        {/* todo check if array > 1 */}
-        {/* {(allExpenses.length = 0 && null)} */}
-        {allExpenses?.length > 0 &&
-          allExpenses.map((expense: IExpense) => (
-            <Expense key={expense.id} {...expense} />
-          ))}
-      </ul>
-      <Link to="new">Create new expense</Link>
+
+      {/* Filters etc */}
+      <div>Filter etc</div>
+      <table className="table-auto">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Sum</th>
+            <th>Edit</th>
+            <th>Del</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allExpenses?.length > 0 &&
+            allExpenses.map((expense: IExpense) => (
+              <Expense key={expense.id} {...expense} />
+            ))}
+        </tbody>
+      </table>
+
+      <Link to="new">Add expense</Link>
 
       <Outlet />
     </>
@@ -82,3 +92,5 @@ export default function Expenses() {
 // todo - pass all props using {... props}
 
 // https://medium.com/coding-at-dawn/how-to-pass-all-props-to-a-child-component-in-react-bded9e38bb62
+
+// todo - filters and sort by !!!!!!!!!!!!!!! very complicated !!!!!
