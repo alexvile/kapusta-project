@@ -43,3 +43,37 @@ export function localDateToToIsoString(localDateTo: string) {
   const UTCIsoString = dateObject.toISOString();
   return UTCIsoString;
 }
+// console.log(localDateFromToIsoString("2023-06-27"));
+// console.log(localDateToToIsoString("2023-06-27"));
+
+export function getISOFromAndToForToday() {
+  const todayUTC = new Date();
+  // console.log(todayUTC);
+  // console.log(todayUTC.toLocaleString());
+  const todayLocal = todayUTC.toLocaleDateString("en-ZA").replaceAll("/", "-");
+  const todayFrom = localDateFromToIsoString(todayLocal);
+  const todayTo = localDateToToIsoString(todayLocal);
+  return { todayFrom, todayTo };
+}
+
+// todo - using intl instead time date
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// getISOFromAndToForToday();
+// console.log(todayUTC);

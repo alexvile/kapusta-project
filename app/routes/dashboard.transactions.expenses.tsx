@@ -17,6 +17,7 @@ import { requireUserId } from "~/utils/session.server";
 import { SortAndFilterBar } from "~/components/sort-and-filter-bar";
 import { ExpenseKind } from "@prisma/client";
 import {
+  getISOFromAndToForToday,
   localDateFromToIsoString,
   localDateToToIsoString,
 } from "~/helpers/timeConvertor";
@@ -52,7 +53,6 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
 
   // todo - default by today !!!
   let whereFilter: Prisma.ExpenseWhereInput = {};
-
   let dateFilter: Prisma.ExpenseWhereInput = {};
   if (to && from) {
     dateFilter = {
@@ -61,7 +61,16 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
         gte: localDateFromToIsoString(from),
       },
     };
+  } else {
+    const { todayFrom, todayTo } = getISOFromAndToForToday();
+    dateFilter = {
+      createdTime: {
+        lte: todayTo,
+        gte: todayFrom,
+      },
+    };
   }
+
   let textFilter: Prisma.ExpenseWhereInput = {};
   if (filter) {
     console.log(filter);
@@ -164,3 +173,9 @@ export default function Expenses() {
 // todo - filters and sort by !!!!!!!!!!!!!!! very complicated !!!!!
 
 // todo - clear URL, remove query params if you dont use it !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// todo - may we can use equal or start in instead from and to ??? to get by today we lost
+// createdTime: {
+//   startsWith: "2023-06-25",
+// },
+// but we lost some of them (((
