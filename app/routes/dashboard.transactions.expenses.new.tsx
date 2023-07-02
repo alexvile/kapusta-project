@@ -7,6 +7,7 @@ import {
   ActionArgs,
 } from "@remix-run/node";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import { useState } from "react";
 import { Button } from "~/components/button";
 import { DateInput } from "~/components/date-input";
 import { FormField } from "~/components/form-field";
@@ -38,8 +39,11 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
   const valueS = form.get("value");
   const value = Number(valueS);
 
+  if (!localTime) {
+    return json({ error: `No time provided` }, { status: 400 });
+  }
   if (typeof localTime !== "string") {
-    return alert("wrong local timeformat");
+    return json({ error: `Wrong time format` }, { status: 400 });
   }
   const createdTime = new Date(localTime).toISOString();
 
@@ -72,6 +76,9 @@ export default function NewExpense() {
   // var offset = new Date().getTimezoneOffset();
   // console.log(offset);
 
+  const [time, setTime] = useState();
+  const [type, setType] = useState();
+
   const { user } = useLoaderData();
   const actionData = useActionData();
   // console.log("actionData", actionData);
@@ -94,7 +101,7 @@ export default function NewExpense() {
               type="text"
               htmlFor="description"
               label="Description"
-              defaultValue={actionData?.description}
+              // defaultValue={actionData?.description}
               // value={email}
               // error={actionData?.fieldErrors?.email}
             />
@@ -104,24 +111,26 @@ export default function NewExpense() {
               id="type"
               // value={formData.style.backgroundColor}
               // onChange={(e) => handleStyleChange(e, "backgroundColor")}
+              value={type}
+              onChange={(e) => {
+                setType(e.currentTarget.value);
+              }}
               label="Select Expense Type"
-              // containerClassName="w-36"
-              // className="w-full rounded-xl px-3 py-2 text-gray-400"
             />
             {/* todo input datetime - but global or including local */}
             <DateInput
               name="createdTime"
               id="createdTime"
-              // step="1"
+              value={time}
+              onChange={(e) => {
+                setTime(e.currentTarget.value);
+              }}
               label="Select time of creation"
-              defaultValue={actionData?.createdTime}
             />
             <FormField
               type="number"
               htmlFor="value"
               label="Select value of exp"
-              defaultValue={actionData?.value}
-              // value={email}
               // error={actionData?.fieldErrors?.email}
             />
             <Button type="submit" label="submit" />

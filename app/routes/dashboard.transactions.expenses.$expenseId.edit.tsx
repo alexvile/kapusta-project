@@ -17,6 +17,12 @@ import {
 import { Modal } from "~/components/modal";
 
 import { convertFromUTCToLocalISO } from "~/helpers/timeConvertor";
+import { FormField } from "~/components/form-field";
+import { ExpenseKinds } from "~/utils/constants";
+import { SelectBox } from "~/components/select-box";
+import { useState } from "react";
+import { DateInput } from "~/components/date-input";
+import { Button } from "~/components/button";
 // import { requireUserId } from "~/utils/session.server";
 // import { createExpense } from "~/utils/transaction.server";
 // import type { Expense as IExpense } from "@prisma/client";
@@ -99,6 +105,9 @@ export default function EditExpense() {
 
   const timeInUTC = expenseById?.createdTime;
   const localTime = convertFromUTCToLocalISO(timeInUTC);
+
+  const [time, setTime] = useState(localTime);
+  const [type, setType] = useState();
   // console.log("actionData11", actionData);
   // todo: logic to update
   // todo: for options we use CONSTANT in separate file
@@ -113,50 +122,52 @@ export default function EditExpense() {
         type="modal"
         backTo="/dashboard/transactions/expenses"
       >
-        <div className="outline w-fit bg-bg-input outline-4 m-2">
+        <div className="outline w-fit bg-white outline-4 p-2 ">
           <h3>Edit expense MODAL</h3>
           <div>Editing: {expenseId}</div>
           {/* todo: hide userID */}
           <Form method="post">
             <input type="hidden" value={userId} name="ownerId" />
-            <label>
-              <span className="block">Description</span>
-              <input
-                type="text"
-                name="description"
-                defaultValue={expenseById?.description}
-              />
-            </label>
-            <span className="block">Select Type</span>
-            <select
+            <FormField
+              type="text"
+              htmlFor="description"
+              label="Description"
+              defaultValue={expenseById?.description}
+            />
+            <SelectBox
+              options={ExpenseKinds}
               name="type"
               id="type"
-              className="block"
-              defaultValue={expenseById?.type}
-            >
-              <option value="RENT">RENT</option>
-              <option value="COMMUNAL">COMMUNAL</option>
-              <option value="MARKETING">MARKETING</option>
-              <option value="CONSUMABLES">CONSUMABLES</option>
-              <option value="OTHER">OTHER</option>
-            </select>
-            <span className="block"> Select time</span>
-            {/* todo input datetime - but global or including local */}
-            <input
-              type="datetime-local"
-              name="createdTime"
-              // step="1"
-              defaultValue={localTime}
-            ></input>
-            <span className="block"> Select value</span>
-            <input
-              type="number"
-              name="value"
-              defaultValue={expenseById?.value}
+              // value={formData.style.backgroundColor}
+              // onChange={(e) => handleStyleChange(e, "backgroundColor")}
+              value={type}
+              onChange={(e) => {
+                setType(e.currentTarget.value);
+              }}
+              label="Select Expense Type"
             />
-            <button type="submit" className="block outline mt-1">
-              Submit
-            </button>
+            {/* todo input datetime - but global or including local */}
+            <DateInput
+              name="createdTime"
+              id="createdTime"
+              // defaultValue={localTime}
+              value={time}
+              onChange={(e) => {
+                setTime(e.currentTarget.value);
+              }}
+              label="Created time"
+            />
+
+            <FormField
+              type="number"
+              htmlFor="value"
+              label="Select value of exp"
+              defaultValue={expenseById?.value}
+
+              // error={actionData?.fieldErrors?.email}
+            />
+
+            <Button type="submit" label="submit" />
           </Form>
         </div>
       </Modal>

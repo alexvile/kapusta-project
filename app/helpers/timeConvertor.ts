@@ -43,8 +43,6 @@ export function localDateToToIsoString(localDateTo: string) {
   const UTCIsoString = dateObject.toISOString();
   return UTCIsoString;
 }
-// console.log(localDateFromToIsoString("2023-06-27"));
-// console.log(localDateToToIsoString("2023-06-27"));
 
 export function getISOFromAndToForToday() {
   const todayUTC = new Date();
@@ -56,24 +54,13 @@ export function getISOFromAndToForToday() {
   return { todayFrom, todayTo };
 }
 
+// for current date view
+export function getLocalDate() {
+  const todayUTC = new Date();
+  const todayLocal = todayUTC.toLocaleDateString();
+  // console.log(todayLocal);
+  return todayLocal;
+}
+
+// todo - decied if we need to go for current date every re-render
 // todo - using intl instead time date
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// getISOFromAndToForToday();
-// console.log(todayUTC);

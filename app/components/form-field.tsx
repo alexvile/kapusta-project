@@ -49,8 +49,8 @@ export function FormField({
         <input
           onChange={(e) => {
             onInputChange(e);
-            // setErrorText("");
             console.log(e.target.value);
+            // setErrorText("");
             // setErrorText(validateHandler(e.target.value));
           }}
           onBlur={(e) => {

@@ -15,7 +15,7 @@ export function DateInput({
   label,
   defaultValue,
   value,
-  onChange,
+  onChange = () => {},
   type = "datetime-local",
 }: IDateInput) {
   return (
@@ -29,10 +29,11 @@ export function DateInput({
         className="outline"
         // step="1"
         onChange={onChange}
-        value={value}
+        value={value || ""}
         defaultValue={defaultValue}
       ></input>
     </div>
   );
 }
 // todo: use normal id and names to input, select
+// todo: using values instead default value

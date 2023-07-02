@@ -5,6 +5,10 @@ export const ExpenseKinds = [
   { name: "Consumables", value: "CONSUMABLES" },
   { name: "Other", value: "OTHER" },
 ];
+export const ExpenseKindsForFilter = [
+  { name: "Expense category", value: "ALL" },
+  ...ExpenseKinds,
+];
 
 //   todo - how to synchronize with db ???
 
@@ -25,11 +29,11 @@ export const sortOptions = [
 
 export const dirOptions = [
   {
-    name: "Ascending",
+    name: "A",
     value: "asc",
   },
   {
-    name: "Descending",
+    name: "D",
     value: "desc",
   },
 ];

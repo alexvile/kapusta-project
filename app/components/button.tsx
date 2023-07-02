@@ -42,7 +42,7 @@ export function Button({
     <>
       <button
         type={type}
-        className={`${s} + ${className}`}
+        className={`${s} ${className}`}
         name={name}
         value={value}
         onClick={onClick}

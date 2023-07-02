@@ -1,5 +1,5 @@
 import { LoaderFunction, json, redirect } from "@remix-run/node";
-import { Link, Outlet } from "@remix-run/react";
+import { Link, NavLink, Outlet } from "@remix-run/react";
 import { requireUserId } from "~/utils/session.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -17,7 +17,27 @@ export default function Transactions() {
   return (
     <>
       <div>Transactions</div>
-      <Link to="expenses">Expenses - link</Link>
+      {/* tabs */}
+      <>
+        <div className="navLinks">
+          <NavLink
+            to="expenses"
+            className={({ isActive, isPending }) =>
+              isPending ? "pending" : isActive ? "active" : ""
+            }
+          >
+            (Expenses - l)
+          </NavLink>
+          <NavLink
+            to="incomes"
+            className={({ isActive, isPending }) =>
+              isPending ? "pending" : isActive ? "active" : ""
+            }
+          >
+            (Incomes - l)
+          </NavLink>
+        </div>
+      </>
       <Outlet />
     </>
   );
