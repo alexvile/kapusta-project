@@ -51,6 +51,33 @@ export const getFilteredExpenses = async (
   });
 };
 
+export const getExpensesForLastSixMonths = async (
+  userId: string,
+  period: { start: string; end: string }
+) => {
+  console.log("getting expenses list");
+  return await db.expense.findMany({
+    orderBy: {
+      createdTime: "desc",
+    },
+    where: {
+      ownerId: userId,
+      createdTime: {
+        lte: period.end,
+        gte: period.start,
+      },
+    },
+    select: {
+      id: true,
+      createdTime: true,
+      value: true,
+    },
+  });
+};
+
+// todo - maybe we need separate docs with calculated values to prevent getting all documents ???
+// todo - calculated properties at mongodb
+
 // todo - default from date now() 00:00 to 23:59
 //  todo right naming, delete user from naming becuse you can get only your own transactions
 export const getExpenseByIdAndUserId = async (

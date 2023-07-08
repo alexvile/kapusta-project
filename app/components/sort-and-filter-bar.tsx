@@ -36,7 +36,7 @@ export function SortAndFilterBar() {
 
   useEffect(() => {
     // todo = at the start value = undefined, need default value
-    console.log(sortOption, direction);
+    // console.log(sortOption, direction);
   }, [sortOption, direction]);
 
   return (

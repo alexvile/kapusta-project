@@ -64,3 +64,39 @@ export function getLocalDate() {
 
 // todo - decied if we need to go for current date every re-render
 // todo - using intl instead time date
+
+//
+// function getDaysInMonth(month: number, year: number) {
+//   console.log(new Date(year, month, 0).getDate());
+//   return new Date(year, month, 0).getDate();
+// }
+// getDaysInMonth(6, 2023);
+// function getLastDateOfMonth(month: number, year: number) {
+//   const date = new Date(year, month + 1, 0);
+//   console.log(date);
+//   console.log(date.toLocaleString());
+//   console.log(date.toString());
+//   // return date;
+// }
+
+// function get
+
+export function getSixMonthsPeriod() {
+  const date = new Date();
+  date.setMonth(date.getMonth() - 6);
+  const fullYear = date.getFullYear();
+  const month = date.getMonth();
+  const correctedStartIsoDay = new Date(fullYear, month, 1);
+  const datePeriod = {
+    start: correctedStartIsoDay.toISOString(),
+    end: new Date().toISOString(),
+  };
+  // console.log(datePeriod);
+  return datePeriod;
+}
+
+// todo - we should call this function  not very often !!!!
+
+// -----------------------------------
+// how to group date array by month in javascript
+// https://blog.51cto.com/u_15064626/4653979

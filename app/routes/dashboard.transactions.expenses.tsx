@@ -9,6 +9,7 @@ import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import {
   deleteExpenseById,
   getAllExpensesByUserId,
+  getExpensesForLastSixMonths,
   getFilteredExpenses,
 } from "~/utils/transaction.server";
 import type { Expense as IExpense, Prisma } from "@prisma/client";
@@ -18,9 +19,13 @@ import { SortAndFilterBar } from "~/components/sort-and-filter-bar";
 import { ExpenseKind } from "@prisma/client";
 import {
   getISOFromAndToForToday,
+  getSixMonthsPeriod,
   localDateFromToIsoString,
   localDateToToIsoString,
 } from "~/helpers/timeConvertor";
+
+import { Summary } from "~/components/summary";
+
 export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
   // const allExpenses: IExpense[] = await getAllExpensesByUserId(userId);
@@ -92,8 +97,6 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   // todo - get by TODAY for default
   // todo - add PAGINATION !!!!
   // todo - default sorting by craetedTime asc
-
-  // todo complex filters name = "111" + category = "22" + timeGap = "from 25 to 26.06"
   // todo - filter by title
   // todo - filter by product category by select
 
@@ -101,10 +104,13 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
     userId,
     sortOptions,
     whereFilter
-    // timeGap
   );
 
-  return json({ filteredExpenses });
+  const period = getSixMonthsPeriod();
+  const sixMonthsExpenses: Pick<IExpense, "id" | "createdTime" | "value">[] =
+    await getExpensesForLastSixMonths(userId, period);
+
+  return json({ filteredExpenses, sixMonthsExpenses });
 };
 //  todo: create separate route or logic to delete !!!!!!!!!!!!!!!!
 export const action = async ({ params, request }: ActionArgs) => {
@@ -138,36 +144,47 @@ export const action = async ({ params, request }: ActionArgs) => {
 };
 
 export default function Expenses() {
-  const { filteredExpenses } = useLoaderData();
+  const { filteredExpenses, sixMonthsExpenses } = useLoaderData();
   return (
     <>
-      <div>Expenses</div>
-      <SortAndFilterBar />
-      <table className="table-auto">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Sum</th>
-            <th>Edit</th>
-            <th>Del</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredExpenses?.length > 0 &&
-            filteredExpenses.map((expense: IExpense) => (
-              <Expense key={expense.id} {...expense} />
-            ))}
-        </tbody>
-      </table>
-
-      <Link to="new">Add expense</Link>
+      <div className="flex gap-3 bg-white outline">
+        {/* topBar */}
+        <SortAndFilterBar />
+        <div>
+          <Link to="new">Add expense +</Link>
+        </div>
+      </div>
+      <div className="flex gap-3">
+        <table className="table-auto">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Sum</th>
+              <th>Edit</th>
+              <th>Del</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredExpenses?.length > 0 &&
+              filteredExpenses.map((expense: IExpense) => (
+                <Expense key={expense.id} {...expense} />
+              ))}
+          </tbody>
+        </table>
+        <Summary expenses={sixMonthsExpenses} />
+      </div>
 
       <Outlet />
     </>
   );
 }
+
+// todo - check base styles like box-sizing -border box etc
+// todo - table - separate component
+
+// todo - summary/statistics -  separate component
 //  todo : fix "expense" underline ts bug ??
 
 // todo - filters and sort by !!!!!!!!!!!!!!! very complicated !!!!!
