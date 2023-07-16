@@ -5,7 +5,12 @@ import {
   ActionFunction,
   ActionArgs,
 } from "@remix-run/node";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useMatches,
+} from "@remix-run/react";
 
 import { ExpenseKind } from "@prisma/client";
 
@@ -100,6 +105,8 @@ export const action: ActionFunction = async ({
 
 // todo: loaders, notifications, auto close/open, add modals
 export default function EditExpense() {
+  const matches = useMatches();
+  console.log(matches);
   const { userId, expenseId, expenseById } = useLoaderData();
   const actionData = useActionData();
 

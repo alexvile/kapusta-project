@@ -94,7 +94,7 @@ export const action = async ({ request }: ActionArgs) => {
   switch (loginType) {
     case "login": {
       const user = await login({ email, password });
-      console.log({ user });
+      // console.log({ user });
       if (!user) {
         return badRequest({
           fieldErrors: null,
@@ -136,7 +136,11 @@ export const action = async ({ request }: ActionArgs) => {
   }
 };
 
+// todo: all checks and etc to .server to backend
+
 export default function Login() {
+  // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
+
   const actionData = useActionData<typeof action>();
   const [searchParams] = useSearchParams();
 
@@ -169,7 +173,7 @@ export default function Login() {
         return;
     }
   };
-
+  // todo - frontend and or backend validation
   // console.log("actionData", actionData);
 
   return (

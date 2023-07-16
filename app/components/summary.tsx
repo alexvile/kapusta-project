@@ -2,6 +2,7 @@ import { calculateByMonths } from "~/helpers/monthsCalculator";
 import { MONTH_NAMES } from "~/utils/constants";
 
 export const Summary = ({ expenses }: { expenses: any }) => {
+  // console.log("refetch");
   const groupsByMonths = calculateByMonths(expenses);
   // console.log(groupsByMonths);
   return (
@@ -21,6 +22,8 @@ export const Summary = ({ expenses }: { expenses: any }) => {
     </div>
   );
 };
+
+// todo - decide if we can use in db months expense or income ???
 
 // todo do we need to call new Date and get month every time after rerender ???
 

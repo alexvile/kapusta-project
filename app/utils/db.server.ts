@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
     global.__db = new PrismaClient();
   }
   db = global.__db;
-  console.log("connected to db (develop)");
+  // console.log("connected to db (develop)");
 }
 
 export { db };

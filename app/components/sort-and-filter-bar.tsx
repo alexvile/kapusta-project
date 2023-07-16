@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "@remix-run/react";
+import { Form, useNavigate, useSearchParams } from "@remix-run/react";
 // import { sortOptions } from "~/utils/constants";
 import { useEffect, useRef, useState } from "react";
 import { SelectBox } from "./select-box";
@@ -45,7 +45,7 @@ export function SortAndFilterBar() {
       <div className="flex gap-5">
         <div>Cal: {date}</div>
         <div>
-          <form>
+          <Form>
             <div className="flex gap-4">
               <div className="flex flex-wrap gap-6">
                 <div className="outline p-2">
@@ -134,7 +134,7 @@ export function SortAndFilterBar() {
             {/* {searchParams.get("filter") && (
           <button onClick={clearFilters}>Clear Filters</button>
         )} */}
-          </form>
+          </Form>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ interface ITransaction {
 
 // todo - urizanui typ transaction with id, value and createdTime
 export function calculateByMonths(array: ITransaction[]) {
-  let orderKey = 9;
+  let orderKey = 0;
   let groups = array.reduce(function (r: any, o: ITransaction) {
     var m = new Date(o.createdTime).getMonth();
     var sum = o.value;
@@ -18,5 +18,6 @@ export function calculateByMonths(array: ITransaction[]) {
   }, {});
   const result = Object.keys(groups).map((k) => groups[k]);
   result.sort((a, b) => a.order - b.order);
+  // console.log(result);
   return result;
 }

@@ -18,6 +18,7 @@ export default function Transactions() {
     <>
       <div>Transactions</div>
       {/* tabs */}
+      {/* one of tabs should be opened by default */}
       <>
         <div className="navLinks">
           <NavLink
