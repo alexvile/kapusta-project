@@ -107,7 +107,7 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   );
 
   const period = getSixMonthsPeriod();
-  const sixMonthsExpenses: Pick<IExpense, "id" | "createdTime" | "value">[] =
+  const sixMonthsExpenses: Pick<IExpense, "createdTime" | "value">[] =
     await getExpensesForLastSixMonths(userId, period);
 
   return json({ filteredExpenses, sixMonthsExpenses });

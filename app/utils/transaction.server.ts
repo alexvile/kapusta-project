@@ -27,6 +27,7 @@ import type { Expense as IExpense, Prisma } from "@prisma/client";
 
 // todo - add modal component form remix 3 tutorial
 
+// todo ts interfaces at server part
 export const getAllExpensesByUserId = async (userId: string) => {
   return await db.expense.findMany({
     where: {
@@ -68,8 +69,27 @@ export const getExpensesForLastSixMonths = async (
       },
     },
     select: {
-      id: true,
       createdTime: true,
+      value: true,
+    },
+  });
+};
+// todo - interface for functions
+
+export const getExpensesForMonth = async (
+  userId: string,
+  period: { firstDay: string; lastDay: string }
+) => {
+  console.log("getting expenses list");
+  return await db.expense.findMany({
+    where: {
+      ownerId: userId,
+      createdTime: {
+        lte: period.lastDay,
+        gte: period.firstDay,
+      },
+    },
+    select: {
       value: true,
     },
   });
