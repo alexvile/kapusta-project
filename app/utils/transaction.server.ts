@@ -1,5 +1,9 @@
 import { db } from "./db.server";
-import type { Expense as IExpense, Prisma } from "@prisma/client";
+import type {
+  Expense as IExpense,
+  Income as IIncome,
+  Prisma,
+} from "@prisma/client";
 
 // const {
 //   createRequestHandler,
@@ -52,6 +56,22 @@ export const getFilteredExpenses = async (
   });
 };
 
+export const getFilteredIncomes = async (
+  userId: string,
+  sortFilter: Prisma.IncomeOrderByWithRelationInput,
+  whereFilter: Prisma.IncomeWhereInput
+) => {
+  return await db.income.findMany({
+    orderBy: {
+      ...sortFilter,
+    },
+    where: {
+      ownerId: userId,
+      ...whereFilter,
+    },
+  });
+};
+
 export const getExpensesForLastSixMonths = async (
   userId: string,
   period: { start: string; end: string }
@@ -76,11 +96,32 @@ export const getExpensesForLastSixMonths = async (
 };
 // todo - interface for functions
 
+export const getIncomesForLastSixMonths = async (
+  userId: string,
+  period: { start: string; end: string }
+) => {
+  return await db.income.findMany({
+    orderBy: {
+      createdTime: "desc",
+    },
+    where: {
+      ownerId: userId,
+      createdTime: {
+        lte: period.end,
+        gte: period.start,
+      },
+    },
+    select: {
+      createdTime: true,
+      value: true,
+    },
+  });
+};
+
 export const getExpensesForMonth = async (
   userId: string,
   period: { firstDay: string; lastDay: string }
 ) => {
-  console.log("getting expenses list");
   return await db.expense.findMany({
     where: {
       ownerId: userId,
@@ -108,6 +149,19 @@ export const getExpenseByIdAndUserId = async (
     where: {
       ownerId: userId,
       id: expenseId,
+    },
+  });
+  // todo: select optimal db.expense.findOne or findUnique or findFirstOrThrow or findUniqueOrThrow
+};
+
+export const getIncomeByIdAndUserId = async (
+  userId: string,
+  incomeId: string
+) => {
+  return await db.income.findFirstOrThrow({
+    where: {
+      ownerId: userId,
+      id: incomeId,
     },
   });
   // todo: select optimal db.expense.findOne or findUnique or findFirstOrThrow or findUniqueOrThrow
@@ -141,6 +195,31 @@ export const createExpense = async ({
 // todo: can we use 1 operation to find, draw interface and update ??
 // todo: update only by Expense ID or including user ID ???
 
+export const createIncome = async ({
+  ownerId,
+  createdTime,
+  description,
+  type,
+  value,
+}: Pick<
+  IIncome,
+  "ownerId" | "createdTime" | "description" | "type" | "value"
+>) => {
+  await db.income.create({
+    data: {
+      description,
+      createdTime,
+      type,
+      value,
+      owner: {
+        connect: {
+          id: ownerId,
+        },
+      },
+    },
+  });
+};
+
 export const updateExpenseById = async ({
   id,
   createdTime,
@@ -161,8 +240,32 @@ export const updateExpenseById = async ({
   });
 };
 
+export const updateIncomeById = async ({
+  id,
+  createdTime,
+  description,
+  type,
+  value,
+}: Pick<IIncome, "id" | "createdTime" | "description" | "type" | "value">) => {
+  return await db.income.update({
+    where: {
+      id,
+    },
+    data: {
+      description,
+      createdTime,
+      type,
+      value,
+    },
+  });
+};
+
 export const deleteExpenseById = async (id: string) => {
   return await db.expense.delete({ where: { id } });
+};
+
+export const deleteIncomeById = async (id: string) => {
+  return await db.income.delete({ where: { id } });
 };
 
 // todo: catch an error boundaries

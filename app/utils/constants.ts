@@ -5,6 +5,13 @@ export const ExpenseKinds = [
   { name: "Consumables", value: "CONSUMABLES" },
   { name: "Other", value: "OTHER" },
 ];
+
+export const IncomeKinds = [
+  { name: "Laser", value: "LASER" },
+  { name: "Brows", value: "BROWS" },
+  { name: "Other", value: "OTHER" },
+];
+
 export const ExpenseKindsForFilter = [
   { name: "Expense category", value: "ALL" },
   ...ExpenseKinds,

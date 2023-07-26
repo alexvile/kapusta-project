@@ -23,6 +23,48 @@ enum ExpenseKind {
   OTHER
 }
 
+// enum Color {
+//   Red
+//   Green
+//   Blue
+// }
+
+// enum Size {
+//   Small
+//   Medium
+//   Large
+//   XLarge
+// }
+
+// type IncomeKind {
+//   colors Color[]
+//   sizes  Size[]
+// }
+
+// type Subtype {
+//   NPB
+//   Nogu
+//   ryku
+//   fgklfjdglkd
+//   dfgd
+//   dfgddfg
+//   dfgddfgd
+//   hgh
+//   lfk
+//   dfgddfgdfg
+//   ss
+//   othrt
+// }
+
+// todo - price list editiong
+// todo - structure editing with procedures etc 
+// todo enum of 2 objects Brows and Laser 
+enum IncomeKind {
+  BROWS
+  LASER
+  OTHER
+}
+
 model User {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt    DateTime  @default(now())
@@ -31,6 +73,7 @@ model User {
   passwordHash String
   profile      Profile
   expenses     Expense[] @relation("MyExpense")
+  incomes      Income[]  @relation("MyIncome")
 }
 
 model Expense {
@@ -45,5 +88,22 @@ model Expense {
   value       Int
 }
 
+model Income {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  createdTime String
+  owner       User       @relation(references: [id], fields: [ownerId], "MyIncome")
+  ownerId     String     @db.ObjectId
+  type        IncomeKind @default(OTHER)
+  description String?
+  value       Int
+}
+
 // createdTime change to DateTime Format not String. String is temporary solution
 // todo - type Date to createdTime to return object, not string
+// todo - use float instead of int ???
+// todo - add document type - TOTAL (Balance)
+
+// todo - add clients graphic
+// todo - add clients relations to Income
