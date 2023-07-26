@@ -4,22 +4,29 @@ import { useEffect, useState } from "react";
 import { getFullMonthStartEndDays } from "~/helpers/timeConvertor";
 
 export const TopBar = () => {
-  // const location = useLocation();
-  const [isReports, setIsReports] = useState(Boolean);
+  const location = useLocation();
+  // const [isReports, setIsReports] = useState(Boolean);
+  const checkIsReport = () => {
+    return location.pathname.includes("/dashboard/reports");
+  };
+  const [isReports, setIsReports] = useState(() => checkIsReport());
+
   //   const [month, setMonth] = useState("");
   //   const [period, setPeriod] = useState({});
 
+  // const [month, setMonth] = useState(() => getCurrentIsoYearAndMonth());
   //   todo ---- initialize with date now
   //   todo --- do we need to pull immediately all expenses and incomes for a month ????
   //   todo --- temporary solution
 
-  // useEffect(() => {
-  //   if (location.pathname.includes("/dashboard/reports")) {
-  //     setIsReports(true);
-  //   } else {
-  //     setIsReports(false);
-  //   }
-  // }, [location]);
+  useEffect(() => {
+    console.log(location);
+    if (location.pathname.includes("/dashboard/reports")) {
+      setIsReports(true);
+    } else {
+      setIsReports(false);
+    }
+  }, [location]);
 
   //   useEffect(() => {
   //     if (month !== "" && month) {

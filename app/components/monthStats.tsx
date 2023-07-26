@@ -10,7 +10,7 @@ export const MonthStats = ({
       <div>
         <span>Expenses:</span>
         <span>
-          - {expenses.length > 1 ? summarizeTransactions(expenses) : 0} UAH
+          - {expenses.length > 0 ? summarizeTransactions(expenses) : 0} UAH
         </span>
       </div>
       <div>Income: </div>

@@ -62,6 +62,14 @@ export function getLocalDate() {
   return todayLocal;
 }
 
+export function getCurrentIsoYearAndMonth() {
+  const date = new Date();
+  const oo = (n: number) => n.toString(10).padStart(2, "0");
+  const YYYY = date.getFullYear();
+  const MM = oo(date.getMonth() + 1);
+  const formattedDate = [YYYY, MM].join("-");
+  return formattedDate;
+}
 // todo - decied if we need to go for current date every re-render
 // todo - using intl instead time date
 
