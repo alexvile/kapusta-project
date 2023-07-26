@@ -19,7 +19,7 @@ export function SortAndFilterBar() {
   const [category, setCategory] = useState();
 
   const date = getLocalDate();
-  // todo use useRef or useMemo to not rerender date
+  // todo use useRef or useMemo or UseCallback to not rerender date
 
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
@@ -31,7 +31,14 @@ export function SortAndFilterBar() {
     searchParams.delete("from");
     searchParams.delete("to");
     searchParams.delete("category");
-    // navigate("/dashboard/transactions");
+    // // navigate doesnt work
+    // todo - normal using of navigate
+    setTimeout(() => {
+      navigate("/dashboard/transactions/expenses");
+    }, 4);
+    // navigate("../", { replace: true });
+    navigate("../", { replace: true });
+    // navigate("/dashboard/transactions/expenses");
   };
 
   useEffect(() => {
@@ -125,15 +132,13 @@ export function SortAndFilterBar() {
                   className="w-fit min-w-0"
                   style="secondary"
                 />
+                <button onClick={clearFilters}>Clear Filters</button>
               </div>
             </div>
 
             {/* state to filter */}
 
             {/* todo - doesnt work */}
-            {/* {searchParams.get("filter") && (
-          <button onClick={clearFilters}>Clear Filters</button>
-        )} */}
           </Form>
         </div>
       </div>
@@ -141,4 +146,4 @@ export function SortAndFilterBar() {
   );
 }
 
-// todo
+// todo - useCallback add everywhere it is necessary
