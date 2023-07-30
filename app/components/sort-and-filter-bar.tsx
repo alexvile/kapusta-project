@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { SelectBox } from "./select-box";
 import {
   ExpenseKindsForFilter,
+  IncomeKindsForFilter,
   dirOptions,
   sortOptions,
 } from "~/utils/constants";
@@ -11,7 +12,12 @@ import { DateInput } from "./date-input";
 import { getLocalDate } from "~/helpers/timeConvertor";
 import { Button } from "./button";
 
-export function SortAndFilterBar() {
+interface ISortAndFilter {
+  type: "incomes" | "expenses";
+}
+// need to use as global type !!!
+
+export function SortAndFilterBar({ type }: ISortAndFilter) {
   const [sortOption, setSortOption] = useState();
   const [direction, setDirection] = useState();
   const [timeFrom, setTimeFrom] = useState();
@@ -33,8 +39,11 @@ export function SortAndFilterBar() {
     searchParams.delete("category");
     // // navigate doesnt work
     // todo - normal using of navigate
+
+    // todo - clear filters doesnt work !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     setTimeout(() => {
-      navigate("/dashboard/transactions/expenses");
+      navigate(`/dashboard/transactions/${type}`);
+      // todo - normal turn back link
     }, 4);
     // navigate("../", { replace: true });
     navigate("../", { replace: true });
@@ -110,7 +119,11 @@ export function SortAndFilterBar() {
                   <div className="mt-4">
                     <SelectBox
                       name="category"
-                      options={ExpenseKindsForFilter}
+                      options={
+                        type === "expenses"
+                          ? ExpenseKindsForFilter
+                          : IncomeKindsForFilter
+                      }
                       id="33"
                       onChange={(e) => {
                         setCategory(e.currentTarget.value);
