@@ -17,7 +17,27 @@ export const ExpenseKindsForFilter = [
   ...ExpenseKinds,
 ];
 
+export const IncomeKindsForFilter = [
+  { name: "Income category", value: "ALL" },
+  ...IncomeKinds,
+];
+
+export const ExpenseKindsForRadioButtons = [
+  { name: "All", value: "ALL" },
+  ...ExpenseKinds,
+];
+
+export const IncomeKindsForRadioButtons = [
+  { name: "All", value: "ALL" },
+  ...IncomeKinds,
+];
+
 //   todo - how to synchronize with db ???
+
+export const transactionTypes = [
+  { name: "Expenses", value: "Expenses" },
+  { name: "Incomes", value: "Incomes" },
+];
 
 export const sortOptions = [
   {

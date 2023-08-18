@@ -56,7 +56,6 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
     }
   }
 
-  // todo - default by today !!!
   let whereFilter: Prisma.ExpenseWhereInput = {};
   let dateFilter: Prisma.ExpenseWhereInput = {};
   if (to && from) {
@@ -112,36 +111,6 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
 
   return json({ filteredExpenses, sixMonthsExpenses });
 };
-//  todo: create separate route or logic to delete !!!!!!!!!!!!!!!!
-export const action = async ({ params, request }: ActionArgs) => {
-  const form = await request.formData();
-  // console.log(form);
-  // console.log(form.get("intent"));
-  if (form.get("intent") !== "delete") {
-    throw new Response(`The intent ${form.get("intent")} is not supported`, {
-      status: 400,
-    });
-  }
-  const expenseId = form.get("id");
-  // const userId = await requireUserId(request);
-  // const joke = await db.joke.findUnique({
-  //   where: { id: params.jokeId },
-  // });
-  // if (!joke) {
-  //   throw new Response("Can't delete what does not exist", {
-  //     status: 404,
-  //   });
-  // }
-  // if (joke.jokesterId !== userId) {
-  //   throw new Response("Pssh, nice try. That's not your joke", { status: 403 });
-  // }
-  if (typeof expenseId !== "string") {
-    return json({ error: `Invalid Form Data` }, { status: 400 });
-  }
-  const deleted = await deleteExpenseById(expenseId);
-  // console.log(deleted);
-  return null;
-};
 
 export default function Expenses() {
   const { filteredExpenses, sixMonthsExpenses } = useLoaderData();
@@ -149,7 +118,7 @@ export default function Expenses() {
     <>
       <div className="flex gap-3 bg-white outline">
         {/* topBar */}
-        <SortAndFilterBar />
+        <SortAndFilterBar type="expenses" />
         <div>
           <Link to="new">Add expense +</Link>
         </div>
@@ -173,7 +142,7 @@ export default function Expenses() {
               ))}
           </tbody>
         </table>
-        <Summary expenses={sixMonthsExpenses} />
+        <Summary transactions={sixMonthsExpenses} />
       </div>
 
       <Outlet />

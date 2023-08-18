@@ -76,7 +76,7 @@ export const getExpensesForLastSixMonths = async (
   userId: string,
   period: { start: string; end: string }
 ) => {
-  console.log("getting expenses list");
+  // console.log("getting expenses list");
   return await db.expense.findMany({
     orderBy: {
       createdTime: "desc",
@@ -96,6 +96,7 @@ export const getExpensesForLastSixMonths = async (
 };
 // todo - interface for functions
 
+// todo use findeoneandupdate instead find then update
 export const getIncomesForLastSixMonths = async (
   userId: string,
   period: { start: string; end: string }
@@ -132,6 +133,26 @@ export const getExpensesForMonth = async (
     },
     select: {
       value: true,
+      type: true,
+    },
+  });
+};
+
+export const getIncomesForMonth = async (
+  userId: string,
+  period: { firstDay: string; lastDay: string }
+) => {
+  return await db.income.findMany({
+    where: {
+      ownerId: userId,
+      createdTime: {
+        lte: period.lastDay,
+        gte: period.firstDay,
+      },
+    },
+    select: {
+      value: true,
+      type: true,
     },
   });
 };

@@ -15,4 +15,9 @@ type RegisterForm = {
 type Transaction = {
   id: string;
   value: number;
+  type: string;
 };
+// enum transactionType {
+//   Expenses,
+//   Incomes,
+// }

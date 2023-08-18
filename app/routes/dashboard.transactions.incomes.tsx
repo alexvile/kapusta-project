@@ -150,7 +150,7 @@ export default function Incomes() {
     <>
       <div className="flex gap-3 bg-white outline">
         {/* topBar */}
-        {/* <SortAndFilterBar /> */}
+        <SortAndFilterBar type="incomes"/>
         <div>
           <Link to="new">Add income +</Link>
         </div>
@@ -174,7 +174,7 @@ export default function Incomes() {
               ))}
           </tbody>
         </table>
-        {/* <Summary expenses={sixMonthsExpenses} /> */}
+        <Summary transactions={sixMonthsIncomes} />
       </div>
 
       <Outlet />
