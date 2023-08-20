@@ -60,8 +60,8 @@ export const TransactionSwitcher = ({
         groupName={transactionType}
         calculatedTransactions={
           transactionType === "Expenses"
-            ? calculatedExpenses
-            : calculatedIncomes
+            ? calculatedExpenses?.resultWithTotal
+            : calculatedIncomes?.resultWithTotal
         }
         inputs={
           transactionType === "Expenses"
@@ -76,7 +76,11 @@ export const TransactionSwitcher = ({
       <Graphic
         selectedCategory={category}
         transactionType={transactionType}
-        calculatedExpenses={calculatedExpenses}
+        calculatedTransactions={
+          transactionType === "Expenses"
+            ? calculatedExpenses?.resultWithoutTotal
+            : calculatedIncomes?.resultWithoutTotal
+        }
       />
     </div>
   );

@@ -26,13 +26,6 @@ export function summarizeTransactions(
 // // todo - add - 0 if no money
 
 // todo - normal TS
-function sumGroupedTransactions(obj: any) {
-  let sum = 0;
-  for (let transactionValue of Object.values(obj)) {
-    sum += transactionValue;
-  }
-  return sum;
-}
 
 // todo - normal naming
 export function summarizeTransactionsByGroup(array: any) {
@@ -40,11 +33,24 @@ export function summarizeTransactionsByGroup(array: any) {
   let groups = array.reduce(function (r: any, o: any) {
     var type = o.type;
     var sum = o.value;
-    r[type] ? (r[type] += sum) : (r[type] = sum);
+    r[type] ? (r[type].value += sum) : (r[type] = { type, value: sum });
     return r;
   }, {});
+  const resultWithoutTotal = Object.keys(groups).map((k) => groups[k]);
+
+  const summarizedAllTransactions = resultWithoutTotal.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.value,
+    0
+  );
+  const resultWithTotal = [
+    ...resultWithoutTotal,
+    { type: "ALL", value: summarizedAllTransactions },
+  ];
+  resultWithoutTotal.sort((a, b) => {
+    return b.value - a.value;
+  });
   // todo - normal ALL option, not hardcoded
-  groups.ALL = sumGroupedTransactions(groups);
-  return groups;
+  return { resultWithoutTotal, resultWithTotal };
 }
-// console.log(summarizeTransactionsByGroup(arr));
+
+// todo - cannot delete transaction with 0 value

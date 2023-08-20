@@ -20,6 +20,15 @@ export function RadioButtons({
 }: // defaultValue,
 IRadioButtons) {
   // use memo For calculations
+
+  const getTransactionValueByType = (type: any) => {
+    const el = calculatedTransactions.find((el) => el.type === type);
+    if (el) {
+      return el?.value;
+    }
+    return 0;
+  };
+
   return (
     <fieldset>
       {/* <legend>Please select your preferred contact method:</legend> */}
@@ -38,7 +47,7 @@ IRadioButtons) {
               onChange={onChange}
             />
             <label htmlFor={`${groupName}-choice-${index}`}>{input.name}</label>
-            <div>{calculatedTransactions[input.value] || 0}</div>
+            <div>{getTransactionValueByType(input.value)}</div>
           </div>
         ))}
       </div>
