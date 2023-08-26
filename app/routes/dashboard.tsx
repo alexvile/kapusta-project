@@ -28,13 +28,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!user) return;
   // todo - cache data, not fetch very often (after every form submit)
   // console.log("fetching all transactions");
-  const allExpenses: Pick<Transaction, "value">[] =
-    await getAllExpensesByUserId(user.id);
-  const allIncomes: Pick<Transaction, "value">[] = await getAllIncomesByUserId(
-    user.id
-  );
+
   // console.log(user);
-  return json({ user, allExpenses, allIncomes });
+  return json({ user });
 };
 // export const action = async ({ request }: ActionArgs) => {
 //   // remove then unnecessary fetch
@@ -57,20 +53,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Index() {
   const {
     user,
-    allExpenses,
-    allIncomes,
   }: {
     user: User;
-    allExpenses: Pick<Transaction, "value">[];
-    allIncomes: Pick<Transaction, "value">[];
   } = useLoaderData();
 
   // console.log(allExpenses);
   // console.log(allIncomes);
   // const url = `${user.id}/transactions`;
   // console.log("dashboard rerender");
-  const balance: IBalance =
-    summarizeTransactions(allIncomes) - summarizeTransactions(allExpenses);
 
   return (
     <>
@@ -89,7 +79,6 @@ export default function Index() {
             TEST PAGE - link
           </Link>
         </div>
-        <TopBar balance={balance} />
         <Outlet />
       </Layout>
     </>
