@@ -17,6 +17,7 @@ type Transaction = {
   value: number;
   type: string;
 };
+type IBalance = number;
 // enum transactionType {
 //   Expenses,
 //   Incomes,

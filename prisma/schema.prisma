@@ -74,7 +74,10 @@ model User {
   profile      Profile
   expenses     Expense[] @relation("MyExpense")
   incomes      Income[]  @relation("MyIncome")
+  // total        Total?    @relation("MyTotal")
 }
+
+// todo - remove "?"  and remove prisma migrate history to fix it
 
 model Expense {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
@@ -100,6 +103,16 @@ model Income {
   value       Int
 }
 
+// model Total {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   owner     User     @relation(references: [id], fields: [ownerId], "MyTotal")
+//   ownerId   String   @unique @db.ObjectId
+//   incomes   Int
+//   expenses  Int
+// }
+
 // createdTime change to DateTime Format not String. String is temporary solution
 // todo - type Date to createdTime to return object, not string
 // todo - use float instead of int ???
@@ -107,3 +120,6 @@ model Income {
 
 // todo - add clients graphic
 // todo - add clients relations to Income
+
+//  todo - do it will be right to fetch all income values and expense values  or create computed total document ??????
+// todo - if we use this variant how to cache data ?? save to state etc ??? update (or update manually) only at crud operations with transactions?? 

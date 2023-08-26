@@ -37,6 +37,20 @@ export const getAllExpensesByUserId = async (userId: string) => {
     where: {
       ownerId: userId,
     },
+    select: {
+      value: true,
+    },
+  });
+};
+
+export const getAllIncomesByUserId = async (userId: string) => {
+  return await db.income.findMany({
+    where: {
+      ownerId: userId,
+    },
+    select: {
+      value: true,
+    },
   });
 };
 
@@ -317,3 +331,6 @@ export const deleteIncomeById = async (id: string) => {
 //     },
 //   });
 // };
+
+// todo - ????????????????????- how update will work with TOTAL
+// prisma raw?

@@ -3,7 +3,7 @@ import { Balance } from "./balance";
 import { useEffect, useState } from "react";
 import { getFullMonthStartEndDays } from "~/helpers/timeConvertor";
 
-export const TopBar = () => {
+export const TopBar = ({ balance }: { balance: IBalance }) => {
   const location = useLocation();
   // const [isReports, setIsReports] = useState(Boolean);
   const checkIsReport = () => {
@@ -20,7 +20,7 @@ export const TopBar = () => {
   //   todo --- temporary solution
 
   useEffect(() => {
-    console.log(location);
+    // console.log(location);
     if (location.pathname.includes("/dashboard/reports")) {
       setIsReports(true);
     } else {
@@ -30,9 +30,9 @@ export const TopBar = () => {
 
   //   useEffect(() => {
   //     if (month !== "" && month) {
-  //       //   console.log(month);
+  //          console.log(month);
   //       const obj = getFullMonthStartEndDays(month);
-  //       //   console.log(obj);
+  //          console.log(obj);
   //       setPeriod(obj);
   //     }
   //   }, [month]);
@@ -49,7 +49,7 @@ export const TopBar = () => {
           )}
         </div>
         <div>
-          <Balance />
+          <Balance balance={balance} />
         </div>
         <div>
           {isReports ? (

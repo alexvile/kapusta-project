@@ -3,6 +3,9 @@
 export function summarizeTransactions(
   transactions: Pick<Transaction, "value">[]
 ) {
+  if (transactions.length < 1) {
+    return 0;
+  }
   const { value } = transactions.reduce(
     (
       accumulator: Pick<Transaction, "value">,

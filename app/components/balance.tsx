@@ -1,3 +1,3 @@
-export const Balance = () => {
-  return <div> Balance</div>;
+export const Balance = ({ balance }: { balance: IBalance }) => {
+  return <div> {balance}</div>;
 };
