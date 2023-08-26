@@ -21,7 +21,7 @@ export const TopBar = ({ balance }: { balance: IBalance }) => {
 
   useEffect(() => {
     // console.log(location);
-    if (location.pathname.includes("/dashboard/reports")) {
+    if (location.pathname.includes("/dashboard/transactions/reports")) {
       setIsReports(true);
     } else {
       setIsReports(false);
@@ -65,7 +65,7 @@ export const TopBar = ({ balance }: { balance: IBalance }) => {
               /> */}
             </div>
           ) : (
-            <Link to="/dashboard/reports">Reports</Link>
+            <Link to="/dashboard/transactions/reports">Reports</Link>
           )}
         </div>
       </div>

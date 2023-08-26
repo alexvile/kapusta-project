@@ -72,11 +72,15 @@ export default function Index() {
           <h1>Home page</h1>
         </Link>
         <Link to="transactions" title="" aria-label="">
-          transactions - link
+          &nbsp;* transactions - link
+        </Link>
+        <br />
+        <Link to="business" title="" aria-label="">
+          &nbsp;* business - link
         </Link>
         <div>
           <Link to="abc" title="" aria-label="">
-            TEST PAGE - link
+            &nbsp;* TEST PAGE - link
           </Link>
         </div>
         <Outlet />
@@ -86,3 +90,5 @@ export default function Index() {
 }
 
 // todo - Balance - separate document with total expenses and total incomes value ????? --- to prevent fetch of ALL expenses and incomes
+
+// todo- 404 beautifu
