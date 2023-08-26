@@ -15,6 +15,12 @@ type Profile {
   lastName  String
 }
 
+type Social {
+  instagram String?
+  facebook  String?
+  other     String?
+}
+
 enum ExpenseKind {
   RENT
   COMMUNAL
@@ -74,6 +80,7 @@ model User {
   profile      Profile
   expenses     Expense[] @relation("MyExpense")
   incomes      Income[]  @relation("MyIncome")
+  clients      Client[]  @relation("MyClient")
   // total        Total?    @relation("MyTotal")
 }
 
@@ -103,6 +110,20 @@ model Income {
   value       Int
 }
 
+model Client {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  phone       String?
+  social      Social?
+  description String?
+  priceLevel  String?
+  owner       User     @relation(references: [id], fields: [ownerId], "MyClient")
+  ownerId     String   @db.ObjectId
+  // status
+}
+
+// todo - connect client to journal record
 // model Total {
 //   id        String   @id @default(auto()) @map("_id") @db.ObjectId
 //   createdAt DateTime @default(now())
