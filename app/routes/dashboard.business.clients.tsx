@@ -22,6 +22,15 @@ export default function Clients() {
       <div>
         <Link to="new">Add client +</Link>
       </div>
+      <div>
+        Client list
+        <ul>
+          {/* {filteredExpenses?.length > 0 &&
+              filteredExpenses.map((expense: IExpense) => (
+                <Expense key={expense.id} {...expense} />
+              ))} */}
+        </ul>
+      </div>
       <Outlet />
     </>
   );
