@@ -181,6 +181,7 @@ export default function EditExpense() {
     </>
   );
 }
+// todo - after editing and turn back - filters is lost
 
 // todo: !!! when getting, creating, editing, deleting need to check if current user do this, not another user !!!
 

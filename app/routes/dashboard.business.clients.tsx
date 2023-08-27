@@ -1,4 +1,4 @@
-import { LoaderFunction, json, redirect } from "@remix-run/node";
+import { ActionArgs, LoaderFunction, json, redirect } from "@remix-run/node";
 import { Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { TopBar } from "~/components/top-bar";
 import { summarizeTransactions } from "~/helpers/calculations";
@@ -8,7 +8,10 @@ import {
   getAllIncomesByUserId,
 } from "~/utils/transaction.server";
 import type { Client as IClient, Prisma } from "@prisma/client";
-import { getAllClientsByUserId } from "~/utils/business.server";
+import {
+  deleteClientById,
+  getAllClientsByUserId,
+} from "~/utils/business.server";
 import { ClientRow } from "~/components/client-row";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -16,6 +19,21 @@ export const loader: LoaderFunction = async ({ request }) => {
   const userId = await requireUserId(request);
   const allClients: IClient[] = await getAllClientsByUserId(userId);
   return json({ allClients });
+};
+
+export const action = async ({ params, request }: ActionArgs) => {
+  const form = await request.formData();
+  if (form.get("intent") !== "delete") {
+    throw new Response(`The intent ${form.get("intent")} is not supported`, {
+      status: 400,
+    });
+  }
+  const clientId = form.get("id");
+  if (typeof clientId !== "string") {
+    return json({ error: `Invalid Form Data` }, { status: 400 });
+  }
+  await deleteClientById(clientId);
+  return null;
 };
 
 // todo: decide if use requireuserID or getUserId

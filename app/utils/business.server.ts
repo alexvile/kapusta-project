@@ -105,3 +105,7 @@ export const updateClientById = async ({
     },
   });
 };
+
+export const deleteClientById = async (id: string) => {
+  return await db.client.delete({ where: { id } });
+};
