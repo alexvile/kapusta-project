@@ -148,6 +148,9 @@ model Record {
   client      Client       @relation(references: [id], fields: [clientId], "ClientRecord")
   clientId    String       @db.ObjectId
   description String?
+  price       Int?
+  // todo !!!!!!!!!!!!!!! connect to income ??? when status changed
+  // todo auto calculate price form client type and all prices
   User        User?        @relation(fields: [userId], references: [id])
   userId      String?      @db.ObjectId
 }
