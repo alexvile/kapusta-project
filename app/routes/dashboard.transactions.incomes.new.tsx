@@ -9,6 +9,7 @@ import {
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { Button } from "~/components/button";
+import { ClientConnector } from "~/components/client-connector";
 import { DateInput } from "~/components/date-input";
 import { FormField } from "~/components/form-field";
 import { Modal } from "~/components/modal";
