@@ -59,3 +59,49 @@ export const getAllClientsByUserId = async (userId: string) => {
 //     },
 //   });
 // };
+export const getClientByIdAndUserId = async (
+  userId: string,
+  clientId: string
+) => {
+  return await db.client.findFirstOrThrow({
+    where: {
+      ownerId: userId,
+      id: clientId,
+    },
+  });
+  // todo: select optimal db.expense.findOne or findUnique or findFirstOrThrow or findUniqueOrThrow
+};
+
+// todo - do we need add by id and owner id ????
+export const updateClientById = async ({
+  id,
+  firstName,
+  lastName,
+  birthday,
+  phone,
+  priceLevel,
+  description,
+}: Pick<
+  IClient,
+  | "id"
+  | "firstName"
+  | "lastName"
+  | "birthday"
+  | "phone"
+  | "priceLevel"
+  | "description"
+>) => {
+  return await db.client.update({
+    where: {
+      id,
+    },
+    data: {
+      firstName,
+      lastName,
+      birthday,
+      phone,
+      priceLevel,
+      description,
+    },
+  });
+};

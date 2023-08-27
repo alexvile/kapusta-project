@@ -7,15 +7,21 @@ import {
   getAllExpensesByUserId,
   getAllIncomesByUserId,
 } from "~/utils/transaction.server";
+import type { Client as IClient, Prisma } from "@prisma/client";
+import { getAllClientsByUserId } from "~/utils/business.server";
+import { ClientRow } from "~/components/client-row";
 
 export const loader: LoaderFunction = async ({ request }) => {
   // const userId = await requireUserId(request);
-
-  return json({});
+  const userId = await requireUserId(request);
+  const allClients: IClient[] = await getAllClientsByUserId(userId);
+  return json({ allClients });
 };
 
 // todo: decide if use requireuserID or getUserId
 export default function Clients() {
+  const { allClients } = useLoaderData();
+  // console.log(allClients);
   return (
     <>
       <div>Clients</div>
@@ -24,12 +30,23 @@ export default function Clients() {
       </div>
       <div>
         Client list
-        <ul>
-          {/* {filteredExpenses?.length > 0 &&
-              filteredExpenses.map((expense: IExpense) => (
-                <Expense key={expense.id} {...expense} />
-              ))} */}
-        </ul>
+        <table className="table-auto">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Phone</th>
+              <th>Edit</th>
+              <th>Del</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allClients?.length > 0 &&
+              allClients.map((client: IClient) => (
+                <ClientRow key={client.id} {...client} />
+              ))}
+          </tbody>
+        </table>
       </div>
       <Outlet />
     </>
