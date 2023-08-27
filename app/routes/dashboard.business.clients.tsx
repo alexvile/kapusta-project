@@ -11,14 +11,49 @@ import type { Client as IClient, Prisma } from "@prisma/client";
 import {
   deleteClientById,
   getAllClientsByUserId,
+  getFilteredClients,
 } from "~/utils/business.server";
 import { ClientRow } from "~/components/client-row";
+import { SortAndFilterClients } from "~/components/sort-and-filter-clients";
 
 export const loader: LoaderFunction = async ({ request }) => {
   // const userId = await requireUserId(request);
   const userId = await requireUserId(request);
-  const allClients: IClient[] = await getAllClientsByUserId(userId);
-  return json({ allClients });
+  // const allClients: IClient[] = await getAllClientsByUserId(userId);
+
+  const url = new URL(request.url);
+  const sort = url.searchParams.get("sort");
+  const filter = url.searchParams.get("filter");
+  const dir = url.searchParams.get("dir");
+
+  const direction: Prisma.SortOrder = dir as Prisma.SortOrder;
+  let sortOptions: Prisma.ClientOrderByWithRelationInput = {};
+  if (sort) {
+    if (sort === "name") {
+      sortOptions = { firstName: `${direction}` };
+    }
+    if (sort === "surname") {
+      sortOptions = { lastName: `${direction}` };
+    }
+  }
+
+  let whereFilter: Prisma.ClientWhereInput = {};
+  let textFilter: Prisma.ClientWhereInput = {};
+  if (filter) {
+    textFilter = {
+      OR: [
+        { lastName: { mode: "insensitive", contains: filter } },
+        { firstName: { mode: "insensitive", contains: filter } },
+      ],
+    };
+  }
+  whereFilter = { ...textFilter };
+  const filteredClients: IClient[] = await getFilteredClients(
+    userId,
+    sortOptions,
+    whereFilter
+  );
+  return json({ filteredClients });
 };
 
 export const action = async ({ params, request }: ActionArgs) => {
@@ -38,11 +73,12 @@ export const action = async ({ params, request }: ActionArgs) => {
 
 // todo: decide if use requireuserID or getUserId
 export default function Clients() {
-  const { allClients } = useLoaderData();
+  const { filteredClients } = useLoaderData();
   // console.log(allClients);
   return (
     <>
       <div>Clients</div>
+      <SortAndFilterClients />
       <div>
         <Link to="new">Add client +</Link>
       </div>
@@ -59,8 +95,8 @@ export default function Clients() {
             </tr>
           </thead>
           <tbody>
-            {allClients?.length > 0 &&
-              allClients.map((client: IClient) => (
+            {filteredClients?.length > 0 &&
+              filteredClients.map((client: IClient) => (
                 <ClientRow key={client.id} {...client} />
               ))}
           </tbody>

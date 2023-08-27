@@ -53,6 +53,16 @@ export const sortOptions = [
     value: "category",
   },
 ];
+export const sortOptionsClients = [
+  {
+    name: "Name",
+    value: "name",
+  },
+  {
+    name: "Surname",
+    value: "surname",
+  },
+];
 
 export const dirOptions = [
   {

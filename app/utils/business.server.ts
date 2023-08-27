@@ -36,6 +36,22 @@ export const createClient = async ({
   });
 };
 
+export const getFilteredClients = async (
+  userId: string,
+  sortFilter: Prisma.ClientOrderByWithRelationInput,
+  whereFilter: Prisma.ClientWhereInput
+) => {
+  return await db.client.findMany({
+    orderBy: {
+      ...sortFilter,
+    },
+    where: {
+      ownerId: userId,
+      ...whereFilter,
+    },
+  });
+};
+
 export const getAllClientsByUserId = async (userId: string) => {
   return await db.client.findMany({
     where: {
