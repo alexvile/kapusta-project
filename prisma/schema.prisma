@@ -114,13 +114,18 @@ model Client {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  firstName   String
+  lastName    String
+  birthday    String?
   phone       String?
   social      Social?
   description String?
   priceLevel  String?
   owner       User     @relation(references: [id], fields: [ownerId], "MyClient")
   ownerId     String   @db.ObjectId
-  // status
+  // status vip/ new/ old
+  // privedy podrugu kto i kogo
+  // if abonement calculate how mush free or discounted procedurs left
 }
 
 // todo - connect client to journal record
