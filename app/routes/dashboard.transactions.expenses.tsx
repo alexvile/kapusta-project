@@ -112,6 +112,34 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   return json({ filteredExpenses, sixMonthsExpenses });
 };
 
+export const action = async ({ params, request }: ActionArgs) => {
+  const form = await request.formData();
+  if (form.get("intent") !== "delete") {
+    throw new Response(`The intent ${form.get("intent")} is not supported`, {
+      status: 400,
+    });
+  }
+  const expenseId = form.get("id");
+  // const userId = await requireUserId(request);
+  // const joke = await db.joke.findUnique({
+  //   where: { id: params.jokeId },
+  // });
+  // if (!joke) {
+  //   throw new Response("Can't delete what does not exist", {
+  //     status: 404,
+  //   });
+  // }
+  // if (joke.jokesterId !== userId) {
+  //   throw new Response("Pssh, nice try. That's not your joke", { status: 403 });
+  // }
+  if (typeof expenseId !== "string") {
+    return json({ error: `Invalid Form Data` }, { status: 400 });
+  }
+  const deleted = await deleteExpenseById(expenseId);
+  // console.log(deleted);
+  return null;
+};
+
 export default function Expenses() {
   const { filteredExpenses, sixMonthsExpenses } = useLoaderData();
   return (
