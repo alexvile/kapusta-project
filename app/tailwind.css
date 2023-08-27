@@ -1,8 +1,27 @@
 @tailwind base;
+/* comment base to remove css reset */
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-    font-family: "Roboto";
-    src: url("../public/fonts/Roboto-Regular.ttf");
-  }
+  font-family: "Roboto";
+  src: url("../public/fonts/Roboto-Regular.ttf");
+}
+
+table {
+  background: white;
+}
+td,
+th {
+  padding: 10px;
+  border: 1px solid black;
+}
+.navLinks a.active {
+  color: red;
+}
+.navLinks a.pending {
+  color: orange;
+}
+.navLinks a.pending::after {
+  content: "Loading... ";
+}

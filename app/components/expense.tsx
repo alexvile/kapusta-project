@@ -21,6 +21,7 @@ export function Expense({ ...props }: Partial<IExpense>) {
   const handleClick = () => {
     setOpen(!open);
   };
+  // sdf
   return (
     <tr className="">
       <td>{formattedData}</td>
