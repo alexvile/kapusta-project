@@ -29,6 +29,21 @@ export const createRecord = async ({
     },
   });
 };
+
+export const getRecordsForMonth = async (
+  userId: string,
+  period: { firstDay: string; lastDay: string }
+) => {
+  return await db.record.findMany({
+    where: {
+      ownerId: userId,
+      plannedTime: {
+        lte: period.lastDay,
+        gte: period.firstDay,
+      },
+    },
+  });
+};
 // export const getFilteredClients = async (
 //   userId: string,
 //   sortFilter: Prisma.ClientOrderByWithRelationInput,
