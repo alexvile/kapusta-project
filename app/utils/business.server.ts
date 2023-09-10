@@ -52,6 +52,23 @@ export const getFilteredClients = async (
   });
 };
 
+export const getClientsAutocomplete = async (
+  userId: string,
+  whereFilter: Prisma.ClientWhereInput
+) => {
+  return await db.client.findMany({
+    where: {
+      ownerId: userId,
+      ...whereFilter,
+    },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+    },
+  });
+};
+
 export const getAllClientsByUserId = async (userId: string) => {
   return await db.client.findMany({
     where: {

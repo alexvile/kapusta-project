@@ -1,79 +1,72 @@
 import { useEffect, useState } from "react";
 import { useFetcher } from "@remix-run/react";
+import { useDebounce } from "use-lodash-debounce";
+import type { Client as IClient } from "@prisma/client";
 
+// todo lodash cancelable bug !!!!!!
 export const ClientConnector = () => {
   const fetcher = useFetcher();
-  const [filter, SetFilter] = useState("");
-  const [filteredClients, setFilteredClients] = useState([]);
+  const [filter, setFilter] = useState("");
+  const [autocompleteClients, setAutocompleteClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState("");
   const [blocked, setBlocked] = useState(false);
+  const debouncedFilter = useDebounce(filter, 400);
 
-  // todo - make it better !!!!!!!!!! now it is at the previous filter step !!!!!!!!!!!!!!!!!!!!!!!!!!
-  // todo - fetch only name and surname
-  // todo - make separate route to fetch only name, surname and ID
-  // todo - DEBOUNCE !!!!!!!!!!!!!!!!!!!!!!!!
+  // todo - better code and UI !!!!!!!!!!!!!!!!!!
 
   useEffect(() => {
-    // console.log(filter);
-    const trimmedFilter = filter.trim();
-    // todo - strip or trim
-    if (trimmedFilter) {
-      fetcher.load(`/dashboard/business/clients?filter=${trimmedFilter}`);
+    if (!debouncedFilter) {
+      setAutocompleteClients([]);
     }
-    console.log(fetcher.data);
-    setFilteredClients(fetcher.data);
-  }, [filter]);
+    let value = debouncedFilter.trim();
+    if (value && value !== "" && !blocked) {
+      console.log("fetching");
+      fetcher.load(`/service/autocomplete/clients?filter=${value}`);
+    }
+  }, [debouncedFilter]);
+
   useEffect(() => {
-    console.log(111, filteredClients);
-  }, [filteredClients]);
+    const filteredClients = fetcher.data?.filteredClients;
+    if (!filteredClients) return;
+    setAutocompleteClients(filteredClients);
+  }, [fetcher]);
 
-  //   useEffect(() => {
-  //     if (fetcher.state === "idle" && fetcher.data == null) {
-  //       fetcher.load(`/dashboard/business/clients?filter=${filter}`);
-  //     }
-  //     setFilteredClients(fetcher.data);
-  //   }, [fetcher]);
-
-  //   todo - better code and UI !!!!!!!!!!!!!!!!!!
-  const mm = filteredClients?.filteredClients;
-  const select = (id: string, name, surname) => {
-    console.log(1212, id);
+  const select = (
+    id: IClient["id"],
+    name: IClient["firstName"],
+    surname: IClient["lastName"]
+  ) => {
     setSelectedClient(id);
-    // todo - prevent extra refetch
-    SetFilter(name + " " + surname);
-    setFilteredClients([]);
-
     setBlocked(true);
+    setFilter(name + " " + surname);
+    setAutocompleteClients([]);
   };
   const deselect = () => {
     setSelectedClient("");
-    SetFilter("");
+    setFilter("");
     setBlocked(false);
   };
+
   return (
     <div>
       Client connector
       <br />
       <input
         className="border"
-        type="text"
-        // hidden
+        type="hidden"
         name="clientId"
         id=""
         placeholder="hidden"
         defaultValue={selectedClient}
       />
       <br />
-      {/* <input type="hidden" name="clientId" id="" /> */}
       <input
         type="text"
         className="border"
         placeholder="start typing client"
         disabled={blocked}
+        onChange={(e) => setFilter(e.currentTarget.value)}
         value={filter}
-        onChange={(e) => {
-          SetFilter(e.currentTarget.value);
-        }}
       />
       {blocked && (
         <span
@@ -84,34 +77,21 @@ export const ClientConnector = () => {
         </span>
       )}
       <ul>
-        {filteredClients &&
-          mm?.length > 0 &&
-          mm.map((client) => (
-            <li
-              key={client.id}
-              onClick={() =>
-                select(client.id, client.firstName, client.lastName)
-              }
-            >
-              {client.firstName}&nbsp;{client.lastName}
-            </li>
-          ))}
+        {autocompleteClients &&
+          autocompleteClients.length > 0 &&
+          autocompleteClients.map(
+            (client: Pick<IClient, "id" | "firstName" | "lastName">) => (
+              <li
+                key={client.id}
+                onClick={() =>
+                  select(client.id, client.firstName, client.lastName)
+                }
+              >
+                {client.firstName}&nbsp;{client.lastName}
+              </li>
+            )
+          )}
       </ul>
     </div>
   );
 };
-
-//   console.log(fetcher);
-//   <fetcher.Form {...formOptions} />;
-
-//   useEffect(() => {
-//     fetcher.submit(data, options);
-//     fetcher.load(href);
-//   }, [fetcher]);
-
-//   fetcher.state;
-//   fetcher.formMethod;
-//   fetcher.formAction;
-//   fetcher.formData;
-//   fetcher.formEncType;
-//   fetcher.data;.
