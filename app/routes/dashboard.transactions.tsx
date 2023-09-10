@@ -13,11 +13,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   // const recipient = await getUserById(userId);
   // const user = await getUser(request);
   // return json({ recipient, user });
-  const allExpenses: Pick<Transaction, "value">[] =
-    await getAllExpensesByUserId(userId);
-  const allIncomes: Pick<Transaction, "value">[] = await getAllIncomesByUserId(
-    userId
-  );
+  const allExpenses: number | null = await getAllExpensesByUserId(userId);
+  const allIncomes: number | null = await getAllIncomesByUserId(userId);
   return json({ allExpenses, allIncomes });
 };
 
@@ -25,15 +22,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Transactions() {
   const {
     user,
-    allExpenses,
-    allIncomes,
+    allExpenses = 0,
+    allIncomes = 0,
   }: {
     user: User;
-    allExpenses: Pick<Transaction, "value">[];
-    allIncomes: Pick<Transaction, "value">[];
+    allExpenses: number;
+    allIncomes: number;
   } = useLoaderData();
-  const balance: IBalance =
-    summarizeTransactions(allIncomes) - summarizeTransactions(allExpenses);
+  const balance: IBalance = allIncomes - allExpenses;
   return (
     <>
       <div>Transactions - opened</div>

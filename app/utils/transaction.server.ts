@@ -33,25 +33,23 @@ import type {
 
 // todo ts interfaces at server part
 export const getAllExpensesByUserId = async (userId: string) => {
-  return await db.expense.findMany({
+  const aggregatedExpenseSum = await db.expense.aggregate({
+    _sum: { value: true },
     where: {
       ownerId: userId,
     },
-    select: {
-      value: true,
-    },
   });
+  return aggregatedExpenseSum._sum.value;
 };
 
 export const getAllIncomesByUserId = async (userId: string) => {
-  return await db.income.findMany({
+  const aggregatedIncomeSum = await db.income.aggregate({
+    _sum: { value: true },
     where: {
       ownerId: userId,
     },
-    select: {
-      value: true,
-    },
   });
+  return aggregatedIncomeSum._sum.value;
 };
 
 export const getFilteredExpenses = async (
