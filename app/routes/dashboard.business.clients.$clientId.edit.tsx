@@ -23,7 +23,7 @@ import { Button } from "~/components/button";
 import {
   getClientByIdAndUserId,
   updateClientById,
-} from "~/utils/business.server";
+} from "~/utils/clients.server";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await getUserId(request);

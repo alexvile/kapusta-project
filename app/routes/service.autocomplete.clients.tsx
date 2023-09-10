@@ -2,7 +2,7 @@ import { LoaderFunction, json } from "@remix-run/node";
 import { getUserId } from "~/utils/session.server";
 
 import type { Client as IClient, Prisma } from "@prisma/client";
-import { getClientsAutocomplete } from "~/utils/business.server";
+import { getClientsAutocomplete } from "~/utils/clients.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);

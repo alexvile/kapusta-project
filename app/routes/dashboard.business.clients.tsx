@@ -3,16 +3,13 @@ import { Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { TopBar } from "~/components/top-bar";
 import { summarizeTransactions } from "~/helpers/calculations";
 import { requireUserId } from "~/utils/session.server";
-import {
-  getAllExpensesByUserId,
-  getAllIncomesByUserId,
-} from "~/utils/transaction.server";
+
 import type { Client as IClient, Prisma } from "@prisma/client";
 import {
   deleteClientById,
   getAllClientsByUserId,
   getFilteredClients,
-} from "~/utils/business.server";
+} from "~/utils/clients.server";
 import { ClientRow } from "~/components/client-row";
 import { SortAndFilterClients } from "~/components/sort-and-filter-clients";
 

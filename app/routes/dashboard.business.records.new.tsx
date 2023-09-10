@@ -12,10 +12,8 @@ import { ClientConnector } from "~/components/client-connector";
 import { DateInput } from "~/components/date-input";
 import { FormField } from "~/components/form-field";
 import { Modal } from "~/components/modal";
-import { SelectBox } from "~/components/select-box";
-import { createClient } from "~/utils/business.server";
+import { createRecord } from "~/utils/records.server";
 import { getUserId, requireUserId } from "~/utils/session.server";
-import { createExpense } from "~/utils/transaction.server";
 // import type { Expense as IExpense } from "@prisma/client";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -31,43 +29,37 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }: ActionArgs) => {
   const ownerId = await requireUserId(request);
   const form = await request.formData();
-  // const firstName = form.get("firstName");
-  // const lastName = form.get("lastName");
-  // const birthday = form.get("birthday");
-  // const phone = form.get("phone");
-  // const priceLevel = form.get("priceLevel");
-  // const description = form.get("description");
+  const localTime = form.get("createdTime");
+  const clientId = form.get("clientId");
+  const description = form.get("description");
+  const priceS = form.get("price");
+  const price = Number(priceS);
 
-  // // select with client
+  if (!localTime) {
+    return json({ error: `No time provided` }, { status: 400 });
+  }
+  if (typeof localTime !== "string") {
+    return json({ error: `Wrong time format` }, { status: 400 });
+  }
+  const plannedTime = new Date(localTime).toISOString();
 
-  // if (
-  //   typeof firstName !== "string" ||
-  //   typeof lastName !== "string" ||
-  //   typeof phone !== "string" ||
-  //   typeof priceLevel !== "string" ||
-  //   typeof birthday !== "string" ||
-  //   typeof description !== "string"
-  // ) {
-  //   return json({ error: `Invalid Form Data` }, { status: 400 });
-  // }
+  if (
+    typeof plannedTime !== "string" ||
+    typeof clientId !== "string" ||
+    typeof description !== "string" ||
+    typeof price !== "number"
+  ) {
+    return json({ error: `Invalid Form Data` }, { status: 400 });
+  }
 
-  // await createClient({
-  //   ownerId,
-  //   firstName,
-  //   lastName,
-  //   birthday,
-  //   phone,
-  //   priceLevel,
-  //   description,
-  //   // createdTime,
-  //   // description,
-  //   // type: type as ExpenseKind,
-  //   // value,
-  // });
-  // return redirect("/home");
-  // return { ownerId, description, type, createdTime, value };
-  // return redirect("/dashboard/business/clients");
-  return null;
+  await createRecord({
+    ownerId,
+    plannedTime,
+    clientId,
+    description,
+    price,
+  });
+  return redirect("/dashboard/business/records");
 };
 
 export default function NewRecord() {
@@ -76,39 +68,36 @@ export default function NewRecord() {
 
   return (
     <>
-      {/* <Modal
+      <Modal
         isOpen={true}
         ariaLabel="New record"
         type="modal"
         backTo="/dashboard/business/records"
-      > */}
-      <div className="m-2 p-2 outline w-fit bg-white">
-        <h4>New Record</h4>
+      >
+        <div className="m-2 p-2 outline w-fit bg-white">
+          <h4>New Record</h4>
 
-        <Form method="post">
-          {/* todo - think how add ownerId, not useing inpu type hidden */}
-          <input type="hidden" value={user} name="ownerId" />
+          <Form method="post">
+            {/* todo - think how add ownerId, not useing inpu type hidden */}
+            <input type="hidden" value={user} name="ownerId" />
 
-          <DateInput
-            name="createdTime"
-            id="createdTime"
-            value={plannedTime}
-            onChange={(e) => {
-              setPlannedTime(e.currentTarget.value);
-            }}
-            label="Select planned time of record"
-          />
-          <FormField type="text" htmlFor="description" label="Description" />
-          <FormField type="number" htmlFor="price" label="Select price" />
-
-          {/* add feature client connector */}
-          <ClientConnector />
-
-          <Button type="submit" label="submit" />
-          {/* Reset BTN */}
-        </Form>
-      </div>
-      {/* </Modal> */}
+            <DateInput
+              name="createdTime"
+              id="createdTime"
+              value={plannedTime}
+              onChange={(e) => {
+                setPlannedTime(e.currentTarget.value);
+              }}
+              label="Select planned time of record"
+            />
+            <FormField type="text" htmlFor="description" label="Description" />
+            <FormField type="number" htmlFor="price" label="Select price" />
+            <ClientConnector />
+            <Button type="submit" label="submit" />
+            {/* Reset BTN */}
+          </Form>
+        </div>
+      </Modal>
     </>
   );
 }

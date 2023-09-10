@@ -55,7 +55,6 @@ export const ClientConnector = () => {
         className="border"
         type="hidden"
         name="clientId"
-        id=""
         placeholder="hidden"
         defaultValue={selectedClient}
       />

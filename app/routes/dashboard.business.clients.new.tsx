@@ -12,7 +12,7 @@ import { DateInput } from "~/components/date-input";
 import { FormField } from "~/components/form-field";
 import { Modal } from "~/components/modal";
 import { SelectBox } from "~/components/select-box";
-import { createClient } from "~/utils/business.server";
+import { createClient } from "~/utils/clients.server";
 import { getUserId, requireUserId } from "~/utils/session.server";
 import { createExpense } from "~/utils/transaction.server";
 // import type { Expense as IExpense } from "@prisma/client";
