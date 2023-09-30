@@ -3,17 +3,24 @@ import type { Record as IRecord, Prisma } from "@prisma/client";
 
 export const createRecord = async ({
   ownerId,
-  plannedTime,
+  plannedStartTime,
+  plannedEndTime,
   clientId,
   description,
   price,
 }: Pick<
   IRecord,
-  "ownerId" | "plannedTime" | "clientId" | "description" | "price"
+  | "ownerId"
+  | "plannedStartTime"
+  | "plannedEndTime"
+  | "clientId"
+  | "description"
+  | "price"
 >) => {
   await db.record.create({
     data: {
-      plannedTime,
+      plannedStartTime,
+      plannedEndTime,
       description,
       price,
       owner: {
@@ -37,7 +44,7 @@ export const getRecordsForMonth = async (
   return await db.record.findMany({
     where: {
       ownerId: userId,
-      plannedTime: {
+      plannedStartTime: {
         lte: period.lastDay,
         gte: period.firstDay,
       },

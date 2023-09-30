@@ -33,7 +33,8 @@ export default function Records() {
       <ul>
         {recordsForCurrentMonth.map((record) => (
           <li key={record.id}>
-            {record.plannedTime}&nbsp;
+            {record.plannedStartTime}&nbsp;
+            {record.plannedEndTime}&nbsp;
             {record.description} &nbsp;
             {record.price} &nbsp;
             {record.status} &nbsp;

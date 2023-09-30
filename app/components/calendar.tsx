@@ -10,7 +10,23 @@ export const Calendar11 = () => {
     console.log(arg.dateStr);
     console.log(arg);
   };
+  const handleDateSelect = () => {
+    prompt("Please enter a new title for your event");
+    // let title = prompt('Please enter a new title for your event');
+    // let calendarApi = selectInfo.view.calendar;
 
+    // calendarApi.unselect(); // clear date selection
+
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay,
+    //   });
+    // }
+  };
   const mockEvents = [
     {
       title: "event 10-11",
@@ -27,18 +43,25 @@ export const Calendar11 = () => {
     {
       title: "event 28 (by)",
       start: "2023-09-28T14:32:00.000Z",
-      end: "2023-09-28T19:00:00.000Z",
+      // end: "2023-09-28T19:00:00.000Z",
     },
     {
       title: "event 30",
-      start: "2023-09-30T14:32:00.000Z",
-      end: "2023-09-30T19:00:00.000Z",
+      start: "2023-09-30T10:30:00.000Z",
+      end: "2023-09-30T14:00:00.000Z",
+    },
+    {
+      title: "event 30",
+      start: "2023-09-30T14:15:00.000Z",
+      end: "2023-09-30T16:00:00.000Z",
     },
   ];
   return (
     <div className="index-route max-w-[80%]">
       <FullCalendar
+        selectable={true}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        select={handleDateSelect}
         // dateClick={handleDateClick}
         initialView="dayGridMonth"
         headerToolbar={{
@@ -63,3 +86,6 @@ export const Calendar11 = () => {
     </div>
   );
 };
+// todo - change to ukrainian by changing loocale
+// todo - add drag-n-drop
+// todo - add notification if one event overlap another

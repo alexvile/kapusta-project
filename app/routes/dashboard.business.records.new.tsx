@@ -41,10 +41,22 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
   if (typeof localTime !== "string") {
     return json({ error: `Wrong time format` }, { status: 400 });
   }
-  const plannedTime = new Date(localTime).toISOString();
+  const plannedStartTime = new Date(localTime).toISOString();
+  // todo - create normal plannedEndTime
+
+  /* todo - list 
+  1) on click to calendar open modal with preselecet date from click (selected) (can change)
+  2) set procedure
+  3) set client
+  4) output - preselected plannedEndTime and price (can change)
+  5) on submit - create new record with pending status
+  6) after cancellation or approve - go to draft...
+  */
+
+  const plannedEndTime = new Date(localTime + 4000).toISOString();
 
   if (
-    typeof plannedTime !== "string" ||
+    typeof plannedStartTime !== "string" ||
     typeof clientId !== "string" ||
     typeof description !== "string" ||
     typeof price !== "number"
@@ -54,7 +66,8 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
 
   await createRecord({
     ownerId,
-    plannedTime,
+    plannedStartTime,
+    plannedEndTime,
     clientId,
     description,
     price,
