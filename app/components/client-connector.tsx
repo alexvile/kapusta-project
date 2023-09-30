@@ -13,6 +13,7 @@ export const ClientConnector = () => {
   const debouncedFilter = useDebounce(filter, 400);
 
   // todo - better code and UI !!!!!!!!!!!!!!!!!!
+  // todo - fetch only first 20-30 clients
 
   useEffect(() => {
     if (!debouncedFilter) {

@@ -97,3 +97,5 @@ export function SortAndFilterClients() {
     </div>
   );
 }
+
+//  todo -  lear filters doesnot clear input

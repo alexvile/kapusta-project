@@ -15,11 +15,8 @@ import { Layout } from "~/components/layout";
 import { TopBar } from "~/components/top-bar";
 import { summarizeTransactions } from "~/helpers/calculations";
 import { getUser, requireUserId } from "~/utils/session.server";
-import {
-  getAllExpensesByUserId,
-  getAllIncomesByUserId,
-} from "~/utils/transaction.server";
 
+// todo - remove unnecessary imports
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
 };
@@ -71,18 +68,18 @@ export default function Index() {
         <Link to="/" title="" aria-label="">
           <h1>Home page</h1>
         </Link>
-        <Link to="transactions" title="" aria-label="">
+        <Link to="transactions" title="" aria-label="" className="outline mr-3">
           &nbsp;* transactions - link
         </Link>
-        <br />
-        <Link to="business" title="" aria-label="">
+
+        <Link to="business" title="" aria-label="" className="outline mr-3">
           &nbsp;* business - link
         </Link>
-        <div>
-          <Link to="abc" title="" aria-label="">
-            &nbsp;* TEST PAGE - link
-          </Link>
-        </div>
+
+        <Link to="abc" title="" aria-label="" className="outline mr-3">
+          &nbsp;* TEST PAGE - link
+        </Link>
+
         <Outlet />
       </Layout>
     </>

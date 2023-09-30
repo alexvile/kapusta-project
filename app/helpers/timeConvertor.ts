@@ -103,7 +103,7 @@ export function getSixMonthsPeriod() {
   return datePeriod;
 }
 
-export function getFullMonthStartEndDays(yearAndMonth: string) {
+export function getFullMonthStartEndDays(yearAndMonth: string | number) {
   const date = new Date(yearAndMonth);
   const firstDay = new Date(
     date.getFullYear(),
