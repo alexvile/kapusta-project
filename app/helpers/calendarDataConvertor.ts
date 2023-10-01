@@ -11,6 +11,5 @@ export const convertToCalendarFormat = (data) => {
     return updatedElement;
   });
 
-  console.log(28769846593485, convertedArray);
   return convertedArray;
 };

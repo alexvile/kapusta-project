@@ -56,7 +56,8 @@ export const getRecordsByCalendarParameters = async (
     },
   });
 };
-// todo - exclude UserID
+// todo - exclude UserID, select only needed fields !!!
+// todo - include cliend name and surname
 // export const getFilteredClients = async (
 //   userId: string,
 //   sortFilter: Prisma.ClientOrderByWithRelationInput,

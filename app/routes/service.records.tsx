@@ -30,6 +30,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   // await getClientsAutocomplete(userId, textFilter);
   // return json({ filteredClients });
   console.log("inside");
+
+  // todo - error handling !!!!!!
   return calendarData;
 };
 

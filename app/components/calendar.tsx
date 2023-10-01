@@ -7,25 +7,30 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 // todo - skeleton for loading calendar to prevent overlaping when loading
 export const Calendar = () => {
   const handleDateClick = (arg) => {
-    console.log(arg.dateStr);
+    // only for mobile devices !!!!!!
+    console.log("DataClick");
     console.log(arg);
   };
-  const handleDateSelect = () => {
-    prompt("Please enter a new title for your event");
-    // let title = prompt('Please enter a new title for your event');
-    // let calendarApi = selectInfo.view.calendar;
+  const handleDateSelect = (selectInfo) => {
+    // only for desktop devices !!!!!!!!!!!
 
-    // calendarApi.unselect(); // clear date selection
+    console.log("DataSelect");
+    // prompt("Please enter a new title for your event");
+    console.log(selectInfo);
+    let title = prompt("Please enter a new title for your event");
+    let calendarApi = selectInfo.view.calendar;
+    console.log(calendarApi);
+    calendarApi.unselect(); // clear date selection
 
-    // if (title) {
-    //   calendarApi.addEvent({
-    //     id: createEventId(),
-    //     title,
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     allDay: selectInfo.allDay,
-    //   });
-    // }
+    if (title) {
+      calendarApi.addEvent({
+        id: new Date().toISOString(),
+        title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay,
+      });
+    }
   };
   const mockEvents = [
     {
@@ -59,41 +64,64 @@ export const Calendar = () => {
   const handleLoading = () => {
     console.log("loading");
   };
+  const eventAddHandler = (addInfo) => {
+    console.log(11111, addInfo);
+  };
+  const handleEventsSet = (events) => {
+    console.log(events);
+    // this.setState({
+    //   currentEvents: events,
+    // });
+  };
   return (
     <div className="index-route max-w-[80%]">
       <FullCalendar
-        selectable={true}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        select={handleDateSelect}
-        events={"/service/records"}
-        lazyFetching={true}
-        // todo - lazyFetching doesnt work??????
-
-        // todo - logic to loading - idle - etc
+        // events
         // todo - may use function instead ???
+        events={"/service/records"}
+        selectable={true}
+        editable={true}
+        eventOverlap={false}
+        // handlers
+        select={handleDateSelect}
+        dateClick={handleDateClick}
         // eventClick={({ event, jsEvent }) => alert(event.title)}
-        // dateClick={handleDateClick}
+        // eventsSet={handleEventsSet}
+        // todo - lazyFetching doesnt work on month View??????
+        // to draw events
+        // eventContent={console.log}
+        lazyFetching={true}
+        // todo - logic to loading - idle - etc
         loading={handleLoading}
+        // view
         initialView="dayGridMonth"
         headerToolbar={{
           left: "prev,next today",
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
+        nowIndicator={true}
         firstDay={1}
-        editable={true}
-        eventOverlap={false}
+        navLinks={true}
+        // event and slot time format
         eventTimeFormat={{
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
         }}
-        nowIndicator={true}
         slotLabelFormat={{
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
         }}
+        // db handlers
+        eventAdd={eventAddHandler}
+        // eventChange={function(){}}
+        // eventRemove={function(){}}
+
+        // when dragging draw immediately
+        // selectMirror={true}
       />
     </div>
   );
