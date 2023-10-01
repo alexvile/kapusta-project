@@ -37,20 +37,26 @@ export const createRecord = async ({
   });
 };
 
-export const getRecordsForMonth = async (
+//  todo - include - to get relations !!!!!!!!!!!!!!!!!!!!
+// todo - try - catch everywhere ????????????????????????????????????????????????????
+
+// todo -db typing
+export const getRecordsByCalendarParameters = async (
   userId: string,
-  period: { firstDay: string; lastDay: string }
+  start: string,
+  end: string
 ) => {
   return await db.record.findMany({
     where: {
       ownerId: userId,
       plannedStartTime: {
-        lte: period.lastDay,
-        gte: period.firstDay,
+        gte: start,
+        lte: end,
       },
     },
   });
 };
+// todo - exclude UserID
 // export const getFilteredClients = async (
 //   userId: string,
 //   sortFilter: Prisma.ClientOrderByWithRelationInput,

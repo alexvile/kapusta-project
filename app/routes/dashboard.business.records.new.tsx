@@ -29,21 +29,23 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }: ActionArgs) => {
   const ownerId = await requireUserId(request);
   const form = await request.formData();
-  const localTime = form.get("createdTime");
+  const localTimeStart = form.get("plannedStart");
+  const localTimeEnd = form.get("plannedEnd");
   const clientId = form.get("clientId");
   const description = form.get("description");
   const priceS = form.get("price");
   const price = Number(priceS);
 
-  if (!localTime) {
+  // todo - normal proverka
+  if (!localTimeStart || !localTimeEnd) {
     return json({ error: `No time provided` }, { status: 400 });
   }
-  if (typeof localTime !== "string") {
+  if (typeof localTimeStart !== "string" || typeof localTimeEnd !== "string") {
     return json({ error: `Wrong time format` }, { status: 400 });
   }
-  const plannedStartTime = new Date(localTime).toISOString();
-  // todo - create normal plannedEndTime
-
+  const plannedStartTime = new Date(localTimeStart).toISOString();
+  // todo - create normal plannedEndTime (with preselect)
+  const plannedEndTime = new Date(localTimeEnd).toISOString();
   /* todo - list 
   1) on click to calendar open modal with preselecet date from click (selected) (can change)
   2) set procedure
@@ -52,11 +54,9 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
   5) on submit - create new record with pending status
   6) after cancellation or approve - go to draft...
   */
-
-  const plannedEndTime = new Date(localTime + 4000).toISOString();
-
   if (
     typeof plannedStartTime !== "string" ||
+    typeof plannedEndTime !== "string" ||
     typeof clientId !== "string" ||
     typeof description !== "string" ||
     typeof price !== "number"
@@ -73,10 +73,12 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
     price,
   });
   return redirect("/dashboard/business/records");
+  // return null;
 };
 
 export default function NewRecord() {
-  const [plannedTime, setPlannedTime] = useState();
+  const [plannedStartTime, setPlannedStartTime] = useState();
+  const [plannedEndTime, setPlannedEndTime] = useState();
   const { user } = useLoaderData();
 
   return (
@@ -95,13 +97,22 @@ export default function NewRecord() {
             <input type="hidden" value={user} name="ownerId" />
 
             <DateInput
-              name="createdTime"
-              id="createdTime"
-              value={plannedTime}
+              name="plannedStart"
+              id="plannedStart"
+              value={plannedStartTime}
               onChange={(e) => {
-                setPlannedTime(e.currentTarget.value);
+                setPlannedStartTime(e.currentTarget.value);
               }}
-              label="Select planned time of record"
+              label="Set planned start time"
+            />
+            <DateInput
+              name="plannedEnd"
+              id="plannedEnd"
+              value={plannedEndTime}
+              onChange={(e) => {
+                setPlannedEndTime(e.currentTarget.value);
+              }}
+              label="Set planned end time"
             />
             <FormField type="text" htmlFor="description" label="Description" />
             <FormField type="number" htmlFor="price" label="Select price" />

@@ -8,6 +8,11 @@
   src: url("../public/fonts/Roboto-Regular.ttf");
 }
 
+#modal {
+  /* temporary solution */
+  position: relative;
+  z-index: 1;
+}
 table {
   background: white;
 }

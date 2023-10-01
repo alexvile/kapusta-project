@@ -5,7 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 
 // todo - load records not by month but by calendar view
 // todo - skeleton for loading calendar to prevent overlaping when loading
-export const Calendar11 = () => {
+export const Calendar = () => {
   const handleDateClick = (arg) => {
     console.log(arg.dateStr);
     console.log(arg);
@@ -56,13 +56,24 @@ export const Calendar11 = () => {
       end: "2023-09-30T16:00:00.000Z",
     },
   ];
+  const handleLoading = () => {
+    console.log("loading");
+  };
   return (
     <div className="index-route max-w-[80%]">
       <FullCalendar
         selectable={true}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         select={handleDateSelect}
+        events={"/service/records"}
+        lazyFetching={true}
+        // todo - lazyFetching doesnt work??????
+
+        // todo - logic to loading - idle - etc
+        // todo - may use function instead ???
+        // eventClick={({ event, jsEvent }) => alert(event.title)}
         // dateClick={handleDateClick}
+        loading={handleLoading}
         initialView="dayGridMonth"
         headerToolbar={{
           left: "prev,next today",
@@ -70,7 +81,8 @@ export const Calendar11 = () => {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         firstDay={1}
-        events={mockEvents}
+        editable={true}
+        eventOverlap={false}
         eventTimeFormat={{
           hour: "2-digit",
           minute: "2-digit",

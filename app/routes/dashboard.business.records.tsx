@@ -1,8 +1,7 @@
 import { ActionArgs, LoaderFunction, json, redirect } from "@remix-run/node";
 import { Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
-import { Calendar11 } from "~/components/calendar";
+import { Calendar } from "~/components/calendar";
 import { getFullMonthStartEndDays } from "~/helpers/timeConvertor";
-import { getRecordsForMonth } from "~/utils/records.server";
 import { getUserId } from "~/utils/session.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -10,9 +9,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!userId) {
     return null;
   }
-  const currentMonth = getFullMonthStartEndDays(Date.now());
-  const recordsForCurrentMonth = await getRecordsForMonth(userId, currentMonth);
-  return json({ recordsForCurrentMonth });
+  return null;
 };
 
 export const action = async ({ params, request }: ActionArgs) => {
@@ -20,7 +17,9 @@ export const action = async ({ params, request }: ActionArgs) => {
 };
 
 export default function Records() {
-  const { recordsForCurrentMonth } = useLoaderData();
+  // const { recordsForCurrentMonth } = useLoaderData();
+
+  // todo - fetch not only current month but + 5-6 days of previous and 5-6 days of next. If February - even more. Need to find solution
   // console.log(323232323, recordsForCurrentMonth);
   return (
     <>
@@ -29,8 +28,8 @@ export default function Records() {
         <Link to="new">Add record +</Link>
       </div>
       Calendar for certain month
-      <Calendar11 />
-      <ul>
+      <Calendar />
+      {/* <ul>
         {recordsForCurrentMonth.map((record) => (
           <li key={record.id}>
             {record.plannedStartTime}&nbsp;
@@ -40,7 +39,7 @@ export default function Records() {
             {record.status} &nbsp;
           </li>
         ))}
-      </ul>
+      </ul> */}
       <Outlet />
     </>
   );
