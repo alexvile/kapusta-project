@@ -63,10 +63,13 @@ export const Calendar = () => {
     //   console.log(error);
     //   // revert();
     // }
+    const newStart = localWithTZtoIsoString(event.startStr);
+    const newEnd = localWithTZtoIsoString(event.endStr);
+
     const formData = new FormData();
     formData.append("id", oldEvent.id);
-    formData.append("newStart", localWithTZtoIsoString(event.startStr));
-    formData.append("newEnd", localWithTZtoIsoString(event.endStr));
+    formData.append("start", newStart);
+    formData.append("end", newEnd);
     fetcher.submit(formData, {
       method: "PATCH",
       action: "service/calendar-records",
