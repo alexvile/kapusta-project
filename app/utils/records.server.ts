@@ -41,7 +41,8 @@ export const createRecord = async ({
 // todo - try - catch everywhere ????????????????????????????????????????????????????
 
 // todo -db typing
-export const getRecordsByCalendarParameters = async (
+// CP - calendar parameters
+export const getRecordsByCP = async (
   userId: string,
   start: string,
   end: string
@@ -67,6 +68,23 @@ export const getRecordsByCalendarParameters = async (
           lastName: true,
         },
       },
+    },
+  });
+};
+
+export const simpleUpdateRecordByCP = async (
+  recordId: string,
+  newStart: string,
+  newEnd: string
+) => {
+  console.log(recordId, newStart, newEnd);
+  return await db.record.update({
+    data: {
+      plannedStartTime: newStart,
+      plannedEndTime: newEnd,
+    },
+    where: {
+      id: recordId,
     },
   });
 };

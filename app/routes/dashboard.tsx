@@ -9,8 +9,11 @@ import {
   Link,
   Outlet,
   useActionData,
+  useFetcher,
   useLoaderData,
+  useNavigation,
 } from "@remix-run/react";
+import { useEffect, useState } from "react";
 import { Layout } from "~/components/layout";
 import { TopBar } from "~/components/top-bar";
 import { summarizeTransactions } from "~/helpers/calculations";
@@ -48,11 +51,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 //   return json({ allExpenses, allIncomes });
 // };
 export default function Index() {
-  const {
-    user,
-  }: {
-    user: User;
-  } = useLoaderData();
+  const navigation = useNavigation();
+  // const [isLoading, setIsLoading] = useState(false);
+  const isLoading = navigation.state === "loading";
+
+  const { user }: { user: string } = useLoaderData();
 
   // console.log(allExpenses);
   // console.log(allIncomes);
@@ -65,6 +68,7 @@ export default function Index() {
         <button type="submit">get all balance</button>
       </Form> */}
       <Layout user={user}>
+        {isLoading && <h1>Loading...</h1>}
         <Link to="/" title="" aria-label="">
           <h1>Home page</h1>
         </Link>

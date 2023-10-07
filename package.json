@@ -27,9 +27,9 @@
     "victory": "^36.6.11"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.15.0",
-    "@remix-run/eslint-config": "^1.15.0",
-    "@remix-run/serve": "^1.15.0",
+    "@remix-run/dev": "^1.19.3",
+    "@remix-run/eslint-config": "^1.19.3",
+    "@remix-run/serve": "^1.19.3",
     "@types/bcryptjs": "^2.4.2",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",

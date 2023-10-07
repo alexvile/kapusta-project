@@ -37,6 +37,13 @@ export function localDateFromToIsoString(localDateFrom: string) {
   return UTCIsoString;
 }
 
+// for CP
+export function localWithTZtoIsoString(local: string) {
+  const dateObject = new Date(local);
+  const UTCIsoString = dateObject.toISOString();
+  return UTCIsoString;
+}
+
 export function localDateToToIsoString(localDateTo: string) {
   const localDateWithTime = localDateTo + "T23:59:59";
   const dateObject = new Date(localDateWithTime);

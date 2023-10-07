@@ -93,7 +93,7 @@ export default function NewRecord() {
           <h4>New Record</h4>
 
           <Form method="post">
-            {/* todo - think how add ownerId, not useing inpu type hidden */}
+            {/* todo - think how add ownerId, not using input type hidden */}
             <input type="hidden" value={user} name="ownerId" />
 
             <DateInput

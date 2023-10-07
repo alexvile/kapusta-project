@@ -1,6 +1,6 @@
 import { LoaderFunction, json } from "@remix-run/node";
 import { convertToCalendarFormat } from "~/helpers/calendarDataConvertor";
-import { getRecordsByCalendarParameters } from "~/utils/records.server";
+import { getRecordsByCP } from "~/utils/records.server";
 import { getUserId } from "~/utils/session.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -14,14 +14,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   if (!startTime || !endTime) return;
 
-  const filteredRecords = await getRecordsByCalendarParameters(
-    userId,
-    startTime,
-    endTime
-  );
+  const filteredRecords = await getRecordsByCP(userId, startTime, endTime);
   const calendarData = convertToCalendarFormat(filteredRecords);
   // todo - error handling !!!!!!
   return calendarData;
 };
 
 // todo - store or Redux to save data in Remix, prevent extra fetches etc
+
+// todo - each component group in separate folder !!!

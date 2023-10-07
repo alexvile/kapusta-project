@@ -2,70 +2,104 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import { useFetcher } from "@remix-run/react";
+import { useEffect, useState } from "react";
+import { localWithTZtoIsoString } from "~/helpers/timeConvertor";
 
 // todo - load records not by month but by calendar view
 // todo - skeleton for loading calendar to prevent overlaping when loading
+// todo - touch and longPressDelay
 export const Calendar = () => {
+  const fetcher = useFetcher();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const isLoading =
+      fetcher.state === "loading" || fetcher.state === "submitting";
+    const isDone = fetcher.state === "idle" && fetcher.data != null;
+
+    if (isLoading) {
+      console.log("loading...");
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+
+    if (isDone) {
+      console.log("change successfull", fetcher.data);
+      // alert("updated successfull");
+      // remix toast - successfull operation
+    }
+  }, [fetcher]);
+
   const handleDateClick = (arg) => {
     // only for mobile devices !!!!!!
     console.log("DataClick");
     console.log(arg);
-  };
-  const handleDateSelect = (selectInfo) => {
-    // only for desktop devices !!!!!!!!!!!
-
-    console.log("DataSelect");
     // prompt("Please enter a new title for your event");
-    console.log(selectInfo);
+
     let title = prompt("Please enter a new title for your event");
-    let calendarApi = selectInfo.view.calendar;
+    let calendarApi = arg.view.calendar;
     console.log(calendarApi);
-    calendarApi.unselect(); // clear date selection
+    // calendarApi.unselect(); // clear date selection
 
     if (title) {
       calendarApi.addEvent({
         id: new Date().toISOString(),
         title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
+        start: arg.dateStr,
+        allDay: arg.allDay,
       });
     }
   };
-  const mockEvents = [
-    {
-      title: "event 10-11",
-      start: "2023-09-10T10:32:00.000Z",
-      end: "2023-09-11T13:00:00.000Z",
-    },
-    {
-      title: "Long evt",
-      start: "2023-09-20",
-      end: "2023-09-23",
-      // allDay: false,
-    },
-    { title: "event 28", date: "2023-09-23" },
-    {
-      title: "event 28 (by)",
-      start: "2023-09-28T14:32:00.000Z",
-      // end: "2023-09-28T19:00:00.000Z",
-    },
-    {
-      title: "event 30",
-      start: "2023-09-30T10:30:00.000Z",
-      end: "2023-09-30T14:00:00.000Z",
-    },
-    {
-      title: "event 30",
-      start: "2023-09-30T14:15:00.000Z",
-      end: "2023-09-30T16:00:00.000Z",
-    },
-  ];
+
+  const eventChangeHandler = async (e) => {
+    const { oldEvent, event, revert } = e;
+    // todo - add feature update only date by drag'n'drop or update other info by click or open modal etc
+    // try {
+    //   // todo - in this case we will throw backend logic to frontend
+    //   // await simpleUpdateRecordByCP(...);
+    // } catch (error) {
+    //   console.log(error);
+    //   // revert();
+    // }
+    const formData = new FormData();
+    formData.append("id", oldEvent.id);
+    formData.append("newStart", localWithTZtoIsoString(event.startStr));
+    formData.append("newEnd", localWithTZtoIsoString(event.endStr));
+    fetcher.submit(formData, {
+      method: "PATCH",
+      action: "service/calendar-records",
+    });
+  };
+
+  const handleDateSelect = (selectInfo) => {
+    // only for desktop devices !!!!!!!!!!!
+
+    console.log("DataSelect");
+    // prompt("Please enter a new title for your event");
+    // console.log(selectInfo);
+    // let title = prompt("Please enter a new title for your event");
+    // let calendarApi = selectInfo.view.calendar;
+    // console.log(calendarApi);
+    // calendarApi.unselect(); // clear date selection
+
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: new Date().toISOString(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay,
+    //   });
+    // }
+  };
+
   const handleLoading = () => {
-    console.log("loading");
+    console.log("loading calendar");
   };
   const eventAddHandler = (addInfo) => {
-    console.log(11111, addInfo);
+    console.log("Event added to calendar API", addInfo);
   };
   const handleEventsSet = (events) => {
     console.log(events);
@@ -73,15 +107,17 @@ export const Calendar = () => {
     //   currentEvents: events,
     // });
   };
+  // todo  - prevent click on month view !!!!
   return (
     <div className="index-route max-w-[80%]">
+      {loading && <div>loading...</div>}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         // events
         // todo - may use function instead ???
         events={"/service/records"}
-        selectable={true}
-        editable={true}
+        // selectable={true}
+        editable={loading ? false : true}
         eventOverlap={false}
         // handlers
         select={handleDateSelect}
@@ -117,7 +153,7 @@ export const Calendar = () => {
         }}
         // db handlers
         eventAdd={eventAddHandler}
-        // eventChange={function(){}}
+        eventChange={eventChangeHandler}
         // eventRemove={function(){}}
 
         // when dragging draw immediately

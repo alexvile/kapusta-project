@@ -1,8 +1,8 @@
-import { ActionArgs, LoaderFunction, json, redirect } from "@remix-run/node";
-import { Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
+import { ActionArgs, LoaderFunction } from "@remix-run/node";
+import { Link, Outlet } from "@remix-run/react";
 import { Calendar } from "~/components/calendar";
-import { getFullMonthStartEndDays } from "~/helpers/timeConvertor";
 import { getUserId } from "~/utils/session.server";
+import { useRouteError, isRouteErrorResponse } from "@remix-run/react";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -17,29 +17,14 @@ export const action = async ({ params, request }: ActionArgs) => {
 };
 
 export default function Records() {
-  // const { recordsForCurrentMonth } = useLoaderData();
-
-  // todo - fetch not only current month but + 5-6 days of previous and 5-6 days of next. If February - even more. Need to find solution
-  // console.log(323232323, recordsForCurrentMonth);
   return (
     <>
       <div>Records</div>
       <div>
         <Link to="new">Add record +</Link>
       </div>
-      Calendar for certain month
       <Calendar />
-      {/* <ul>
-        {recordsForCurrentMonth.map((record) => (
-          <li key={record.id}>
-            {record.plannedStartTime}&nbsp;
-            {record.plannedEndTime}&nbsp;
-            {record.description} &nbsp;
-            {record.price} &nbsp;
-            {record.status} &nbsp;
-          </li>
-        ))}
-      </ul> */}
+      {/* <Test errorElement={<ErrorBoundary />} */}
       <Outlet />
     </>
   );
@@ -48,3 +33,43 @@ export default function Records() {
 // pagination
 
 // todo -approximate time to procedurs to show if one cover another
+// new Error Handling
+
+// todo !!!!!!!!!!!!!!!!!!!!!!!! error Handling as modal under calender, not instead
+// todo - then dispatch - revert() function
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.log(1, error);
+  console.log("isRouteErrorResponse", isRouteErrorResponse(error));
+  // when true, this is what used to go to `CatchBoundary`
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <h1>Oops</h1>
+        <p>Status: {error.status}</p>
+        <p>{error.data.message}</p>
+        <p>{error.data}</p>
+      </div>
+    );
+  }
+
+  // Don't forget to typecheck with your own logic.
+  // Any value can be thrown, not just errors!
+  function isDefinitelyAnError(error: unknown) {
+    console.log(22222, error);
+    return error && (error instanceof Error || "message" in error);
+  }
+  let errorMessage = "Unknown error";
+  if (isDefinitelyAnError(error)) {
+    errorMessage = error.message;
+  }
+
+  return (
+    <div>
+      <h1>Uh oh ...</h1>
+      <p>Something went wrong.</p>
+      <pre>{errorMessage}</pre>
+    </div>
+  );
+}
