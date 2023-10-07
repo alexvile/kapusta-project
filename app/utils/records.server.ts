@@ -54,22 +54,19 @@ export const getRecordsByCalendarParameters = async (
         lte: end,
       },
     },
+    select: {
+      id: true,
+      plannedStartTime: true,
+      plannedEndTime: true,
+      description: true,
+      price: true,
+      client: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+    },
   });
 };
-// todo - exclude UserID, select only needed fields !!!
-// todo - include cliend name and surname
-// export const getFilteredClients = async (
-//   userId: string,
-//   sortFilter: Prisma.ClientOrderByWithRelationInput,
-//   whereFilter: Prisma.ClientWhereInput
-// ) => {
-//   return await db.client.findMany({
-//     orderBy: {
-//       ...sortFilter,
-//     },
-//     where: {
-//       ownerId: userId,
-//       ...whereFilter,
-//     },
-//   });
-// };

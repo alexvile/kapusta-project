@@ -22,3 +22,19 @@ type IBalance = number;
 //   Expenses,
 //   Incomes,
 // }
+
+import type { Record as IRecord, Client as IClient } from "@prisma/client";
+
+// todo - sort types folder, add separate files for each group
+export interface IPopulatedRecord {
+  id: IRecord["id"];
+  plannedStartTime: IRecord["plannedStartTime"];
+  plannedEndTime: IRecord["plannedEndTime"];
+  description: IRecord["description"];
+  price: IRecord["price"];
+  client: {
+    id: IClient["id"];
+    firstName: IClient["firstName"];
+    lastName: IClient["lastName"];
+  };
+}

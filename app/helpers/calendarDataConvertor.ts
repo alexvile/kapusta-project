@@ -1,10 +1,11 @@
-export const convertToCalendarFormat = (data) => {
-  // todo - TS typing
-  if (!data.length) return;
+import { IPopulatedRecord } from "~/types/types";
+
+export const convertToCalendarFormat = (data: IPopulatedRecord[]) => {
+  if (!data.length) return [];
   const convertedArray = data.map((el) => {
     const updatedElement = {
       id: el.id,
-      title: `${el.description}, ${el.price} UAH, client name`,
+      title: `${el.description}, ${el.price} UAH, ${el.client.firstName} ${el.client.lastName}`,
       start: el.plannedStartTime,
       end: el.plannedEndTime,
     };

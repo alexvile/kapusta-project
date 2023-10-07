@@ -3,8 +3,6 @@ import { convertToCalendarFormat } from "~/helpers/calendarDataConvertor";
 import { getRecordsByCalendarParameters } from "~/utils/records.server";
 import { getUserId } from "~/utils/session.server";
 
-// import type { Client as IClient, Prisma } from "@prisma/client";
-
 export const loader: LoaderFunction = async ({ request }) => {
   // todo - take userID from context, prevent extra fetch
   const userId = await getUserId(request);
@@ -21,16 +19,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     startTime,
     endTime
   );
-
-  // todo - include client name and surname
-
   const calendarData = convertToCalendarFormat(filteredRecords);
-
-  // const filteredClients: Pick<IClient, "id" | "firstName" | "lastName">[] =
-  // await getClientsAutocomplete(userId, textFilter);
-  // return json({ filteredClients });
-  console.log("inside");
-
   // todo - error handling !!!!!!
   return calendarData;
 };

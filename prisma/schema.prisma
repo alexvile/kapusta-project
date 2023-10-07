@@ -148,8 +148,10 @@ model Record {
   ownerId          String       @db.ObjectId
   client           Client       @relation(references: [id], fields: [clientId], "ClientRecord")
   clientId         String       @db.ObjectId
+  type             String
+  // in future type will be manually created enum
   description      String?
-  price            Int?
+  price            Int
   // todo !!!!!!!!!!!!!!! connect to income ??? when status changed
   // todo auto calculate price form client type and all prices
   // todo !! add semi-automatic planned end time
