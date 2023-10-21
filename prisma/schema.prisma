@@ -78,16 +78,17 @@ enum IncomeKind {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  email        String    @unique
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  email        String     @unique
   passwordHash String
   profile      Profile
-  expenses     Expense[] @relation("MyExpense")
-  incomes      Income[]  @relation("MyIncome")
-  clients      Client[]  @relation("MyClient")
-  records      Record[]  @relation("MyRecord")
+  expenses     Expense[]  @relation("MyExpense")
+  incomes      Income[]   @relation("MyIncome")
+  clients      Client[]   @relation("MyClient")
+  records      Record[]   @relation("MyRecord")
+  businesses   Business[] @relation("MyBusiness")
   // total        Total?    @relation("MyTotal")
   Record       Record[]
 }
@@ -159,6 +160,26 @@ model Record {
   userId           String?      @db.ObjectId
 }
 
+// service - nbp, nogy etc
+// level 2
+model Service {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  price      Int
+  business   Business @relation(references: [id], fields: [businessId], "MyService")
+  businessId String   @db.ObjectId
+}
+
+// business - laser, electroepil
+// level 1
+model Business {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  services Service[] @relation("MyService")
+  owner    User      @relation(references: [id], fields: [ownerId], "MyBusiness")
+  ownerId  String    @db.ObjectId
+}
+
 // todo - connect client to journal record
 // model Total {
 //   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -182,3 +203,6 @@ model Record {
 // todo - if we use this variant how to cache data ?? save to state etc ??? update (or update manually) only at crud operations with transactions?? 
 
 // todo - admin with posibility to create different type of proceeds, manage prices and aproximately time 
+
+// structure of admin panel
+// 1) business - types of procedure (name, price)

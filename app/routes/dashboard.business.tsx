@@ -9,7 +9,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 // todo: decide if use requireuserID or getUserId
-export default function Clients() {
+export default function Business() {
   return (
     <>
       <div>Business - title</div>

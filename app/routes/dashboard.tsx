@@ -72,17 +72,22 @@ export default function Index() {
         <Link to="/" title="" aria-label="">
           <h1>Home page</h1>
         </Link>
+
+        <Link to="structure" title="" aria-label="" className="outline mr-3">
+          &nbsp;* business structure
+        </Link>
+
         <Link to="transactions" title="" aria-label="" className="outline mr-3">
-          &nbsp;* transactions - link
+          &nbsp;* transactions(incomes/expenses)
         </Link>
 
         <Link to="business" title="" aria-label="" className="outline mr-3">
-          &nbsp;* business - link
+          &nbsp;* business(clients/records)
         </Link>
 
-        <Link to="abc" title="" aria-label="" className="outline mr-3">
+        {/* <Link to="abc" title="" aria-label="" className="outline mr-3">
           &nbsp;* TEST PAGE - link
-        </Link>
+        </Link> */}
 
         <Outlet />
       </Layout>

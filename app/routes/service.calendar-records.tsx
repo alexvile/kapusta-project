@@ -10,7 +10,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   const obj = Object.fromEntries(form.entries());
-
+  // todo - check if string etc
   await simpleUpdateRecordByCP(obj.id, obj.start, obj.end);
   // throw new Error("Test Error !");
   // throw new Response("Can't delete what does not exist", {
