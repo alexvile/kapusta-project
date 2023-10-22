@@ -1,29 +1,47 @@
 import { ActionArgs, LoaderFunction } from "@remix-run/node";
-import { Link, Outlet } from "@remix-run/react";
+import { Form, Link, Outlet, useLoaderData } from "@remix-run/react";
 import { Calendar } from "~/components/calendar";
 import { getUserId } from "~/utils/session.server";
 import { useRouteError, isRouteErrorResponse } from "@remix-run/react";
+import { deleteRecordById, getAllRecords } from "~/utils/records.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
   if (!userId) {
     return null;
   }
-  return null;
+  const records = await getAllRecords(userId);
+  return records;
 };
 
 export const action = async ({ params, request }: ActionArgs) => {
+  const form = await request.formData();
+  const idToDelete = form.get("id");
+  console.log(idToDelete);
+  await deleteRecordById(idToDelete);
   return null;
 };
 
 export default function Records() {
+  const d = useLoaderData();
+  console.log(d);
   return (
     <>
       <div>Records</div>
       <div>
         <Link to="new">Add record +</Link>
       </div>
-      <Calendar />
+      {d.map((e) => (
+        <div key={e.id}>
+          {e.description} {e.plannedStartTime} {e.client.firstName}{" "}
+          {e.client.lastName}
+          <Form method="post">
+            <input type="hidden" name="id" defaultValue={e.id} />
+            <button>remove</button>
+          </Form>
+        </div>
+      ))}
+      {/* <Calendar /> */}
       {/* <Test errorElement={<ErrorBoundary />} */}
       <Outlet />
     </>

@@ -21,7 +21,7 @@ import { getUser, requireUserId } from "~/utils/session.server";
 
 // todo - remove unnecessary imports
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "New Remix App" }];
+  return [{ title: "Kapusta App" }];
 };
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request);
@@ -68,7 +68,7 @@ export default function Index() {
         <button type="submit">get all balance</button>
       </Form> */}
       <Layout user={user}>
-        {isLoading && <h1>Loading...</h1>}
+        {isLoading && <h1 className="absolute">Loading...</h1>}
         <Link to="/" title="" aria-label="">
           <h1>Home page</h1>
         </Link>

@@ -35,39 +35,6 @@ enum RecordStatus {
   CANCELLED
 }
 
-// enum Color {
-//   Red
-//   Green
-//   Blue
-// }
-
-// enum Size {
-//   Small
-//   Medium
-//   Large
-//   XLarge
-// }
-
-// type IncomeKind {
-//   colors Color[]
-//   sizes  Size[]
-// }
-
-// type Subtype {
-//   NPB
-//   Nogu
-//   ryku
-//   fgklfjdglkd
-//   dfgd
-//   dfgddfg
-//   dfgddfgd
-//   hgh
-//   lfk
-//   dfgddfgdfg
-//   ss
-//   othrt
-// }
-
 // todo - price list editiong
 // todo - structure editing with procedures etc 
 // todo enum of 2 objects Brows and Laser 
@@ -147,25 +114,27 @@ model Record {
   status           RecordStatus @default(PENDING)
   owner            User         @relation(references: [id], fields: [ownerId], "MyRecord")
   ownerId          String       @db.ObjectId
-  client           Client       @relation(references: [id], fields: [clientId], "ClientRecord")
+  client           Client       @relation(references: [id], fields: [clientId], "ClientRecord", onDelete: Restrict, onUpdate: Restrict)
   clientId         String       @db.ObjectId
-  type             String
   // in future type will be manually created enum
-  description      String?
-  price            Int
+
+  type        String?
+  description String?
+  price       Int
   // todo !!!!!!!!!!!!!!! connect to income ??? when status changed
   // todo auto calculate price form client type and all prices
   // todo !! add semi-automatic planned end time
-  User             User?        @relation(fields: [userId], references: [id])
-  userId           String?      @db.ObjectId
+  User        User?   @relation(fields: [userId], references: [id])
+  userId      String? @db.ObjectId
 }
 
-// service - nbp, nogy etc
+// service - nbp, legs etc
 // level 2
 model Service {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String
   price      Int
+  duration   Int
   business   Business @relation(references: [id], fields: [businessId], "MyService")
   businessId String   @db.ObjectId
 }
@@ -180,6 +149,7 @@ model Business {
   ownerId  String    @db.ObjectId
 }
 
+// todo - custom duration picker
 // todo - connect client to journal record
 // model Total {
 //   id        String   @id @default(auto()) @map("_id") @db.ObjectId

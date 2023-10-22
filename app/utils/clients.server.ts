@@ -49,6 +49,10 @@ export const getFilteredClients = async (
       ownerId: userId,
       ...whereFilter,
     },
+    include: {
+      owner: true,
+      records: true,
+    },
   });
 };
 
@@ -142,3 +146,6 @@ export const updateClientById = async ({
 export const deleteClientById = async (id: string) => {
   return await db.client.delete({ where: { id } });
 };
+
+// todo - cascad actions to delete or update data
+// onDelete: SetNull, onUpdate: Cascade

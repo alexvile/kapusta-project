@@ -1,6 +1,18 @@
 import { db } from "./db.server";
 import type { Record as IRecord, Prisma } from "@prisma/client";
 
+// todo delete only pending records
+export const getAllRecords = async (userId: string) => {
+  return await db.record.findMany({
+    where: {
+      ownerId: userId,
+    },
+    include: {
+      client: true,
+      owner: true,
+    },
+  });
+};
 export const createRecord = async ({
   ownerId,
   plannedStartTime,
@@ -37,6 +49,10 @@ export const createRecord = async ({
   });
 };
 
+// todo do we need add owner id to filter ??
+export const deleteRecordById = async (id: string) => {
+  return await db.record.delete({ where: { id } });
+};
 //  todo - include - to get relations !!!!!!!!!!!!!!!!!!!!
 // todo - try - catch everywhere ????????????????????????????????????????????????????
 

@@ -1,10 +1,14 @@
 import { db } from "./db.server";
-import type { Business as IBusiness, Prisma } from "@prisma/client";
+import type {
+  Business as IBusiness,
+  Service as IService,
+  Prisma,
+} from "@prisma/client";
 
 export const createBusiness = async ({
   ownerId,
   name,
-}: Pick<IBusiness, "ownerId" | "name">) => {
+}: Omit<IBusiness, "id">) => {
   await db.business.create({
     data: {
       name,
@@ -17,7 +21,27 @@ export const createBusiness = async ({
   });
 };
 
-export const getAllBusinessesByOwnerId = async (
+export const createService = async ({
+  businessId,
+  name,
+  price,
+  duration,
+}: Omit<IService, "id">) => {
+  await db.service.create({
+    data: {
+      name,
+      price,
+      duration,
+      business: {
+        connect: {
+          id: businessId,
+        },
+      },
+    },
+  });
+};
+
+export const getAllBusinessesWithServicesByOwnerId = async (
   ownerId: IBusiness["ownerId"]
 ) => {
   return await db.business.findMany({

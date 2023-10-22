@@ -72,6 +72,7 @@ export const action = async ({ params, request }: ActionArgs) => {
 export default function Clients() {
   const { filteredClients } = useLoaderData();
   // console.log(allClients);
+  console.log(filteredClients);
   return (
     <>
       <div>Clients</div>

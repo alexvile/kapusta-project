@@ -23,7 +23,15 @@ type IBalance = number;
 //   Incomes,
 // }
 
-import type { Record as IRecord, Client as IClient } from "@prisma/client";
+import type {
+  Record as IRecord,
+  Client as IClient,
+  Prisma,
+} from "@prisma/client";
+import type {
+  Business as IBusiness,
+  Service as IService,
+} from "@prisma/client";
 
 // todo - sort types folder, add separate files for each group
 export interface IPopulatedRecord {
@@ -38,3 +46,16 @@ export interface IPopulatedRecord {
     lastName: IClient["lastName"];
   };
 }
+// todo smth like this
+
+export type IBusinessWithServices = Prisma.BusinessGetPayload<{
+  include: { services: true };
+}>;
+// export interface IBusinessWithServices {
+//   ...obj: IBusiness;
+//  services: IService[];
+// }
+// let g: IBusinessWithServices;
+// console.log(g);
+// let g: IBusiness & IService;
+// console.log(g);
