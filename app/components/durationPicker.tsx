@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 interface ICustomDurationPicker {
-  hours: Number[];
-  minuts: Number[];
-  zeroOption?: Boolean;
-  emptyValue?: Boolean;
-  allowZeroDuration?: Boolean;
+  hours: number[];
+  minuts: number[];
+  name: string;
+  label?: string;
+  zeroOption?: boolean;
+  emptyValue?: boolean;
+  allowZeroDuration?: boolean;
 }
 export function CustomDurationPicker({
   hours,
   minuts,
+  name,
+  label,
   zeroOption = true,
   emptyValue = true,
   allowZeroDuration = false,
@@ -16,8 +20,8 @@ export function CustomDurationPicker({
   // todo - initial value
   const [duration, setDuration] = useState<number>();
   //   temp state
-  const [minutsS, setMinutsS] = useState("");
-  const [hoursS, setHoursS] = useState("");
+  const [minutsS, setMinutsS] = useState<string>();
+  const [hoursS, setHoursS] = useState<string>();
 
   const calculateDurationInMs = (h: string, m: string) => {
     const hoursInMs = Number(h) * 60 * 60 * 1000;
@@ -58,41 +62,43 @@ export function CustomDurationPicker({
   };
   return (
     <div>
-      hidden
-      <input type="text" defaultValue={duration} />
-      <div>
-        visual
-        <select
-          id="durationPicker-hours"
-          onChange={(e) => selectChange(e)}
-          value={hoursS}
-        >
-          {emptyValue && <option value="">--</option>}
-          {zeroOption && <option value="0">0</option>}
-          {hours.length > 0 &&
-            hours.map((e) => (
-              <option key={String(e)} value={String(e)}>
-                {String(e)}
-              </option>
-            ))}
-        </select>
-        <label htmlFor="durationPicker-hour">hour</label>
-        <select
-          id="durationPicker-minuts"
-          onChange={(e) => selectChange(e)}
-          value={minutsS}
-        >
-          {emptyValue && <option value="">--</option>}
-          {zeroOption && <option value="0">00</option>}
-          {minuts.length > 0 &&
-            minuts.map((e) => (
-              <option key={String(e)} value={String(e)}>
-                {String(e)}
-              </option>
-            ))}
-        </select>
-        <label htmlFor="durationPicker-minuts">minuts</label>
-      </div>
+      {label && <label htmlFor="durationPicker-duration">{label}</label>}
+      <input
+        type="hidden"
+        defaultValue={duration}
+        id="durationPicker-duration"
+        name={name}
+      />
+      <select
+        id="durationPicker-hours"
+        onChange={(e) => selectChange(e)}
+        value={hoursS}
+      >
+        {emptyValue && <option value="">--</option>}
+        {zeroOption && <option value="0">0</option>}
+        {hours.length > 0 &&
+          hours.map((e) => (
+            <option key={String(e)} value={String(e)}>
+              {String(e)}
+            </option>
+          ))}
+      </select>
+      <label htmlFor="durationPicker-hour">hour</label>
+      <select
+        id="durationPicker-minuts"
+        onChange={(e) => selectChange(e)}
+        value={minutsS}
+      >
+        {emptyValue && <option value="">--</option>}
+        {zeroOption && <option value="0">00</option>}
+        {minuts.length > 0 &&
+          minuts.map((e) => (
+            <option key={String(e)} value={String(e)}>
+              {String(e)}
+            </option>
+          ))}
+      </select>
+      <label htmlFor="durationPicker-minuts">minuts</label>
     </div>
   );
 }
