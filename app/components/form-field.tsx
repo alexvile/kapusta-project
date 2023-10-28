@@ -15,6 +15,8 @@ interface FormFieldProps {
   // todo - defaultValue
 }
 
+// todo - refactor !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// todo - controlled - uncontrolled, switch-case for input types
 // todo - add name separate prop to form-field
 export function FormField({
   htmlFor,
@@ -48,7 +50,9 @@ export function FormField({
       <div className="relative">
         <input
           onChange={(e) => {
+            // onInputChange(e);
             onInputChange(e);
+
             console.log(e.target.value);
             // setErrorText("");
             // setErrorText(validateHandler(e.target.value));

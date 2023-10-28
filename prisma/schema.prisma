@@ -35,13 +35,15 @@ enum RecordStatus {
   CANCELLED
 }
 
-// todo - price list editiong
-// todo - structure editing with procedures etc 
-// todo enum of 2 objects Brows and Laser 
 enum IncomeKind {
   BROWS
   LASER
   OTHER
+}
+
+enum PriceLevel {
+  DEFAULT
+  SPECIAL
 }
 
 model User {
@@ -61,7 +63,6 @@ model User {
 }
 
 // todo - remove "?"  and remove prisma migrate history to fix it
-
 model Expense {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   createdAt   DateTime    @default(now())
@@ -87,19 +88,19 @@ model Income {
 }
 
 model Client {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   firstName   String
   lastName    String
   birthday    String?
   phone       String?
   social      Social?
   description String?
-  priceLevel  String?
-  owner       User     @relation(references: [id], fields: [ownerId], "MyClient")
-  ownerId     String   @db.ObjectId
-  records     Record[] @relation("ClientRecord")
+  priceLevel  PriceLevel @default(DEFAULT)
+  owner       User       @relation(references: [id], fields: [ownerId], "MyClient")
+  ownerId     String     @db.ObjectId
+  records     Record[]   @relation("ClientRecord")
   // status vip/ new/ old
   // privedy podrugu kto i kogo
   // if abonement calculate how mush free or discounted procedurs left
@@ -114,22 +115,35 @@ model Record {
   status           RecordStatus @default(PENDING)
   owner            User         @relation(references: [id], fields: [ownerId], "MyRecord")
   ownerId          String       @db.ObjectId
-  client           Client       @relation(references: [id], fields: [clientId], "ClientRecord", onDelete: Restrict, onUpdate: Restrict)
+  client           Client       @relation(references: [id], fields: [clientId], "ClientRecord", onDelete: Restrict)
   clientId         String       @db.ObjectId
   // in future type will be manually created enum
 
-  type        String?
+  // if cascading - we delete all related records, if SetNull, we set user to null but remain records without connected user (like User was deleted!!)
+  // onDelete: Cascade, 
+  // onUpdate: Restrict
+  // onDelete: SetNull ????????????????????????????
+  // 
+  // now business and service without relation, only for autocomplete
+  business    String
+  service     String
+  // now business and service without relation, only for autocomplete
   description String?
   price       Int
   // todo !!!!!!!!!!!!!!! connect to income ??? when status changed
   // todo auto calculate price form client type and all prices
   // todo !! add semi-automatic planned end time
-  User        User?   @relation(fields: [userId], references: [id])
-  userId      String? @db.ObjectId
+  // data from context
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String? @db.ObjectId
 }
+
+// todo decide if we use data from service and business only for autocomplete or we connect it to record, income etc
 
 // service - nbp, legs etc
 // level 2
+
 model Service {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String
@@ -149,7 +163,6 @@ model Business {
   ownerId  String    @db.ObjectId
 }
 
-// todo - custom duration picker
 // todo - connect client to journal record
 // model Total {
 //   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -171,8 +184,3 @@ model Business {
 
 // todo - do it will be right to fetch all income values and expense values  or create computed total document ??????
 // todo - if we use this variant how to cache data ?? save to state etc ??? update (or update manually) only at crud operations with transactions?? 
-
-// todo - admin with posibility to create different type of proceeds, manage prices and aproximately time 
-
-// structure of admin panel
-// 1) business - types of procedure (name, price)

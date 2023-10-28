@@ -21,7 +21,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     };
   }
 
-  const filteredClients: Pick<IClient, "id" | "firstName" | "lastName">[] =
-    await getClientsAutocomplete(userId, textFilter);
+  const filteredClients: Pick<
+    IClient,
+    "id" | "firstName" | "lastName" | "priceLevel"
+  >[] = await getClientsAutocomplete(userId, textFilter);
   return json({ filteredClients });
 };

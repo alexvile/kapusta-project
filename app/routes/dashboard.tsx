@@ -12,12 +12,15 @@ import {
   useFetcher,
   useLoaderData,
   useNavigation,
+  useOutletContext,
+  useRouteLoaderData,
 } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { Layout } from "~/components/layout";
 import { TopBar } from "~/components/top-bar";
 import { summarizeTransactions } from "~/helpers/calculations";
 import { getUser, requireUserId } from "~/utils/session.server";
+import { getAllBusinessesWithServicesByOwnerId } from "~/utils/structure.server";
 
 // todo - remove unnecessary imports
 export const meta: V2_MetaFunction = () => {
@@ -28,9 +31,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!user) return;
   // todo - cache data, not fetch very often (after every form submit)
   // console.log("fetching all transactions");
-
-  // console.log(user);
-  return json({ user });
+  // todo - do we need to get access to businesses here ????
+  const businessStructure = await getAllBusinessesWithServicesByOwnerId(
+    user.id
+  );
+  return json({ user, businessStructure });
 };
 // export const action = async ({ request }: ActionArgs) => {
 //   // remove then unnecessary fetch
@@ -54,6 +59,12 @@ export default function Index() {
   const navigation = useNavigation();
   // const [isLoading, setIsLoading] = useState(false);
   const isLoading = navigation.state === "loading";
+
+  // todo - smth like React context
+  // useOutletContext
+  // useRouteLoaderData
+  // useMatches
+  // React.createContext
 
   const { user }: { user: string } = useLoaderData();
 

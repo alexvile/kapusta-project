@@ -60,6 +60,7 @@ export const getClientsAutocomplete = async (
   userId: string,
   whereFilter: Prisma.ClientWhereInput
 ) => {
+  // first 5 or 10. No more !!
   return await db.client.findMany({
     where: {
       ownerId: userId,
@@ -69,6 +70,7 @@ export const getClientsAutocomplete = async (
       id: true,
       firstName: true,
       lastName: true,
+      priceLevel: true,
     },
   });
 };

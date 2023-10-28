@@ -33,8 +33,8 @@ export default function Records() {
       </div>
       {d.map((e) => (
         <div key={e.id}>
-          {e.description} {e.plannedStartTime} {e.client.firstName}{" "}
-          {e.client.lastName}
+          {e.description} {e.plannedStartTime} {e.client?.firstName}{" "}
+          {e.client?.lastName}
           <Form method="post">
             <input type="hidden" name="id" defaultValue={e.id} />
             <button>remove</button>

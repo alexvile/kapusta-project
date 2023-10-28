@@ -3,6 +3,7 @@ interface ISelectBox {
     name: string;
     value: any;
   }[];
+  hasEmptyOption?: boolean;
   // className?: string;
   // containerClassName?: string;
   id: string;
@@ -15,6 +16,7 @@ interface ISelectBox {
 export function SelectBox({
   options = [],
   onChange = () => {},
+  hasEmptyOption = false,
   //   className = "",
   //   containerClassName = "",
   name,
@@ -35,6 +37,7 @@ export function SelectBox({
           onChange={onChange}
           value={value || ""}
         >
+          {hasEmptyOption && <option value="">Please select</option>}
           {options.map((option) => (
             <option key={option.name} value={option.value}>
               {option.name}
@@ -45,3 +48,5 @@ export function SelectBox({
     </div>
   );
 }
+
+// todo - refactor all components !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

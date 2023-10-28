@@ -7,18 +7,20 @@ interface ICustomDurationPicker {
   zeroOption?: boolean;
   emptyValue?: boolean;
   allowZeroDuration?: boolean;
+  durationInMs?: boolean;
 }
 export function CustomDurationPicker({
   hours,
   minuts,
   name,
   label,
+  durationInMs = false,
   zeroOption = true,
   emptyValue = true,
   allowZeroDuration = false,
 }: ICustomDurationPicker) {
   // todo - initial value
-  const [duration, setDuration] = useState<number>();
+  const [duration, setDuration] = useState<number | string>();
   //   temp state
   const [minutsS, setMinutsS] = useState<string>();
   const [hoursS, setHoursS] = useState<string>();
@@ -28,7 +30,9 @@ export function CustomDurationPicker({
     const minutsInMs = Number(m) * 60 * 1000;
     return hoursInMs + minutsInMs;
   };
-
+  useEffect(() => {
+    console.log(duration);
+  }, [duration]);
   useEffect(() => {
     if (!minutsS || !hoursS) {
       console.log("not selected");
@@ -45,7 +49,9 @@ export function CustomDurationPicker({
       // todo - handler !!!
     }
     // if everything ok
-    setDuration(calculateDurationInMs(hoursS, minutsS));
+    durationInMs
+      ? setDuration(calculateDurationInMs(hoursS, minutsS))
+      : setDuration(`${hoursS}h-${minutsS}m`);
   }, [minutsS, hoursS]);
 
   const selectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

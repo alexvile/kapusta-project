@@ -34,6 +34,7 @@ export const StructureModalContent = ({ target }: { target: EventTarget }) => {
             minuts={[10, 20, 30, 40, 50]}
             name="duration"
             label="Choose duration"
+            durationInMs={true}
           />
           {/*  // todo - need refactor */}
           <Button

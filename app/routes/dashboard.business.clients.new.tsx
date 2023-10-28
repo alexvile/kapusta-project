@@ -109,7 +109,11 @@ export default function NewClient() {
               label="Set birthday"
             />
             <FormField type="tel" htmlFor="phone" label="Phone" />
-            <FormField type="text" htmlFor="priceLevel" label="Price level" />
+            <select name="priceLevel" id="">
+              <option value="DEFAULT">Default</option>
+              <option value="SPECIAL">Special</option>
+              {/* todo import from prisma */}
+            </select>
             {/* todo - create UX - price level */}
             <FormField type="text" htmlFor="description" label="Add info" />
             {/* todo - USE TEXTAREA TO BIG TEXTS !!!!!!!!!!!!!!!! */}

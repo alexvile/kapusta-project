@@ -1,5 +1,5 @@
 // for input in edit Form
-export function convertFromUTCToLocalISO(timeInUTC: string) {
+export function convertFromUTCToLocalISO(timeInUTC: string | number) {
   const localTime = new Date(timeInUTC);
   const oo = (n: number) => n.toString(10).padStart(2, "0");
   const YYYY = localTime.getFullYear();
@@ -35,6 +35,20 @@ export function localDateFromToIsoString(localDateFrom: string) {
   const dateObject = new Date(localDateWithTime);
   const UTCIsoString = dateObject.toISOString();
   return UTCIsoString;
+}
+
+// for business records
+
+export function convertToMs(timeAsString: string) {
+  const time = new Date(timeAsString);
+  const ms = time.getTime();
+  return ms;
+}
+
+export function summMsAndReturnLocalTime(startValue: number, summand: number) {
+  const newValue = startValue + summand;
+  const valueInLocalStringForInput = convertFromUTCToLocalISO(newValue);
+  return valueInLocalStringForInput;
 }
 
 // for CP

@@ -4,7 +4,14 @@ import { useDebounce } from "use-lodash-debounce";
 import type { Client as IClient } from "@prisma/client";
 
 // todo lodash cancelable bug !!!!!!
-export const ClientConnector = () => {
+
+interface IClientConnector {
+  // todo - TS
+  getPriceLevel?: (...args: any) => any;
+}
+export const ClientConnector = ({
+  getPriceLevel = () => {},
+}: IClientConnector) => {
   const fetcher = useFetcher();
   const [filter, setFilter] = useState("");
   const [autocompleteClients, setAutocompleteClients] = useState([]);
@@ -35,14 +42,17 @@ export const ClientConnector = () => {
   const select = (
     id: IClient["id"],
     name: IClient["firstName"],
-    surname: IClient["lastName"]
+    surname: IClient["lastName"],
+    priceLevel: IClient["priceLevel"]
   ) => {
     setSelectedClient(id);
+    getPriceLevel(priceLevel);
     setBlocked(true);
     setFilter(name + " " + surname);
     setAutocompleteClients([]);
   };
   const deselect = () => {
+    getPriceLevel(null);
     setSelectedClient("");
     setFilter("");
     setBlocked(false);
@@ -80,11 +90,21 @@ export const ClientConnector = () => {
         {autocompleteClients &&
           autocompleteClients.length > 0 &&
           autocompleteClients.map(
-            (client: Pick<IClient, "id" | "firstName" | "lastName">) => (
+            (
+              client: Pick<
+                IClient,
+                "id" | "firstName" | "lastName" | "priceLevel"
+              >
+            ) => (
               <li
                 key={client.id}
                 onClick={() =>
-                  select(client.id, client.firstName, client.lastName)
+                  select(
+                    client.id,
+                    client.firstName,
+                    client.lastName,
+                    client.priceLevel
+                  )
                 }
               >
                 {client.firstName}&nbsp;{client.lastName}

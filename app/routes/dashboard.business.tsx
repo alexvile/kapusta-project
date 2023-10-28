@@ -1,5 +1,5 @@
 import { LoaderFunction } from "@remix-run/node";
-import { NavLink, Outlet } from "@remix-run/react";
+import { NavLink, Outlet, useOutletContext } from "@remix-run/react";
 import { requireUserId } from "~/utils/session.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
