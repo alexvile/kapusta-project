@@ -11,7 +11,7 @@ import {
   getFilteredClients,
 } from "~/utils/clients.server";
 import { ClientRow } from "~/components/client-row";
-import { SortAndFilterClients } from "~/components/sort-and-filter-clients";
+import { SortAndFilterClients } from "~/components/SortAndFilter/sort-and-filter-clients";
 
 export const loader: LoaderFunction = async ({ request }) => {
   // const userId = await requireUserId(request);

@@ -1,8 +1,8 @@
 import { Form, useNavigate, useSearchParams } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
-import { SelectBox } from "./select-box";
+import { SelectBox } from "../select-box";
 import { dirOptions, sortOptionsClients } from "~/utils/constants";
-import { Button } from "./button";
+import { Button } from "../button";
 
 export function SortAndFilterClients() {
   const [sortOption, setSortOption] = useState();

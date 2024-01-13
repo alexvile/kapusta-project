@@ -15,7 +15,7 @@ import {
 import type { Expense as IExpense, Prisma } from "@prisma/client";
 import { Expense } from "~/components/expense";
 import { requireUserId } from "~/utils/session.server";
-import { SortAndFilterBar } from "~/components/sort-and-filter-bar";
+import { SortAndFilterBar } from "~/components/SortAndFilter/SortAndFilterBar";
 import { ExpenseKind } from "@prisma/client";
 import {
   getISOFromAndToForToday,

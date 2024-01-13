@@ -1,16 +1,18 @@
 import { Form, useNavigate, useSearchParams } from "@remix-run/react";
 // import { sortOptions } from "~/utils/constants";
 import { useEffect, useRef, useState } from "react";
-import { SelectBox } from "./select-box";
+import { SelectBox } from "../select-box";
 import {
   ExpenseKindsForFilter,
   IncomeKindsForFilter,
   dirOptions,
   sortOptions,
 } from "~/utils/constants";
-import { DateInput } from "./date-input";
+import { DateInput } from "../date-input";
 import { getLocalDate } from "~/helpers/timeConvertor";
-import { Button } from "./button";
+import { Button } from "../button";
+import { Svg } from "../Svg";
+import { OrderHandler } from "./OrderHandler";
 
 interface ISortAndFilter {
   type: "incomes" | "expenses";
@@ -59,7 +61,12 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
     <div className="bg-white p-2 outline">
       Sort and filter
       <div className="flex gap-5">
-        <div>Cal: {date}</div>
+        <div className="flex items-center justify-center h-fit gap-2.5">
+          <Svg name="calendar" />
+          <span className="font-roboto text-label font-black tracking-medium text-secondary">
+            {date}
+          </span>
+        </div>
         <div>
           <Form>
             <div className="flex gap-4">
@@ -84,6 +91,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     }}
                     value={direction || searchParams.get("dir")}
                   />
+                  <OrderHandler />
                 </div>
                 <div className="outline p-2">
                   Timegap for <br />

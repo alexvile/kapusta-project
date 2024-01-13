@@ -14,7 +14,7 @@ import {
 import type { Income as IIncome, Prisma } from "@prisma/client";
 import { Income } from "~/components/income";
 import { requireUserId } from "~/utils/session.server";
-import { SortAndFilterBar } from "~/components/sort-and-filter-bar";
+import { SortAndFilterBar } from "~/components/SortAndFilter/SortAndFilterBar";
 import { ExpenseKind } from "@prisma/client";
 import {
   getISOFromAndToForToday,
@@ -150,7 +150,7 @@ export default function Incomes() {
     <>
       <div className="flex gap-3 bg-white outline">
         {/* topBar */}
-        <SortAndFilterBar type="incomes"/>
+        <SortAndFilterBar type="incomes" />
         <div>
           <Link to="new">Add income +</Link>
         </div>
