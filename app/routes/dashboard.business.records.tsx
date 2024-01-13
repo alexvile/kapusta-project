@@ -41,7 +41,7 @@ export default function Records() {
           </Form>
         </div>
       ))}
-      {/* <Calendar /> */}
+      <Calendar />
       {/* <Test errorElement={<ErrorBoundary />} */}
       <Outlet />
     </>

@@ -93,7 +93,6 @@ export const simpleUpdateRecordByCP = async (
   newStart: string,
   newEnd: string
 ) => {
-  console.log(recordId, newStart, newEnd);
   return await db.record.update({
     data: {
       plannedStartTime: newStart,
