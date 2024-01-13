@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import {
   ActionArgs,
   LoaderFunction,
@@ -66,7 +67,8 @@ export default function Index() {
   // useMatches
   // React.createContext
 
-  const { user }: { user: string } = useLoaderData();
+  const { user }: { user: Pick<User, "id" | "email" | "profile"> } =
+    useLoaderData();
 
   // console.log(allExpenses);
   // console.log(allIncomes);

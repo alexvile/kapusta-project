@@ -16,6 +16,7 @@ module.exports = {
         expenses: "#E7192E",
         income: "#407946",
         "bg-main": "#F5F6FB",
+        lightBg: "#F5F6FA",
         "bg-input": "#F6F7FB",
         chart: {
           DEFAULT: "#FF751D",
@@ -27,6 +28,9 @@ module.exports = {
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
+      },
+      fontSize: {
+        label: ["12px", "12px"],
       },
     },
     plugins: [],

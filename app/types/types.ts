@@ -1,7 +1,3 @@
-interface User {
-  id: string;
-  email: string;
-}
 type LoginForm = {
   email: string;
   password: string;

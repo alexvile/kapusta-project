@@ -25,7 +25,7 @@ export default function App() {
         <style data-fullcalendar />
         <Links />
       </head>
-      <body>
+      <body className="antialiased">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

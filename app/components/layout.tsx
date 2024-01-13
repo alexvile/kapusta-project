@@ -1,11 +1,14 @@
+import { User } from "@prisma/client";
 import { Header } from "./header";
 
+// todo - using context
 export function Layout({
   children,
   user,
 }: {
   children: React.ReactNode;
-  user?: User;
+  // Pick<IIncome, "value" | "type">[];
+  user?: Pick<User, "id" | "email" | "profile">;
 }) {
   return (
     <>
