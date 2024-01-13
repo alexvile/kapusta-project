@@ -32,6 +32,12 @@ module.exports = {
       fontSize: {
         label: ["12px", "12px"],
       },
+      letterSpacing: {
+        medium: "0.48px",
+      },
+      screens: {
+        dt: "1024px",
+      },
     },
     plugins: [],
   },

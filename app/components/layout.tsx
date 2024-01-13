@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { Header } from "./header";
+import { Header } from "./Header/Header";
 
 // todo - using context
 export function Layout({

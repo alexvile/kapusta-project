@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 
+// ----767 - mobile
+// md - 768 - tablet
+// ? lg - 1024 ????
+// xl - 1280 - desktop */
+
 @font-face {
   font-family: "Roboto";
   src: url("../public/fonts/Roboto-Regular.ttf");
