@@ -32,25 +32,81 @@ export const Calendar = () => {
     }
   }, [fetcher]);
 
+  // useEffect(() => {
+  // if (!actionData) return;
+  // const calendarNewEvent = convertToCalendarFormatSingle(
+  //   actionData,
+  //   teacherId,
+  //   profile
+  // );
+  // calendarRef.current.calendar.addEvent(calendarNewEvent);
+
+  // }, [actionData]);
+
+  // const eventChangeHandler = async (e) => {
+  //   const { oldEvent, event, revert } = e;
+
+  //   const newStart = localWithTZtoIsoString(event.startStr);
+  //   const newEnd = localWithTZtoIsoString(event.endStr);
+
+  //   const formData = new FormData();
+  //   formData.append("intent", "update");
+  //   formData.append("id", oldEvent.id);
+  //   formData.append("start", newStart);
+  //   formData.append("end", newEnd);
+  //   console.log(formData);
+  //   fetcher.submit(formData, {
+  //     method: "PATCH",
+  //     action: "/service/lessons-actions",
+  //   });
+  // };
+  // const eventRemoveHandler = async (e) => {
+  //   const { event, revert } = e;
+  //   const formData = new FormData();
+  //   formData.append("intent", "delete");
+  //   formData.append("id", event.id);
+  //   fetcher.submit(formData, {
+  //     method: "DELETE",
+  //     action: "/service/lessons-actions",
+  //   });
+  // };
+  // const handleEventClick = (e) => {
+  //   const eventOwnerId = e.event.extendedProps?.serviceData?.ownerTeacherId;
+  //   if (!eventOwnerId || teacherId !== eventOwnerId) return;
+
+  //   if (
+  //     confirm(`Are you sure you want to delete the event '${e.event.title}'`)
+  //   ) {
+  //     e.event.remove();
+  //   }
+  // };
+
   const handleDateClick = (arg) => {
     // only for mobile devices !!!!!!
     console.log("DataClick");
     console.log(arg);
+
+    // const startInISO = selectArgs.start.toISOString();
+    // const endInISO = selectArgs.end.toISOString();
+    // setStartTime(startInISO);
+    // setEndTime(endInISO);
+
+    // setIsOpenModal(!isOpenModal);
     // prompt("Please enter a new title for your event");
 
-    let title = prompt("Please enter a new title for your event");
-    let calendarApi = arg.view.calendar;
-    console.log(calendarApi);
-    // calendarApi.unselect(); // clear date selection
+    // let title = prompt("Please enter a new title for your event");
+    // let calendarApi = arg.view.calendar;
+    // console.log(calendarApi);
+    // // calendarApi.unselect(); // clear date selection
 
-    if (title) {
-      calendarApi.addEvent({
-        id: new Date().toISOString(),
-        title,
-        start: arg.dateStr,
-        allDay: arg.allDay,
-      });
-    }
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: new Date().toISOString(),
+    //     title,
+    //     start: arg.dateStr,
+    //     allDay: arg.allDay,
+    //   });
+    // }
   };
 
   const eventChangeHandler = async (e) => {
@@ -116,6 +172,9 @@ export const Calendar = () => {
       {loading && <div className="absolute">loading...</div>}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        // slotDuration="00:15:00"
+        // slotLabelInterval="00:30"
+        // slotEventOverlap={false}
         // events
         // todo - may use function instead ???
         events={"/service/records"}
@@ -154,6 +213,8 @@ export const Calendar = () => {
           minute: "2-digit",
           hour12: false,
         }}
+        slotMinTime="08:00:00"
+        slotMaxTime="21:00:00"
         // db handlers
         eventAdd={eventAddHandler}
         eventChange={eventChangeHandler}
