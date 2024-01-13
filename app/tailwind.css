@@ -30,3 +30,7 @@ th {
 .navLinks a.pending::after {
   content: "Loading... ";
 }
+
+#modal {
+  z-index: 2;
+}
