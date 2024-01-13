@@ -13,6 +13,7 @@ module.exports = {
         placeholder: "#A6ABB9",
         error: "#EB5757",
         light: "#ffffff",
+        white: "#ffffff",
         expenses: "#E7192E",
         income: "#407946",
         "bg-main": "#F5F6FB",
@@ -33,6 +34,7 @@ module.exports = {
         label: ["12px", "12px"],
       },
       letterSpacing: {
+        small: "0.24px",
         medium: "0.48px",
       },
       screens: {

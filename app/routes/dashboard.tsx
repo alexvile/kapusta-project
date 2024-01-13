@@ -90,7 +90,12 @@ export default function Index() {
           &nbsp;* business structure
         </Link>
 
-        <Link to="transactions" title="" aria-label="" className="outline mr-3">
+        <Link
+          to="transactions/expenses"
+          title=""
+          aria-label=""
+          className="outline mr-3"
+        >
           &nbsp;* transactions(incomes/expenses)
         </Link>
 
