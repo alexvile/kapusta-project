@@ -2,8 +2,9 @@ import { Link, useLocation } from "@remix-run/react";
 import { Balance } from "./balance";
 import { useEffect, useState } from "react";
 import { getFullMonthStartEndDays } from "~/helpers/timeConvertor";
+import { Svg } from "./Svg";
 
-export const TopBar = ({ balance }: { balance: IBalance }) => {
+export const TopBar = ({ balance }: { balance: number }) => {
   const location = useLocation();
   // const [isReports, setIsReports] = useState(Boolean);
   const checkIsReport = () => {
@@ -48,9 +49,7 @@ export const TopBar = ({ balance }: { balance: IBalance }) => {
             <span>&nbsp;</span>
           )}
         </div>
-        <div>
-          <Balance balance={balance} />
-        </div>
+        <Balance balance={balance} />
         <div>
           {isReports ? (
             <div>
@@ -65,7 +64,16 @@ export const TopBar = ({ balance }: { balance: IBalance }) => {
               /> */}
             </div>
           ) : (
-            <Link to="/dashboard/transactions/reports">Reports</Link>
+            <div>
+              <Link to="/dashboard/transactions/reports">
+                <span className="flex justify-between items-center gap-3.5 [&>svg]:w-full">
+                  <span className="text-secondary opacity-70 font-roboto text-label tracking-medium pt-[3px]">
+                    Reports
+                  </span>
+                  <Svg name="chart" />
+                </span>
+              </Link>
+            </div>
           )}
         </div>
       </div>

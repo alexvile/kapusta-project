@@ -20,7 +20,7 @@ export const UserBar = ({
           <span className="md:hidden">
             <Svg name="logout" />
           </span>
-          <span className="max-md:hidden tracking-medium text-label font-roboto text-secondary">
+          <span className="max-md:hidden tracking-medium text-label font-roboto text-secondary underline">
             Exit
           </span>
         </button>
