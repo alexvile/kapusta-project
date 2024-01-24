@@ -12,7 +12,7 @@ import { DateInput } from "../date-input";
 import { getLocalDate } from "~/helpers/timeConvertor";
 import { Button } from "../button";
 import { Svg } from "../Svg";
-import { OrderHandler } from "./DirectionHandler";
+import { DirectionHandler } from "./DirectionHandler";
 
 interface ISortAndFilter {
   type: "incomes" | "expenses";
@@ -20,17 +20,17 @@ interface ISortAndFilter {
 // need to use as global type !!!
 
 export function SortAndFilterBar({ type }: ISortAndFilter) {
-  const [sortOption, setSortOption] = useState();
-  const [direction, setDirection] = useState();
-  const [timeFrom, setTimeFrom] = useState();
-  const [timeTo, setTimeTo] = useState();
-  const [category, setCategory] = useState();
+  const navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+
+  const [sortOption, setSortOption] = useState(() => searchParams.get("sort"));
+  const [direction, setDirection] = useState(() => searchParams.get("dir"));
+  const [timeFrom, setTimeFrom] = useState(() => searchParams.get("from"));
+  const [timeTo, setTimeTo] = useState(() => searchParams.get("to"));
+  const [category, setCategory] = useState(() => searchParams.get("category"));
 
   const date = getLocalDate();
   // todo use useRef or useMemo or UseCallback to not rerender date
-
-  const navigate = useNavigate();
-  let [searchParams] = useSearchParams();
 
   const clearFilters = () => {
     searchParams.delete("filter");
@@ -54,7 +54,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
 
   useEffect(() => {
     // todo = at the start value = undefined, need default value
-    // console.log(sortOption, direction);
+    console.log(sortOption, direction);
   }, [sortOption, direction]);
 
   return (
@@ -80,10 +80,10 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     onChange={(e) => {
                       setSortOption(e.currentTarget.value);
                     }}
-                    value={sortOption || searchParams.get("sort")}
+                    value={sortOption}
                   />
-                  <OrderHandler
-                    value={direction || searchParams.get("dir")}
+                  <DirectionHandler
+                    value={direction}
                     handler={(e) => {
                       setDirection(e.currentTarget.value);
                     }}
@@ -100,7 +100,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     onChange={(e) => {
                       setTimeFrom(e.currentTarget.value);
                     }}
-                    value={timeFrom || searchParams.get("from")}
+                    value={timeFrom}
                   />
                   <DateInput
                     name="to"
@@ -110,7 +110,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     onChange={(e) => {
                       setTimeTo(e.currentTarget.value);
                     }}
-                    value={timeTo || searchParams.get("to")}
+                    value={timeTo}
                   />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                       onChange={(e) => {
                         setCategory(e.currentTarget.value);
                       }}
-                      value={category || searchParams.get("category")}
+                      value={category}
                     />
                   </div>
                 </div>

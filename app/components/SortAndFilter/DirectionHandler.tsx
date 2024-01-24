@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Svg } from "../Svg";
 // todo - SVG container
-export const OrderHandler = ({ value, handler }) => {
+export const DirectionHandler = ({ value, handler }) => {
   const getInitial = () => {
     return value === "desc" ? true : false;
   };
