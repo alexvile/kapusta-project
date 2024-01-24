@@ -15,7 +15,8 @@ module.exports = {
         light: "#ffffff",
         white: "#ffffff",
         expenses: "#E7192E",
-        income: "#407946",
+        expenses2: "#E53935",
+        incomes: "#407946",
         mainBg: "#F5F6FB",
         lightBg: "#F5F6FA",
         "bg-input": "#F6F7FB",
@@ -32,10 +33,12 @@ module.exports = {
       },
       fontSize: {
         label: ["12px", "12px"],
+        mmm: ["14px", "14px"],
       },
       letterSpacing: {
         small: "0.24px",
         medium: "0.48px",
+        big: "0.56px",
       },
       screens: {
         dt: "1024px",
@@ -47,3 +50,4 @@ module.exports = {
 
 // todo: remove extend at production
 // todo - lg screen - 1024 for develop, 1280 for prod
+// todo -rename some values

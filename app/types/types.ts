@@ -25,6 +25,7 @@ type Transaction = {
 };
 type IBalance = number;
 
+export type DirectionType = "asc" | "desc";
 export type MonthTransaction = {
   month: number;
   total: number;

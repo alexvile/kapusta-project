@@ -22,7 +22,6 @@ const getLastSixMonthIndexes = () => {
 
 // todo - urizanui typ transaction with id, value and createdTime
 export function calculateByMonths(array: ITransaction[]) {
-  // console.log(1, array);
   let orderKey = 0;
   let groups = array.reduce(function (r: any, o: ITransaction) {
     const m = new Date(o.createdTime).getMonth();
@@ -45,6 +44,5 @@ export function calculateByMonths(array: ITransaction[]) {
       ? arrWithZeros.push({ month: el?.month, total: el?.total })
       : arrWithZeros.push({ month: i, total: 0 });
   });
-  console.log(arrWithZeros);
   return arrWithZeros;
 }
