@@ -84,9 +84,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                   />
                   <DirectionHandler
                     value={direction}
-                    handler={(e) => {
-                      setDirection(e.currentTarget.value);
-                    }}
+                    setDirection={setDirection}
                   />
                 </div>
                 <div className="outline p-2">

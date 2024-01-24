@@ -1,24 +1,30 @@
 import { useState } from "react";
 import { Svg } from "../Svg";
+import { DirectionType } from "~/types/types";
 // todo - SVG container
-export const DirectionHandler = ({ value, handler }) => {
+interface DirectionHandlerProps {
+  // todo - ts check
+  // value: DirectionType | null;
+  // setDirection: React.Dispatch<React.SetStateAction<DirectionType | null>>;
+  value: string | null;
+  setDirection: React.Dispatch<React.SetStateAction<string | null>>;
+}
+export const DirectionHandler = ({
+  value,
+  setDirection,
+}: DirectionHandlerProps) => {
   const getInitial = () => {
     return value === "desc" ? true : false;
   };
-  const [checked, setChecked] = useState(() => getInitial());
+  const [checked, setChecked] = useState<boolean>(() => getInitial());
   const handleChange = () => {
     setChecked(!checked);
+    setDirection(checked ? "desc" : "asc");
   };
-  // todo - ts chec
+  // todo - ts check
   return (
     <div className="flex pt-3">
-      <input
-        type="hidden"
-        name="dir"
-        value={checked ? "desc" : "asc"}
-        onChange={handler}
-      />
-
+      <input type="hidden" name="dir" defaultValue={checked ? "desc" : "asc"} />
       <label>
         <input
           type="checkbox"
