@@ -46,3 +46,4 @@ module.exports = {
 };
 
 // todo: remove extend at production
+// todo - lg screen - 1024 for develop, 1280 for prod

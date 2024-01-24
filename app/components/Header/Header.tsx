@@ -10,7 +10,7 @@ export function Header({
   return (
     <header className="bg-white">
       {/* <nav></nav> */}
-      <div className="flex justify-between py-3 px-5 md:px-8 dt:px-4">
+      <div className="flex justify-between py-3 px-5 md:px-8 lg:px-4">
         {/* left */}
         <Svg title="Kapusta logo" titleId="kapusta-logo" name="logo" />
         {/* right */}
