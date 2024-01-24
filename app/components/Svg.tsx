@@ -136,7 +136,7 @@ export const Svg = ({
           </defs>
         </svg>
       );
-    case "descending":
+    case "ascending":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,7 @@ export const Svg = ({
           </g>
         </svg>
       );
-    case "ascending":
+    case "descending":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"

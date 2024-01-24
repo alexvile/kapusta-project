@@ -12,7 +12,7 @@ import { DateInput } from "../date-input";
 import { getLocalDate } from "~/helpers/timeConvertor";
 import { Button } from "../button";
 import { Svg } from "../Svg";
-import { OrderHandler } from "./OrderHandler";
+import { OrderHandler } from "./DirectionHandler";
 
 interface ISortAndFilter {
   type: "incomes" | "expenses";
@@ -82,16 +82,12 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     }}
                     value={sortOption || searchParams.get("sort")}
                   />
-                  <SelectBox
-                    name="dir"
-                    options={dirOptions}
-                    id="2"
-                    onChange={(e) => {
+                  <OrderHandler
+                    value={direction || searchParams.get("dir")}
+                    handler={(e) => {
                       setDirection(e.currentTarget.value);
                     }}
-                    value={direction || searchParams.get("dir")}
                   />
-                  <OrderHandler />
                 </div>
                 <div className="outline p-2">
                   Timegap for <br />
