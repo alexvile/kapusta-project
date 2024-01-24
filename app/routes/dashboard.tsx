@@ -23,6 +23,7 @@ import { summarizeTransactions } from "~/helpers/calculations";
 import { getUser, requireUserId } from "~/utils/session.server";
 import { getAllBusinessesWithServicesByOwnerId } from "~/utils/structure.server";
 
+// todo - button "Now" when we fill Date-time inputs
 // todo - remove unnecessary imports
 export const meta: V2_MetaFunction = () => {
   return [{ title: "Kapusta App" }];
@@ -80,6 +81,8 @@ export default function Index() {
       {/* <Form action="" method="post">
         <button type="submit">get all balance</button>
       </Form> */}
+
+      {/* todo - vertical side open-close navigation */}
       <Layout user={user}>
         {isLoading && <h1 className="absolute">Loading...</h1>}
         <Link to="/" title="" aria-label="">

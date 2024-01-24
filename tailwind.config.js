@@ -16,7 +16,7 @@ module.exports = {
         white: "#ffffff",
         expenses: "#E7192E",
         income: "#407946",
-        "bg-main": "#F5F6FB",
+        mainBg: "#F5F6FB",
         lightBg: "#F5F6FA",
         "bg-input": "#F6F7FB",
         chart: {

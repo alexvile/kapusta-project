@@ -4,6 +4,8 @@ import { Modal } from "./modal";
 import { useState } from "react";
 import { Button } from "./button";
 import { formatIsoUTCStringToLocalWithoutSeconds } from "~/helpers/timeConvertor";
+import { Svg } from "./Svg";
+// todo -  hover to all SVG. Use currentColor instead hardcoded
 // todo - import all types from Prisma. Do not create extra
 export function Expense({ ...props }: Partial<IExpense>) {
   const { type, description, createdTime, value, id } = props;
@@ -32,7 +34,11 @@ export function Expense({ ...props }: Partial<IExpense>) {
         <Link to={url}>Ed</Link>
       </td>
       <td>
-        <button onClick={handleClick}>De</button>
+        <button onClick={handleClick}>
+          <span className="w-8 h-8 bg-mainBg flex items-center justify-center rounded-full">
+            <Svg name="delete" />
+          </span>
+        </button>
         <Modal isOpen={open} onClose={handleClick} type="popup">
           <p className="pb-5 text-center">Are you sure ?</p>
           <div className="flex justify-center gap-4">

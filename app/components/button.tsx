@@ -8,7 +8,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 // todo: use Pick to get some of props
-
+// todo - onPress insteda onClick
 export function Button({
   label,
   type = "submit",
@@ -27,7 +27,7 @@ export function Button({
       break;
     case "secondary-shadowed":
       s +=
-        "bg-bg-main text-secondary drop-shadow-[1px_3px_5px_rgba(82,85,95,0.15)]";
+        "bg-mainBg text-secondary drop-shadow-[1px_3px_5px_rgba(82,85,95,0.15)]";
       break;
     case "primary":
       s += "bg-accent text-light";
@@ -36,7 +36,7 @@ export function Button({
       s += "bg-light text-secondary border-solid border-2 border-bg-input";
       break;
     default:
-      s += "bg-bg-main";
+      s += "bg-mainBg";
   }
   return (
     <>
