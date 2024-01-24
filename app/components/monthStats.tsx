@@ -1,5 +1,6 @@
 import type { Expense as IExpense, Income as IIncome } from "@prisma/client";
 import { summarizeTransactions } from "~/helpers/calculations";
+import { formatToPrice } from "~/helpers/priceFormat";
 export const MonthStats = ({
   expenses,
   incomes,
@@ -8,18 +9,32 @@ export const MonthStats = ({
   incomes: Pick<IIncome, "value">[];
 }) => {
   // todo functions for calulations
+
+  const getMonthTransactions = (
+    transactions: Pick<IExpense, "value">[] | Pick<IIncome, "value">[]
+  ) => {
+    return formatToPrice(
+      transactions.length > 0 ? summarizeTransactions(expenses) : 0
+    );
+  };
   return (
-    <div className="flex justify-evenly items-center bg-white rounded border border-black m-3">
-      <div>
-        <span>Expenses:</span>
-        <span>
-          - {expenses.length > 0 ? summarizeTransactions(expenses) : 0} UAH
+    <div className="flex py-[7px] gap-5 items-center justify-center bg-white rounded-[30px] mx-10 drop-shadow-[0px_10px_60px_0px_rgba(170,178,197,0.20)]">
+      <div className="pr-5 border-r">
+        <span className="text-secondary font-roboto text-mmm font-bold pr-4">
+          Expenses:
+        </span>
+        <span className="text-expenses2 text-mmm tracking-big font-roboto font-bold">
+          - {getMonthTransactions(expenses)}
         </span>
       </div>
-      <div>Income: </div>
-      <span>
-        + {incomes.length > 0 ? summarizeTransactions(incomes) : 0} UAH
-      </span>
+      <div>
+        <span className="text-secondary font-roboto text-mmm font-bold pr-4">
+          Income:{" "}
+        </span>
+        <span className="text-incomes text-mmm tracking-big font-roboto font-bold">
+          + {getMonthTransactions(incomes)}
+        </span>
+      </div>
     </div>
   );
 };
