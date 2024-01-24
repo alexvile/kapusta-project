@@ -1,3 +1,13 @@
+import type {
+  Record as IRecord,
+  Client as IClient,
+  Prisma,
+} from "@prisma/client";
+import type {
+  Business as IBusiness,
+  Service as IService,
+} from "@prisma/client";
+
 type LoginForm = {
   email: string;
   password: string;
@@ -14,20 +24,15 @@ type Transaction = {
   type: string;
 };
 type IBalance = number;
+
+export type MonthTransaction = {
+  month: number;
+  total: number;
+};
 // enum transactionType {
 //   Expenses,
 //   Incomes,
 // }
-
-import type {
-  Record as IRecord,
-  Client as IClient,
-  Prisma,
-} from "@prisma/client";
-import type {
-  Business as IBusiness,
-  Service as IService,
-} from "@prisma/client";
 
 // todo - sort types folder, add separate files for each group
 export interface IPopulatedRecord {
