@@ -3,10 +3,31 @@ module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: {
+          // DEFAULT: "1rem",
+          // sm: "2rem",
+          // md: "5rem",
+          // lg: "4rem",
+          // xl: "5rem",
+          // "2xl": "6rem",
+        },
+        screens: {
+          // md: "768px",
+        },
+      },
       colors: {
         accent: {
           light: "#fb7c2f33",
           DEFAULT: "#FB7C2F",
+        },
+        navLinks: {
+          activeBg: "#FEFEFE",
+          normalBg: "#FAFBFD",
+          activeText: "#FF751D",
+          normalText: "#000000",
+          pendingText: "#00FF00",
         },
         main: "#000000",
         secondary: "#52555F",
@@ -36,6 +57,7 @@ module.exports = {
         mmm: ["14px", "14px"],
       },
       letterSpacing: {
+        // 2%
         small: "0.24px",
         medium: "0.48px",
         big: "0.56px",

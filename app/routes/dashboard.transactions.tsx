@@ -1,5 +1,6 @@
 import { LoaderFunction, json, redirect } from "@remix-run/node";
 import { Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
+import { NavLinks } from "~/components/Navigation/NavLinks";
 import { TopBar } from "~/components/top-bar";
 import { summarizeTransactions } from "~/helpers/calculations";
 import { requireUserId } from "~/utils/session.server";
@@ -30,32 +31,19 @@ export default function Transactions() {
     allIncomes: number;
   } = useLoaderData();
   const balance: IBalance = allIncomes - allExpenses;
+  // todo - refactor
+  const arr = [
+    { to: "expenses", label: "Expenses" },
+    { to: "incomes", label: "Incomes" },
+  ];
   return (
     <>
       <div>Transactions - opened</div>
       <TopBar balance={balance} />
       {/* tabs */}
       {/* one of tabs should be opened by default */}
-      <>
-        <div className="navLinks">
-          <NavLink
-            to="expenses"
-            className={({ isActive, isPending }) =>
-              isPending ? "pending" : isActive ? "active" : ""
-            }
-          >
-            (Expenses - l)
-          </NavLink>
-          <NavLink
-            to="incomes"
-            className={({ isActive, isPending }) =>
-              isPending ? "pending" : isActive ? "active" : ""
-            }
-          >
-            (Incomes - l)
-          </NavLink>
-        </div>
-      </>
+
+      <NavLinks navLinks={arr} />
       <Outlet />
     </>
   );

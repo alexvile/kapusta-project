@@ -15,7 +15,7 @@ export default function Business() {
       <div>Business - title</div>
       {/* tabs */}
       {/* one of tabs should be opened by default */}
-      <div className="navLinks">
+      <div className="nav-links">
         <NavLink
           to="clients"
           className={({ isActive, isPending }) =>
