@@ -23,9 +23,9 @@ export const DirectionHandler = ({
   };
   // todo - ts check
   return (
-    <div className="flex pt-3">
+    <div className="flex">
       <input type="hidden" name="dir" defaultValue={checked ? "desc" : "asc"} />
-      <label>
+      <label className="cursor-pointer">
         <input
           type="checkbox"
           className="hidden"

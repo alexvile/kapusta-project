@@ -39,7 +39,7 @@ export const TopBar = ({ balance }: { balance: number }) => {
   //   }, [month]);
 
   return (
-    <div className="outline p-3">
+    <div className=" p-3">
       <div className="flex items-center justify-around">
         <div>
           {/* todo - we should remember page and state from where we came !!!! */}

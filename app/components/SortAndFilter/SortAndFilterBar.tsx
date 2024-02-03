@@ -59,7 +59,6 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
 
   return (
     <div className="bg-white p-2 outline">
-      Sort and filter
       <div className="flex gap-5">
         <div className="flex items-center justify-center h-fit gap-2.5">
           <Svg name="calendar" />
@@ -71,8 +70,8 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
           <Form>
             <div className="flex gap-4">
               <div className="flex flex-wrap gap-6">
-                <div className="outline p-2">
-                  Sorting
+                <div className="flex gap-2">
+                  {/* Sort */}
                   <SelectBox
                     name="sort"
                     options={sortOptions}
@@ -87,9 +86,8 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     setDirection={setDirection}
                   />
                 </div>
-                <div className="outline p-2">
-                  Timegap for <br />
-                  CratedTime
+                <div className="flex">
+                  {/* Date filter */}
                   <DateInput
                     name="from"
                     id="timeFrom"
@@ -146,8 +144,8 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                   label="clear"
                   className="w-fit min-w-0"
                   style="secondary"
+                  onClick={clearFilters}
                 />
-                <button onClick={clearFilters}>Clear Filters</button>
               </div>
             </div>
 

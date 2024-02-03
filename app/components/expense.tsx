@@ -35,7 +35,7 @@ export function Expense({ ...props }: Partial<IExpense>) {
       </td>
       <td>
         <button onClick={handleClick}>
-          <span className="w-8 h-8 bg-mainBg flex items-center justify-center rounded-full">
+          <span className="w-8 h-8 hover:bg-mainBg flex items-center justify-center rounded-full">
             <Svg name="delete" />
           </span>
         </button>

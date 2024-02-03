@@ -8,7 +8,7 @@ import {
   useSubmit,
 } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
-import { MonthStats } from "~/components/monthStats";
+import { MonthStats } from "~/components/MonthStats";
 import { TransactionSwitcher } from "~/components/transaction-switcher";
 import {
   getCurrentIsoYearAndMonth,
