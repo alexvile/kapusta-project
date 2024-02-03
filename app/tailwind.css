@@ -3,12 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 1034 */
+@layer components {
+  .container {
+    @apply md:max-w-[704px] lg:max-w-[934px];
+  }
+}
 /* 
 // ----767 - mobile
 // md - 768 - tablet
 // ? lg - 1024 ????
 // xl - 1280 - desktop */
-
+/* connect another ROboto */
 @font-face {
   font-family: "Roboto";
   src: url("../public/fonts/Roboto-Regular.ttf");
@@ -20,21 +26,12 @@
   z-index: 1;
 }
 table {
-  background: white;
+  /* background: white; */
 }
 td,
 th {
   padding: 10px;
   border: 1px solid black;
-}
-.navLinks a.active {
-  color: red;
-}
-.navLinks a.pending {
-  color: orange;
-}
-.navLinks a.pending::after {
-  content: "Loading... ";
 }
 
 #modal {

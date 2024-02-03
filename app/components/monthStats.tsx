@@ -18,7 +18,7 @@ export const MonthStats = ({
     );
   };
   return (
-    <div className="flex py-[7px] gap-5 items-center justify-center bg-white rounded-[30px] mx-10 drop-shadow-[0px_10px_60px_0px_rgba(170,178,197,0.20)]">
+    <div className="flex py-[7px] gap-5 items-center justify-center bg-white rounded-[30px] drop-shadow-[0px_10px_60px_0px_rgba(170,178,197,0.20)]">
       <div className="pr-5 border-r">
         <span className="text-secondary font-roboto text-mmm font-bold pr-4">
           Expenses:
