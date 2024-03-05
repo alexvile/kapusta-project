@@ -1,5 +1,6 @@
 import type { Expense as IExpense } from "@prisma/client";
 import { TransactionRow } from "./TransactionRow";
+import { RowPlaceholder } from "./RowPlaceholder";
 
 type TransactionsTableProps = {
   filteredTransactions: IExpense[];
@@ -9,13 +10,13 @@ export const TransactionsTable = ({
 }: TransactionsTableProps) => {
   return (
     <table className="table-auto rounded-t-3xl overflow-hidden">
-      <thead className="bg-mainBg">
+      <thead className="bg-tableBorder border-2 border-tableBorder">
         <tr>
           <th>Date</th>
           <th>Description</th>
           <th>Category</th>
           <th>Sum</th>
-          <th>Edit</th>
+          <th>Ed</th>
           <th>Del</th>
         </tr>
       </thead>
@@ -26,6 +27,8 @@ export const TransactionsTable = ({
           filteredTransactions.map((transaction: IExpense) => (
             <TransactionRow key={transaction.id} {...transaction} />
           ))}
+        {/* need to refactor this */}
+        <RowPlaceholder rows={4} />
       </tbody>
     </table>
   );

@@ -40,6 +40,7 @@ module.exports = {
         incomes: "#407946",
         mainBg: "#F5F6FB",
         lightBg: "#F5F6FA",
+        tableBorder: "#F5F6FB",
         "bg-input": "#F6F7FB",
         chart: {
           DEFAULT: "#FF751D",

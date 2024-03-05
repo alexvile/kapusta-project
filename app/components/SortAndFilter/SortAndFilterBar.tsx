@@ -1,11 +1,10 @@
 import { Form, useNavigate, useSearchParams } from "@remix-run/react";
 // import { sortOptions } from "~/utils/constants";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { SelectBox } from "../select-box";
 import {
   ExpenseKindsForFilter,
   IncomeKindsForFilter,
-  dirOptions,
   sortOptions,
 } from "~/utils/constants";
 import { DateInput } from "../date-input";
@@ -13,9 +12,10 @@ import { getLocalDate } from "~/helpers/timeConvertor";
 import { Button } from "../button";
 import { Svg } from "../Svg";
 import { DirectionHandler } from "./DirectionHandler";
+import { TransactionType } from "~/types/types";
 
 interface ISortAndFilter {
-  type: "incomes" | "expenses";
+  type: TransactionType;
 }
 // need to use as global type !!!
 
@@ -72,6 +72,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
               <div className="flex flex-wrap gap-6">
                 <div className="flex gap-2">
                   {/* Sort */}
+                  Sort By:{" "}
                   <SelectBox
                     name="sort"
                     options={sortOptions}
@@ -92,17 +93,18 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     name="from"
                     id="timeFrom"
                     type="date"
-                    label="Time From"
+                    label="From"
                     onChange={(e) => {
                       setTimeFrom(e.currentTarget.value);
                     }}
                     value={timeFrom}
                   />
+                  -----
                   <DateInput
                     name="to"
                     id="timeTo"
                     type="date"
-                    label="Time To"
+                    label="To"
                     onChange={(e) => {
                       setTimeTo(e.currentTarget.value);
                     }}
