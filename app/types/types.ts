@@ -29,6 +29,7 @@ export type MonthTransaction = {
   month: number;
   total: number;
 };
+export type TransactionType = "expenses" | "incomes";
 // enum transactionType {
 //   Expenses,
 //   Incomes,

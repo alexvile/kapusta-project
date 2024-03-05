@@ -27,10 +27,12 @@
 }
 table {
   /* background: white; */
+  height: fit-content;
 }
 td,
 th {
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   /* border: 1px solid black; */
 }
 
