@@ -7,12 +7,14 @@ import { formatIsoUTCStringToLocalWithoutSeconds } from "~/helpers/timeConvertor
 import { Svg } from "./Svg";
 // todo -  hover to all SVG. Use currentColor instead hardcoded
 // todo - import all types from Prisma. Do not create extra
-export function Expense({ ...props }: Partial<IExpense>) {
+export function Expense({
+  ...props
+}: Pick<IExpense, "id" | "type" | "description" | "createdTime" | "value">) {
   const { type, description, createdTime, value, id } = props;
   const url = `${id}/edit`;
-  if (typeof createdTime !== "string") {
-    return alert("Time wrong type");
-  }
+  // if (typeof createdTime !== "string") {
+  //   return alert("Time wrong type");
+  // }
   const formattedData = formatIsoUTCStringToLocalWithoutSeconds(createdTime);
   // todo - normal data view + optimization
   // console.log(createdTime);
@@ -26,7 +28,7 @@ export function Expense({ ...props }: Partial<IExpense>) {
   // sdf
   return (
     <tr className="">
-      <td>{formattedData}</td>
+      <td>{formattedData || 0}</td>
       <td>{description}</td>
       <td>{type}</td>
       <td>-{value}&nbsp;UAH</td>
