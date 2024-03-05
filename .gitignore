@@ -10,3 +10,5 @@ node_modules
 /api/index.js
 /api/index.js.map
 package-lock.json
+api/metafile.server.json
+api/metafile.js.json
