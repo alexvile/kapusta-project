@@ -151,9 +151,9 @@ export default function Expenses() {
           <Link to="new">Add expense +</Link>
         </div>
       </div>
-      <div className="flex gap-3">
-        <table className="table-auto">
-          <thead>
+      <div className="flex gap-3 bg-white">
+        <table className="table-auto rounded-t-3xl overflow-hidden">
+          <thead className="bg-mainBg">
             <tr>
               <th>Date</th>
               <th>Description</th>
