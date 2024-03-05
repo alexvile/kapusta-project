@@ -22,15 +22,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 // todo: decide if use requireuserID or getUserId
 export default function Transactions() {
   const {
-    user,
     allExpenses = 0,
     allIncomes = 0,
   }: {
-    user: User;
     allExpenses: number;
     allIncomes: number;
   } = useLoaderData();
-  const balance: IBalance = allIncomes - allExpenses;
+  const balance: number = allIncomes - allExpenses;
   // todo - refactor
   const arr = [
     { to: "expenses", label: "Expenses" },
@@ -38,11 +36,9 @@ export default function Transactions() {
   ];
   return (
     <>
-      <div>Transactions - opened</div>
       <TopBar balance={balance} />
       {/* tabs */}
       {/* one of tabs should be opened by default */}
-
       <NavLinks navLinks={arr} />
       <Outlet />
     </>

@@ -23,7 +23,6 @@ type Transaction = {
   value: number;
   type: string;
 };
-type IBalance = number;
 
 export type DirectionType = "asc" | "desc";
 export type MonthTransaction = {
