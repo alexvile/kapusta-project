@@ -12,7 +12,6 @@ import {
   getFilteredIncomes,
 } from "~/utils/transaction.server";
 import type { Income as IIncome, Prisma } from "@prisma/client";
-import { Income } from "~/components/income";
 import { requireUserId } from "~/utils/session.server";
 import { SortAndFilterBar } from "~/components/SortAndFilter/SortAndFilterBar";
 import { ExpenseKind } from "@prisma/client";
@@ -23,7 +22,7 @@ import {
   localDateToToIsoString,
 } from "~/helpers/timeConvertor";
 
-import { Summary } from "~/components/summary";
+import { TransactionsMain } from "~/components/TransactionsBottom/TransactionsMain";
 
 export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
@@ -155,28 +154,10 @@ export default function Incomes() {
           <Link to="new">Add income +</Link>
         </div>
       </div>
-      <div className="flex gap-3">
-        <table className="table-auto">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Sum</th>
-              <th>Edit</th>
-              <th>Del</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredIncomes?.length > 0 &&
-              filteredIncomes.map((income: IIncome) => (
-                <Income key={income.id} {...income} />
-              ))}
-          </tbody>
-        </table>
-        <Summary transactions={sixMonthsIncomes} />
-      </div>
-
+      <TransactionsMain
+        filteredTransactions={filteredIncomes}
+        sixMonthsTransactions={sixMonthsIncomes}
+      />
       <Outlet />
     </>
   );
