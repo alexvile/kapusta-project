@@ -58,7 +58,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
   }, [sortOption, direction]);
 
   return (
-    <div className="bg-white p-2 outline">
+    <div className="p-2">
       <div className="flex gap-5">
         <div className="flex items-center justify-center h-fit gap-2.5">
           <Svg name="calendar" />
@@ -69,56 +69,58 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
         <div>
           <Form>
             <div className="flex gap-4">
-              <div className="flex flex-wrap gap-6">
-                <div className="flex gap-2">
-                  {/* Sort */}
-                  Sort By:{" "}
-                  <SelectBox
-                    name="sort"
-                    options={sortOptions}
-                    id="1"
-                    onChange={(e) => {
-                      setSortOption(e.currentTarget.value);
-                    }}
-                    value={sortOption}
-                  />
-                  <DirectionHandler
-                    value={direction}
-                    setDirection={setDirection}
-                  />
+              <div className="flex flex-wrap col-gap-2">
+                <div className="w-full flex border-2 border-inputBorder rounded-tl-xl items-center justify-between gap-2 rounded-tr-xl">
+                  <div className="flex gap-2 items-center justify-start px-2 py-1 border-r-2 border-inputBorder">
+                    <p>Sort By:</p>
+                    <SelectBox
+                      name="sort"
+                      options={sortOptions}
+                      onChange={(e) => {
+                        setSortOption(e.currentTarget.value);
+                      }}
+                      value={sortOption}
+                    />
+                    <DirectionHandler
+                      value={direction}
+                      setDirection={setDirection}
+                    />
+                  </div>
+                  <div className="px-2 py-1">
+                    <input
+                      type="text"
+                      name="filter"
+                      placeholder="Search by description"
+                    />
+                  </div>
                 </div>
-                <div className="flex">
-                  {/* Date filter */}
-                  <DateInput
-                    name="from"
-                    id="timeFrom"
-                    type="date"
-                    label="From"
-                    onChange={(e) => {
-                      setTimeFrom(e.currentTarget.value);
-                    }}
-                    value={timeFrom}
-                  />
-                  -----
-                  <DateInput
-                    name="to"
-                    id="timeTo"
-                    type="date"
-                    label="To"
-                    onChange={(e) => {
-                      setTimeTo(e.currentTarget.value);
-                    }}
-                    value={timeTo}
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="filter"
-                    className="outline"
-                    placeholder="Search by description"
-                  />
-                  <div className="mt-4">
+
+                <div className="w-full flex items-center justify-between mt-1 rounded-bl-xl border-2 border-inputBorder rounded-br-xl">
+                  <div className="flex  gap-2 px-2 border-r-2 border-inputBorder">
+                    {/* Date filter */}
+                    <DateInput
+                      name="from"
+                      id="timeFrom"
+                      type="date"
+                      label="From"
+                      onChange={(e) => {
+                        setTimeFrom(e.currentTarget.value);
+                      }}
+                      value={timeFrom}
+                    />
+
+                    <DateInput
+                      name="to"
+                      id="timeTo"
+                      type="date"
+                      label="To"
+                      onChange={(e) => {
+                        setTimeTo(e.currentTarget.value);
+                      }}
+                      value={timeTo}
+                    />
+                  </div>
+                  <div className="px-2 py-1 ">
                     <SelectBox
                       name="category"
                       options={
@@ -126,7 +128,6 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                           ? ExpenseKindsForFilter
                           : IncomeKindsForFilter
                       }
-                      id="33"
                       onChange={(e) => {
                         setCategory(e.currentTarget.value);
                       }}
@@ -135,16 +136,13 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                   </div>
                 </div>
               </div>
+
               <div className="actions">
-                <Button
-                  type="submit"
-                  label="search"
-                  className="w-fit min-w-0"
-                />
+                <Button type="submit" label="s" className="w-fit !min-w-0" />
                 <Button
                   type="button"
-                  label="clear"
-                  className="w-fit min-w-0"
+                  label="c"
+                  className="w-fit !min-w-0"
                   style="secondary"
                   onClick={clearFilters}
                 />
