@@ -25,8 +25,10 @@ import {
 } from "~/helpers/timeConvertor";
 
 import { Summary } from "~/components/summary";
-import { TransactionsTable } from "~/components/TransactionsBottom/TransactionsTable";
-import { TransactionsMain } from "~/components/TransactionsBottom/TransactionsMain";
+import { TransactionsTable } from "~/components/Transactions/TransactionsBottom/TransactionsTable";
+import { TransactionsMain } from "~/components/Transactions/TransactionsBottom/TransactionsMain";
+import { TransactionsTop } from "~/components/Transactions/TransactionsTop";
+import { TransactionsLayout } from "~/components/Transactions/TransactionsLayout";
 
 export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
@@ -145,21 +147,15 @@ export const action = async ({ params, request }: ActionArgs) => {
 export default function Expenses() {
   const { filteredExpenses, sixMonthsExpenses } = useLoaderData();
   return (
-    <>
-      <div className="flex gap-3 bg-white outline">
-        {/* topBar */}
-        <SortAndFilterBar type="expenses" />
-        <div>
-          <Link to="new">Add expense +</Link>
-        </div>
-      </div>
+    <TransactionsLayout>
+      <TransactionsTop transactionType="expenses" />
       <TransactionsMain
         filteredTransactions={filteredExpenses}
         sixMonthsTransactions={sixMonthsExpenses}
         transactionType="expenses"
       />
       <Outlet />
-    </>
+    </TransactionsLayout>
   );
 }
 

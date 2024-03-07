@@ -22,7 +22,9 @@ import {
   localDateToToIsoString,
 } from "~/helpers/timeConvertor";
 
-import { TransactionsMain } from "~/components/TransactionsBottom/TransactionsMain";
+import { TransactionsMain } from "~/components/Transactions/TransactionsBottom/TransactionsMain";
+import { TransactionsTop } from "~/components/Transactions/TransactionsTop";
+import { TransactionsLayout } from "~/components/Transactions/TransactionsLayout";
 
 export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
@@ -146,21 +148,15 @@ export default function Incomes() {
   const { filteredIncomes, sixMonthsIncomes } = useLoaderData();
 
   return (
-    <>
-      <div className="flex gap-3 bg-white outline">
-        {/* topBar */}
-        <SortAndFilterBar type="incomes" />
-        <div>
-          <Link to="new">Add income +</Link>
-        </div>
-      </div>
+    <TransactionsLayout>
+      <TransactionsTop transactionType="incomes" />
       <TransactionsMain
         filteredTransactions={filteredIncomes}
         sixMonthsTransactions={sixMonthsIncomes}
         transactionType="incomes"
       />
       <Outlet />
-    </>
+    </TransactionsLayout>
   );
 }
 
