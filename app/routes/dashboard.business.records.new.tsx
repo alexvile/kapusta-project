@@ -190,7 +190,6 @@ export default function NewRecord() {
               options={businessOptions}
               label="business"
               hasEmptyOption={true}
-              id="1"
               onChange={(e) => {
                 setBusiness(e.currentTarget.value);
               }}
@@ -201,7 +200,6 @@ export default function NewRecord() {
               options={serviceOptions || []}
               label="service"
               hasEmptyOption={true}
-              id="2"
               onChange={(e) => {
                 setService(e.currentTarget.value);
               }}

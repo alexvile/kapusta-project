@@ -48,7 +48,6 @@ export const TransactionSwitcher = ({
       <SelectBox
         name="type"
         options={transactionTypes}
-        id="1"
         onChange={(e) => {
           setTransactionType(e.currentTarget.value);
         }}

@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 interface ISelectBox {
   options: {
     name: string;
@@ -6,7 +8,7 @@ interface ISelectBox {
   hasEmptyOption?: boolean;
   // className?: string;
   // containerClassName?: string;
-  id: string;
+
   name: string;
   label?: string;
   defaultValue?: any;
@@ -20,11 +22,11 @@ export function SelectBox({
   //   className = "",
   //   containerClassName = "",
   name,
-  id,
   value,
   label,
   defaultValue,
 }: ISelectBox) {
+  const id = useId();
   return (
     <div>
       <label htmlFor={id}>{label}</label>
@@ -33,7 +35,7 @@ export function SelectBox({
           name={name}
           id={id}
           defaultValue={defaultValue}
-          className="outline"
+          className="outline1"
           onChange={onChange}
           value={value || ""}
         >

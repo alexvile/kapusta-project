@@ -49,7 +49,6 @@ export function SortAndFilterClients() {
                   <SelectBox
                     name="sort"
                     options={sortOptionsClients}
-                    id="1"
                     onChange={(e) => {
                       setSortOption(e.currentTarget.value);
                     }}
@@ -58,7 +57,6 @@ export function SortAndFilterClients() {
                   <SelectBox
                     name="dir"
                     options={dirOptions}
-                    id="2"
                     onChange={(e) => {
                       setDirection(e.currentTarget.value);
                     }}

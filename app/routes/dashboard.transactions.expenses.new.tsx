@@ -108,7 +108,6 @@ export default function NewExpense() {
             <SelectBox
               options={ExpenseKinds}
               name="type"
-              id="type"
               // value={formData.style.backgroundColor}
               // onChange={(e) => handleStyleChange(e, "backgroundColor")}
               value={type}
