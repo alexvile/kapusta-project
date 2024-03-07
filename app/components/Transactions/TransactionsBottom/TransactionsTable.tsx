@@ -12,7 +12,7 @@ export const TransactionsTable = ({
   transactionType,
 }: TransactionsTableProps) => {
   const getPlaceholderRowsQty = (existingRows: number) => {
-    const MinRowsQty = 7;
+    const MinRowsQty = 6;
     return MinRowsQty - existingRows < 0 ? 0 : 8 - existingRows;
   };
 

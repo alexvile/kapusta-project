@@ -1,5 +1,5 @@
 import type { Expense as IExpense } from "@prisma/client";
-import { Summary } from "../summary";
+import { Summary } from "../../summary";
 import { TransactionsTable } from "./TransactionsTable";
 import { TransactionType } from "~/types/types";
 
@@ -14,7 +14,7 @@ export const TransactionsMain = ({
   transactionType,
 }: TransactionsMain) => {
   return (
-    <div className="flex gap-3 bg-white items-start">
+    <div className="flex gap-3 items-start">
       <TransactionsTable
         filteredTransactions={filteredTransactions}
         transactionType={transactionType}

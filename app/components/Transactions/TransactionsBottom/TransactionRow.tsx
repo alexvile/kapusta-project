@@ -1,10 +1,10 @@
 import type { Expense as IExpense } from "@prisma/client";
 import { Form, Link } from "@remix-run/react";
-import { Modal } from "../modal";
+import { Modal } from "../../modal";
 import { useState } from "react";
-import { Button } from "../button";
+import { Button } from "../../button";
 import { formatIsoUTCStringToLocalWithoutSeconds } from "~/helpers/timeConvertor";
-import { Svg } from "../Svg";
+import { Svg } from "../../Svg";
 
 export const TransactionRow = ({
   ...props
