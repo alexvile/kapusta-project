@@ -14,7 +14,7 @@ export const TransactionsMain = ({
   transactionType,
 }: TransactionsMain) => {
   return (
-    <div className="flex gap-3 bg-white">
+    <div className="flex gap-3 bg-white items-start">
       <TransactionsTable
         filteredTransactions={filteredTransactions}
         transactionType={transactionType}

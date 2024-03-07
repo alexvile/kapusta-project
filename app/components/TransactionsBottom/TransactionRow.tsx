@@ -19,7 +19,7 @@ export const TransactionRow = ({
     setOpen(!open);
   };
   return (
-    <tr className="border-2 border-tableBorder ">
+    <tr className="border-2 border-tableBorder">
       <td>{formattedData || 0}</td>
       <td>{description}</td>
       <td>{type}</td>

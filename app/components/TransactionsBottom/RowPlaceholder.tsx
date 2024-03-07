@@ -18,7 +18,9 @@ export const RowPlaceholder = ({ columns = 6, rows }: RowPlaceholderProps) => {
     <>
       {rows1.map((e) => (
         <tr key={e} className="border-2 border-tableBorder">
-          <td>1</td>
+          <td>
+            <div className="min-h-[30px]">1</div>
+          </td>
           <td></td>
           <td></td>
           <td></td>
