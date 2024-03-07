@@ -19,16 +19,12 @@ export const TransactionRow = ({
     setOpen(!open);
   };
   return (
-    <tr className="border-2 border-tableBorder">
-      <td className="font-roboto text-secondary text-label">
-        {formattedData || 0}
-      </td>
-      <td className="font-roboto text-secondary text-label">{description}</td>
-      <td className="font-roboto text-secondary text-label">{type}</td>
-      <td className="font-roboto text-secondary text-label">
-        -{value}&nbsp;UAH
-      </td>
-      <td className="font-roboto text-secondary text-label">
+    <tr className="border-2 border-tableBorder ">
+      <td>{formattedData || 0}</td>
+      <td>{description}</td>
+      <td>{type}</td>
+      <td className="value">-{value}&nbsp;UAH</td>
+      <td>
         <Link to={url}>Ed</Link>
       </td>
       <td>

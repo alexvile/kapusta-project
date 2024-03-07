@@ -157,6 +157,7 @@ export default function Incomes() {
       <TransactionsMain
         filteredTransactions={filteredIncomes}
         sixMonthsTransactions={sixMonthsIncomes}
+        transactionType="incomes"
       />
       <Outlet />
     </>

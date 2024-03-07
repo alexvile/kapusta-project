@@ -3,6 +3,7 @@ type RowPlaceholderProps = {
   rows: number;
 };
 export const RowPlaceholder = ({ columns = 6, rows }: RowPlaceholderProps) => {
+  if (rows === 0) return null;
   // todo: refactor this shit
   const getArr = (rows: number) => {
     let arr = [];
