@@ -217,6 +217,40 @@ export const Svg = ({
           </defs>
         </svg>
       );
+    case "search":
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 50 50"
+          width="50px"
+          height="50px"
+          fill="currentColor"
+        >
+          <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z" />
+        </svg>
+      );
+    case "clear-filters":
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          width="800px"
+          height="800px"
+          viewBox="0 0 32 32"
+          id="icon"
+        >
+          <defs></defs>
+          <path d="M22.5,9A7.4522,7.4522,0,0,0,16,12.792V8H14v8h8V14H17.6167A5.4941,5.4941,0,1,1,22.5,22H22v2h.5a7.5,7.5,0,0,0,0-15Z" />
+          <path d="M26,6H4V9.171l7.4142,7.4143L12,17.171V26h4V24h2v2a2,2,0,0,1-2,2H12a2,2,0,0,1-2-2V18L2.5858,10.5853A2,2,0,0,1,2,9.171V6A2,2,0,0,1,4,4H26Z" />
+          <rect
+            id="_Transparent_Rectangle_"
+            data-name="&lt;Transparent Rectangle&gt;"
+            width="32"
+            height="32"
+            fill="none"
+          />
+        </svg>
+      );
     default:
       return null;
   }

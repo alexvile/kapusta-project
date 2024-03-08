@@ -1,10 +1,19 @@
+import { Svg } from "./Svg";
+
 interface ButtonProps {
-  label: string;
+  label?: string;
   type: "submit" | "reset" | "button";
-  style?: string;
+  style?:
+    | "custom"
+    | "primary-shadowed"
+    | "secondary-shadowed"
+    | "primary"
+    | "secondary";
   name?: string;
   value?: string;
   className?: string;
+  icon?: string;
+  ariaLabel?: string;
   onClick?: () => void;
 }
 // todo: use Pick to get some of props
@@ -16,6 +25,8 @@ export function Button({
   name,
   value,
   className,
+  icon,
+  ariaLabel,
   onClick,
 }: ButtonProps) {
   let s =
@@ -35,19 +46,25 @@ export function Button({
     case "secondary":
       s += "bg-light text-secondary border-solid border-2 border-bg-input";
       break;
+    case "custom":
+      s = "";
+      break;
     default:
       s += "bg-mainBg";
   }
   return (
     <>
+      {/* todo - update to use children */}
       <button
         type={type}
         className={`${s} ${className}`}
         name={name}
         value={value}
         onClick={onClick}
+        aria-label={ariaLabel}
       >
         {label}
+        {icon && <Svg name={icon} />}
       </button>
     </>
   );

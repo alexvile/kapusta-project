@@ -98,7 +98,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                 </div>
 
                 <div className="w-full flex items-center justify-between mt-1 rounded-bl-xl border-2 border-inputBorder rounded-br-xl">
-                  <div className="flex  gap-2 px-2 border-r-2 border-inputBorder">
+                  <div className="flex gap-2 px-2 border-r-2 border-inputBorder">
                     {/* Date filter */}
                     <DateInput
                       name="from"
@@ -120,7 +120,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                       value={timeTo}
                     />
                   </div>
-                  <div className="px-2 py-1 ">
+                  <div className="px-2 py-1">
                     <SelectBox
                       name="category"
                       options={
@@ -138,12 +138,19 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
               </div>
 
               <div className="actions">
-                <Button type="submit" label="s" className="w-fit !min-w-0" />
+                <Button
+                  type="submit"
+                  style="custom"
+                  className="action-button mb-1"
+                  icon="search"
+                  ariaLabel="Search"
+                />
                 <Button
                   type="button"
-                  label="c"
-                  className="w-fit !min-w-0"
-                  style="secondary"
+                  style="custom"
+                  className="action-button"
+                  icon="clear-filters"
+                  ariaLabel="Clear filters"
                   onClick={clearFilters}
                 />
               </div>

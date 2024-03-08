@@ -41,6 +41,7 @@ module.exports = {
         mainBg: "#F5F6FB",
         lightBg: "#F5F6FA",
         tableBorder: "#F5F6FB",
+        inputBorder: "#F6F7FC",
         "bg-input": "#F6F7FB",
         chart: {
           DEFAULT: "#FF751D",
