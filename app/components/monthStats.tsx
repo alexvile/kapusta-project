@@ -9,12 +9,11 @@ export const MonthStats = ({
   incomes: Pick<IIncome, "value">[];
 }) => {
   // todo functions for calulations
-
   const getMonthTransactions = (
     transactions: Pick<IExpense, "value">[] | Pick<IIncome, "value">[]
   ) => {
     return formatToPrice(
-      transactions.length > 0 ? summarizeTransactions(expenses) : 0
+      transactions.length > 0 ? summarizeTransactions(transactions) : 0
     );
   };
   return (
