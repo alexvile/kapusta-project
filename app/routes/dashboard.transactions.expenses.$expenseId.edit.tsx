@@ -155,7 +155,6 @@ export default function EditExpense() {
             {/* todo input datetime - but global or including local */}
             <DateInput
               name="createdTime"
-              id="createdTime"
               // defaultValue={localTime}
               value={time}
               onChange={(e) => {

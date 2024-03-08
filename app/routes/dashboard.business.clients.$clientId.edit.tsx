@@ -118,7 +118,6 @@ export default function EditExpense() {
             />
             <DateInput
               name="birthday"
-              id="birthday"
               type="date"
               // defaultValue={clientById?.birthday}
               value={birthday}

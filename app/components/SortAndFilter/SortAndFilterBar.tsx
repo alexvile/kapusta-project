@@ -59,7 +59,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
 
   return (
     <div className="p-2">
-      <div className="flex gap-5">
+      <div className="flex gap-3">
         <div className="flex items-center justify-center h-fit gap-2.5">
           <Svg name="calendar" />
           <span className="font-roboto text-label font-black tracking-medium text-secondary">
@@ -100,7 +100,6 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     {/* Date filter */}
                     <DateInput
                       name="from"
-                      id="timeFrom"
                       type="date"
                       label="From"
                       onChange={(e) => {
@@ -111,7 +110,6 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
 
                     <DateInput
                       name="to"
-                      id="timeTo"
                       type="date"
                       label="To"
                       onChange={(e) => {

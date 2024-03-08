@@ -207,7 +207,6 @@ export default function NewRecord() {
             />
             <DateInput
               name="plannedStart"
-              id="plannedStart"
               value={plannedStartTime}
               onChange={(e) => {
                 setPlannedStartTime(e.currentTarget.value);
@@ -216,7 +215,6 @@ export default function NewRecord() {
             />
             <DateInput
               name="plannedEnd"
-              id="plannedEnd"
               value={plannedEndTime}
               onChange={(e) => {
                 setPlannedEndTime(e.currentTarget.value);

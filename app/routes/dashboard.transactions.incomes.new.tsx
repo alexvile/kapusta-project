@@ -119,7 +119,6 @@ export default function NewIncome() {
             {/* todo input datetime - but global or including local */}
             <DateInput
               name="createdTime"
-              id="createdTime"
               value={time}
               onChange={(e) => {
                 setTime(e.currentTarget.value);

@@ -100,7 +100,6 @@ export default function NewClient() {
             <FormField type="text" htmlFor="lastName" label="Surname" />
             <DateInput
               name="birthday"
-              id="birthday"
               type="date"
               value={birthday}
               onChange={(e) => {
