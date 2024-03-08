@@ -28,7 +28,7 @@ export const MonthStats = ({
       </div>
       <div>
         <span className="text-secondary font-roboto text-mmm font-bold pr-4">
-          Income:{" "}
+          Income:
         </span>
         <span className="text-incomes text-mmm tracking-big font-roboto font-bold">
           + {getMonthTransactions(incomes)}

@@ -1,13 +1,11 @@
 import { useId } from "react";
 
 interface IDateInput {
-  // className?: string;
-  // containerClassName?: string;
   name: string;
   label?: string;
-  defaultValue?: any;
+  defaultValue?: string;
   type?: "datetime-local" | "date";
-  value?: any;
+  value: string;
   onChange?: (...args: any) => any;
 }
 export function DateInput({
@@ -27,8 +25,6 @@ export function DateInput({
       <input
         type={type}
         name={name}
-        className="outline1"
-        // step="1"
         onChange={onChange}
         value={value || ""}
         defaultValue={defaultValue}

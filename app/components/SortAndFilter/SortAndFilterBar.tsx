@@ -25,8 +25,10 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
 
   const [sortOption, setSortOption] = useState(() => searchParams.get("sort"));
   const [direction, setDirection] = useState(() => searchParams.get("dir"));
-  const [timeFrom, setTimeFrom] = useState(() => searchParams.get("from"));
-  const [timeTo, setTimeTo] = useState(() => searchParams.get("to"));
+  const [timeFrom, setTimeFrom] = useState(
+    () => searchParams.get("from") || ""
+  );
+  const [timeTo, setTimeTo] = useState(() => searchParams.get("to") || "");
   const [category, setCategory] = useState(() => searchParams.get("category"));
 
   const date = getLocalDate();
