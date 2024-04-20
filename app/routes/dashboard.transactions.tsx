@@ -1,6 +1,6 @@
 import { LoaderFunction, json, redirect } from "@remix-run/node";
 import { Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
-import { NavLinks } from "~/components/Navigation/NavLinks";
+import { NavLinks, Navigation } from "~/components/Navigation/Navigation";
 import { TopBar } from "~/components/top-bar";
 import { summarizeTransactions } from "~/helpers/calculations";
 import { requireUserId } from "~/utils/session.server";
@@ -30,16 +30,18 @@ export default function Transactions() {
   } = useLoaderData();
   const balance: number = allIncomes - allExpenses;
   // todo - refactor
-  const arr = [
+  const links = [
     { to: "expenses", label: "Expenses" },
     { to: "incomes", label: "Incomes" },
   ];
+  // return redirect("expenses");
+  // todo - redirect to some
   return (
     <>
       <TopBar balance={balance} />
       {/* tabs */}
       {/* one of tabs should be opened by default */}
-      <NavLinks navLinks={arr} />
+      <Navigation navLinks={links} style="submain" />
       <Outlet />
     </>
   );

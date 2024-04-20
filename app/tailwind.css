@@ -74,3 +74,44 @@ th {
   /* color: #ff751d; */
   background-color: #f5f5f5;
 }
+
+/* navigation */
+/* submain */
+.submain ul {
+  display: flex;
+}
+.submain li {
+  @apply rounded-t-3xl;
+  overflow: hidden;
+}
+.submain a {
+  text-align: center;
+  display: inline-block;
+  @apply py-4 px-6 min-w-[138px] font-roboto text-label tracking-small font-bold uppercase bg-navLinks-normalBg;
+}
+.submain a.pending {
+  @apply bg-navLinks-normalBg text-navLinks-pendingText;
+}
+.submain a.active {
+  @apply bg-navLinks-activeBg text-navLinks-activeText;
+}
+/* todo - create styles */
+/* main */
+.main ul {
+  display: flex;
+}
+.main li {
+  @apply rounded-t-3xl;
+  overflow: hidden;
+}
+.main a {
+  text-align: center;
+  display: inline-block;
+  @apply py-4 px-6 min-w-[138px] font-roboto text-label tracking-small font-bold uppercase bg-navLinks-normalBg;
+}
+.main a.pending {
+  @apply bg-navLinks-normalBg text-navLinks-pendingText;
+}
+.main a.active {
+  @apply bg-navLinks-activeBg text-navLinks-activeText;
+}
