@@ -36,6 +36,7 @@ export const createClient = async ({
   });
 };
 
+// use only a few fields, Detailed info will be by additional fetch
 export const getFilteredClients = async (
   userId: string,
   sortFilter: Prisma.ClientOrderByWithRelationInput,

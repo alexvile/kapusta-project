@@ -105,7 +105,7 @@ export default function Structure() {
   // todo - temporary solution. need fix later
   // todo - popup problem dont close every time, a lot of bugs !!!!!!!!!!!
   useEffect(() => {
-    console.log(actionData);
+    // console.log(actionData);
     if (actionData) {
       setOpen(false);
     }

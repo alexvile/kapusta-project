@@ -32,15 +32,9 @@ export const DirectionHandler = ({
           value={checked}
           onChange={handleChange}
         />
-        {checked ? (
-          <span>
-            <Svg name="descending" />
-          </span>
-        ) : (
-          <span>
-            <Svg name="ascending" />
-          </span>
-        )}
+        <span>
+          {checked ? <Svg name="descending" /> : <Svg name="ascending" />}
+        </span>
       </label>
     </div>
   );

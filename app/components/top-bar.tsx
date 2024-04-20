@@ -1,4 +1,4 @@
-import { Link, useLocation } from "@remix-run/react";
+import { Link, useLocation, useNavigate } from "@remix-run/react";
 import { Balance } from "./balance";
 import { useEffect, useState } from "react";
 import { getFullMonthStartEndDays } from "~/helpers/timeConvertor";
@@ -37,15 +37,29 @@ export const TopBar = ({ balance }: { balance: number }) => {
   //       setPeriod(obj);
   //     }
   //   }, [month]);
-
+  const navigate = useNavigate();
   return (
     <div className=" p-3">
       <div className="flex items-center justify-around">
         <div>
           {/* todo - we should remember page and state from where we came !!!! */}
+          {/* todo - use pop state*/}
           {isReports ? (
-            <Link to="/dashboard/transactions">Back</Link>
+            // <Link to="/dashboard/transactions">Back</Link>
+            <button
+              type="button"
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              back
+            </button>
           ) : (
+            // <button
+            // onClick={() => {
+            //   navigate(-1);
+            // }}
+
             <span>&nbsp;</span>
           )}
         </div>
@@ -65,7 +79,10 @@ export const TopBar = ({ balance }: { balance: number }) => {
             </div>
           ) : (
             <div>
-              <Link to="/dashboard/transactions/reports">
+              <Link
+                to="/dashboard/transactions/reports"
+                state={{ from: location.pathname }}
+              >
                 <span className="flex justify-between items-center gap-3.5 [&>svg]:w-full">
                   <span className="text-secondary opacity-70 font-roboto text-label tracking-medium pt-[3px]">
                     Reports

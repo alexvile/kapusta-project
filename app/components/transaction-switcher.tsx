@@ -18,11 +18,25 @@ import { Graphic } from "./graphic";
 export const TransactionSwitcher = ({
   expenses,
   incomes,
+  cameFrom,
 }: {
   expenses: Pick<IExpense, "value" | "type">[];
   incomes: Pick<IIncome, "value" | "type">[];
+  cameFrom: string | null;
 }) => {
-  const [transactionType, setTransactionType] = useState("Expenses");
+  // todo - need refactor
+  const getState = () => {
+    if (!cameFrom) return "Expenses";
+    const type = cameFrom.split("/transactions/")?.[1];
+    if (type === "incomes") {
+      return "Incomes";
+    } else if (type === "expenses") {
+      return "Expenses";
+    } else {
+      return "Expenses";
+    }
+  };
+  const [transactionType, setTransactionType] = useState(() => getState());
   const [category, setCategory] = useState("ALL");
   const [calculatedExpenses, setCalculatedExpenses] = useState(() =>
     summarizeTransactionsByGroup(expenses)
@@ -30,6 +44,7 @@ export const TransactionSwitcher = ({
   const [calculatedIncomes, setCalculatedIncomes] = useState(() =>
     summarizeTransactionsByGroup(incomes)
   );
+
   // const calcul
   // console.log(222, expenses);
   // todo - smth instead hardcoded 'ALL' ny default or add TS types at least
@@ -51,7 +66,7 @@ export const TransactionSwitcher = ({
         onChange={(e) => {
           setTransactionType(e.currentTarget.value);
         }}
-        value={transactionType || ""}
+        value={transactionType}
         // value={transactionType || "" || searchParams.get("sort")}
       />
       {/* todo - separate function for calculated functions maybe use state */}

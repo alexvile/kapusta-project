@@ -60,6 +60,7 @@ model User {
   businesses   Business[] @relation("MyBusiness")
   // total        Total?    @relation("MyTotal")
   Record       Record[]
+  // add icon
 }
 
 // todo - remove "?"  and remove prisma migrate history to fix it
@@ -101,6 +102,7 @@ model Client {
   owner       User       @relation(references: [id], fields: [ownerId], "MyClient")
   ownerId     String     @db.ObjectId
   records     Record[]   @relation("ClientRecord")
+  // add icon
   // status vip/ new/ old
   // privedy podrugu kto i kogo
   // if abonement calculate how mush free or discounted procedurs left
@@ -151,6 +153,7 @@ model Service {
   duration   Int
   business   Business @relation(references: [id], fields: [businessId], "MyService")
   businessId String   @db.ObjectId
+  // add icon
 }
 
 // business - laser, electroepil
@@ -161,6 +164,7 @@ model Business {
   services Service[] @relation("MyService")
   owner    User      @relation(references: [id], fields: [ownerId], "MyBusiness")
   ownerId  String    @db.ObjectId
+  // add icon
 }
 
 // todo - connect client to journal record

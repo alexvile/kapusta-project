@@ -1,22 +1,12 @@
-import {
-  LoaderFunction,
-  redirect,
-  json,
-  LoaderArgs,
-  ActionArgs,
-} from "@remix-run/node";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { LoaderFunction, json, LoaderArgs, ActionArgs } from "@remix-run/node";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import {
   deleteExpenseById,
-  getAllExpensesByUserId,
   getExpensesForLastSixMonths,
   getFilteredExpenses,
 } from "~/utils/transaction.server";
 import type { Expense as IExpense, Prisma } from "@prisma/client";
-import { Expense } from "~/components/expense";
 import { requireUserId } from "~/utils/session.server";
-import { SortAndFilterBar } from "~/components/SortAndFilter/SortAndFilterBar";
-import { ExpenseKind } from "@prisma/client";
 import {
   getISOFromAndToForToday,
   getSixMonthsPeriod,
@@ -24,8 +14,6 @@ import {
   localDateToToIsoString,
 } from "~/helpers/timeConvertor";
 
-import { Summary } from "~/components/summary";
-import { TransactionsTable } from "~/components/Transactions/TransactionsBottom/TransactionsTable";
 import { TransactionsMain } from "~/components/Transactions/TransactionsBottom/TransactionsMain";
 import { TransactionsTop } from "~/components/Transactions/TransactionsTop";
 import { TransactionsLayout } from "~/components/Transactions/TransactionsLayout";
@@ -160,12 +148,6 @@ export default function Expenses() {
 }
 
 // todo - check base styles like box-sizing -border box etc
-// todo - table - separate component
-
-// todo - summary/statistics -  separate component
-//  todo : fix "expense" underline ts bug ??
-
-// todo - filters and sort by !!!!!!!!!!!!!!! very complicated !!!!!
 
 // todo - clear URL, remove query params if you dont use it !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

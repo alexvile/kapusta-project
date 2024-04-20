@@ -1,6 +1,11 @@
 import { User } from "@prisma/client";
 import { LoaderFunction, V2_MetaFunction, json } from "@remix-run/node";
-import { Outlet, useLoaderData, useNavigation } from "@remix-run/react";
+import {
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useNavigation,
+} from "@remix-run/react";
 import { MainNavigation } from "~/components/Navigation/MainNavigation";
 import { NavLinks, Navigation } from "~/components/Navigation/Navigation";
 import { Layout } from "~/components/layout";
@@ -9,6 +14,7 @@ import { getAllBusinessesWithServicesByOwnerId } from "~/utils/structure.server"
 
 // todo - button "Now" when we fill Date-time inputs
 // todo - remove unnecessary imports
+// useOutletContext
 export const meta: V2_MetaFunction = () => {
   return [{ title: "Kapusta App" }];
 };
@@ -43,6 +49,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 // };
 export default function Index() {
   const navigation = useNavigation();
+  const location = useLocation();
+  // console.log("location", location);
   // const [isLoading, setIsLoading] = useState(false);
   const isLoading = navigation.state === "loading";
 
@@ -71,7 +79,7 @@ export default function Index() {
       {/* todo - vertical side open-close navigation */}
       <Layout user={user}>
         {isLoading && <h1 className="absolute">Loading...</h1>}
-        <Navigation navLinks={links} useNav={true} style="main" />
+        <Navigation navLinks={links} style="main" />
 
         {/* <Link to="abc" title="" aria-label="" className="outline mr-3">
           &nbsp;* TEST PAGE - link

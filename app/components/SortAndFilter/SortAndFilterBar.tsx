@@ -56,7 +56,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
 
   useEffect(() => {
     // todo = at the start value = undefined, need default value
-    console.log(sortOption, direction);
+    // console.log(sortOption, direction);
   }, [sortOption, direction]);
 
   return (
@@ -70,7 +70,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
         </div>
         <div>
           <Form>
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <div className="flex flex-wrap col-gap-2">
                 <div className="w-full flex border-2 border-inputBorder rounded-tl-xl items-center justify-between gap-2 rounded-tr-xl">
                   <div className="flex gap-2 items-center justify-start px-2 py-1 border-r-2 border-inputBorder">
@@ -141,7 +141,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                 <Button
                   type="submit"
                   style="custom"
-                  className="action-button mb-1"
+                  className="action-button mb-3"
                   icon="search"
                   ariaLabel="Search"
                 />
