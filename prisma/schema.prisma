@@ -13,6 +13,7 @@ datasource db {
 type Profile {
   firstName String
   lastName  String
+  // add avatar
 }
 
 type Social {
@@ -77,6 +78,9 @@ model Expense {
 }
 
 model Income {
+  // realated Record or manual
+  // cash or card
+
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -107,6 +111,8 @@ model Client {
   // privedy podrugu kto i kogo
   // if abonement calculate how mush free or discounted procedurs left
 }
+
+// todo - bulk operations
 
 model Record {
   id               String       @id @default(auto()) @map("_id") @db.ObjectId
@@ -161,10 +167,11 @@ model Service {
 model Business {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   name     String
+  notes    String?
   services Service[] @relation("MyService")
   owner    User      @relation(references: [id], fields: [ownerId], "MyBusiness")
   ownerId  String    @db.ObjectId
-  // add icon
+  icon     String?
 }
 
 // todo - connect client to journal record
