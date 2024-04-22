@@ -169,7 +169,7 @@ export const Calendar = () => {
   // todo  - prevent click on month view !!!!
   return (
     <div className="index-route max-w-[80%]">
-      {loading && <div className="absolute">loading...</div>}
+      {/* {loading && <div className="absolute">loading...</div>} */}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         // slotDuration="00:15:00"

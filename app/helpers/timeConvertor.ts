@@ -1,5 +1,6 @@
 // for input in edit Form
-export function convertFromUTCToLocalISO(timeInUTC: string | number) {
+// todo - add types to return result of function !!!!!!!!!!!!!!!!!!!
+export function convertFromUTCToLocalISO(timeInUTC: string | number): string {
   const localTime = new Date(timeInUTC);
   const oo = (n: number) => n.toString(10).padStart(2, "0");
   const YYYY = localTime.getFullYear();

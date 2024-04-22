@@ -16,7 +16,7 @@ export function Layout({
       {/* bg to login page bg-home-page bg-cover bg-no-repeat*/}
       <main className="h-screen w-full">
         {/* temporary */}
-        <div className="absolute top-0 left-0 h-[80%] w-full -z-[1]  rounded-bl-[20%] bg-mainBg"></div>
+        <div className="absolute top-0 left-0 h-[110%] w-full -z-[1]  rounded-bl-[20%] bg-mainBg"></div>
         <div className="container">{children}</div>
       </main>
     </>

@@ -83,6 +83,9 @@ export const action: ActionFunction = async ({
   // return null;
 };
 
+//  client show detail info
+// use handles instead id ???????????????????
+
 export default function EditExpense() {
   const { userId, clientById } = useLoaderData();
   const [birthday, setBirthday] = useState(clientById?.birthday);

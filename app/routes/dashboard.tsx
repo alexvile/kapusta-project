@@ -78,9 +78,8 @@ export default function Index() {
       </Form> */}
       {/* todo - vertical side open-close navigation */}
       <Layout user={user}>
-        {isLoading && <h1 className="absolute">Loading...</h1>}
+        {/* {isLoading && <h1 className="absolute">Loading...</h1>} */}
         <Navigation navLinks={links} style="main" />
-
         {/* <Link to="abc" title="" aria-label="" className="outline mr-3">
           &nbsp;* TEST PAGE - link
         </Link> */}

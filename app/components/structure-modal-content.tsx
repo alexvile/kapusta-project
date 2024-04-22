@@ -2,6 +2,8 @@ import { Button } from "./button";
 import { CustomDurationPicker } from "./durationPicker";
 import { FormField } from "./form-field";
 
+// todo - breadcrumbs
+
 export const StructureModalContent = ({ target }: { target: EventTarget }) => {
   // todo - ts-errors
   switch (target.name) {
@@ -10,6 +12,7 @@ export const StructureModalContent = ({ target }: { target: EventTarget }) => {
         <>
           <h2>Creating business</h2>
           <FormField type="text" htmlFor="name" label="Name" />
+          <FormField type="text" htmlFor="notes" label="Notes" />
           <Button
             type="submit"
             label="submit"
