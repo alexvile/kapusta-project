@@ -16,3 +16,7 @@ export const validatePassword = (password: string): string | undefined => {
 export const validateName = (name: string): string | undefined => {
   if (!name.length) return `Please enter a value`;
 };
+
+export const emptyStringValidate = (value: string): string | undefined => {
+  if (value.length < 1) return "This field is required";
+};

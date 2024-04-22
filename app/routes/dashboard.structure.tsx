@@ -11,8 +11,12 @@ import {
 
 import { IBusinessWithServices } from "~/types/types";
 import { StructureModalContent } from "~/components/structure-modal-content";
-import { CustomDurationPicker } from "~/components/durationPicker";
 import { convertMsToTime } from "~/helpers/calculations";
+import {
+  ttt,
+  validateStructureBusinessForm,
+  validateStructureServicesForm,
+} from "~/utils/form-validators.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
@@ -22,45 +26,30 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
-
   const form = await request.formData();
   const intent = form.get("intent");
+  const formObject = Object.fromEntries(form.entries());
 
   if (intent === "createBusiness") {
-    const name = form.get("name");
-    if (typeof name !== "string" || typeof ownerId !== "string") {
-      return json({ error: `Invalid Form Data` }, { status: 400 });
+    const response = validateStructureBusinessForm({ ...formObject, ownerId });
+    if (response.error) {
+      const { error, status } = response;
+      return json({ error }, { status });
     }
-    await createBusiness({ ownerId, name });
-    return json("created business");
+    await createBusiness(response.validatedData);
+    return json({ status: "success" }, { status: 201 });
   }
 
   if (intent === "createService") {
-    const obj = Object.fromEntries(form.entries());
-    console.log(obj);
     // todo - check if we have this fields in all routes !!!!!!!!!!!!!!
     // todo - validations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! front end + backend
-    if (!obj.businessId || !obj.name || !obj.price || !obj.duration) {
-      return json({ error: `Some fields are empty` }, { status: 400 });
+    const response = validateStructureServicesForm({ ...formObject, ownerId });
+    if (response.error) {
+      const { error, status } = response;
+      return json({ error }, { status });
     }
-
-    if (
-      typeof obj.businessId !== "string" ||
-      typeof obj.name !== "string" ||
-      typeof obj.price !== "string" ||
-      typeof obj.duration !== "string"
-    ) {
-      return json({ error: `Invalid Form Data` }, { status: 400 });
-    }
-    const { businessId, name, price, duration } = obj;
-    await createService({
-      businessId,
-      name,
-      price: Number(price),
-      duration: Number(duration),
-    });
-    // return null;
-    return json("created service");
+    await createService(response.validatedData);
+    return json({ status: "success" }, { status: 201 });
 
     // await createService({});
     // const name = form.get("name");
@@ -84,9 +73,8 @@ export const action: ActionFunction = async ({ request }) => {
 // todo: decide if use requireuserID or getUserId
 export default function Structure() {
   const actionData = useActionData();
-  // console.log(actionData);
+  console.log(actionData);
   const businessAndServices = useLoaderData();
-  // console.log(businessAndServices);
 
   const [open, setOpen] = useState(false);
   // todo - ts warning
@@ -130,7 +118,7 @@ export default function Structure() {
           <StructureModalContent target={modalTarget} />
         </Form>
       </Modal>
-
+      {/* add accordions */}
       {businessAndServices.length > 0 && (
         <ul>
           {businessAndServices.map((e: IBusinessWithServices) => (
