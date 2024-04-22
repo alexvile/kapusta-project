@@ -9,18 +9,16 @@ import {
   getAllBusinessesWithServicesByOwnerId,
 } from "~/utils/structure.server";
 
-import { IBusinessWithServices } from "~/types/types";
+import { IBusinessWithServices, ModalTarget } from "~/types/types";
 import { StructureModalContent } from "~/components/structure-modal-content";
-import { convertMsToTime } from "~/helpers/calculations";
 import {
-  ttt,
   validateStructureBusinessForm,
   validateStructureServicesForm,
 } from "~/utils/form-validators.server";
+import { BusinessWithServices } from "~/components/Structure/BusinessWithServices";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
-  // if ownerId !== string or null do we need to do ?
   return await getAllBusinessesWithServicesByOwnerId(ownerId);
 };
 
@@ -73,19 +71,21 @@ export const action: ActionFunction = async ({ request }) => {
 // todo: decide if use requireuserID or getUserId
 export default function Structure() {
   const actionData = useActionData();
-  console.log(actionData);
+  // console.log(actionData);
   const businessAndServices = useLoaderData();
-
   const [open, setOpen] = useState(false);
-  // todo - ts warning
 
-  const [modalTarget, setModalTarget] = useState<EventTarget>(null);
+  // todo - ts warning
+  // todo move to types
+
+  const [modalTarget, setModalTarget] = useState<ModalTarget>();
   // const { userId } = useLoaderData();
   const handleClick = () => {
     setOpen(!open);
   };
 
-  const openModal = (target: EventTarget) => {
+  const openModal = (target: ModalTarget) => {
+    console.log("target", target);
     setModalTarget(target);
     handleClick();
   };
@@ -103,12 +103,10 @@ export default function Structure() {
   // todo - if we edit name and structure of business, old business will not be available
   return (
     <>
-      <div>Structure - title</div>
       <button
         type="button"
-        name="create-business"
         className="bg-slate-200 p-2"
-        onClick={(e) => openModal(e.target)}
+        onClick={() => openModal("create-business")}
       >
         add new business category +
       </button>
@@ -121,44 +119,8 @@ export default function Structure() {
       {/* add accordions */}
       {businessAndServices.length > 0 && (
         <ul>
-          {businessAndServices.map((e: IBusinessWithServices) => (
-            <li key={e.id} className="pl-3 my-2">
-              <div className="flex items-center justify-start">
-                {e.name}
-                <button
-                  name="create-service"
-                  // todo - need refactor
-                  data-parent-id={e.id}
-                  className="border mx-2 px-2 bg-slate-300"
-                  onClick={(e) => openModal(e.target)}
-                >
-                  +
-                </button>
-                {/* <button
-                  name="edit-business"
-                  // todo - need refactor
-                  data-parent-id={e.id}
-                  className="border mx-2 px-2 bg-slate-300"
-                  onClick={(e) => openModal(e.target)}
-                >
-                  edit
-                </button> */}
-              </div>
-              {e.services.length > 0 && (
-                <ul>
-                  {e.services.map((s) => (
-                    <li key={s.id} className="pl-6">
-                      <span> {s.name} </span>-<span>{s.price}&nbsp;UAH</span>
-                      &nbsp;
-                      <span>
-                        approximately duration: {convertMsToTime(s.duration)}
-                        &nbsp;
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
+          {businessAndServices.map((b: IBusinessWithServices) => (
+            <BusinessWithServices key={b.id} {...b} />
           ))}
         </ul>
       )}

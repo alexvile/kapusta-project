@@ -39,28 +39,23 @@ const defaultFormError: IFormError = {
 export const validateStructureBusinessForm = (data: FormData) => {
   const { name, notes, ownerId } = data;
 
-  if (
-    typeof name !== "string" ||
-    typeof notes !== "string" ||
-    typeof ownerId !== "string"
-  ) {
+  if (typeof name !== "string" || typeof ownerId !== "string") {
     return { error: defaultFormError, status: 400 };
   }
 
   const fieldErrors = {
     name: emptyStringValidate(name),
-    notes: emptyStringValidate(notes),
   };
 
   if (Object.values(fieldErrors).some(Boolean)) {
     const info: IFieldsError = {
       fieldErrors,
-      fields: { name, notes },
+      fields: { name },
       formError: null,
     };
     return { error: info, status: 400 };
   }
-  return { error: null, validatedData: { name, notes, ownerId } };
+  return { error: null, validatedData: { name, ownerId } };
 };
 
 export const validateStructureServicesForm = (data: FormData) => {

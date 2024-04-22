@@ -8,12 +8,10 @@ import type {
 export const createBusiness = async ({
   ownerId,
   name,
-  notes,
-}: Omit<IBusiness, "id" | "icon">) => {
+}: Omit<IBusiness, "id" | "icon" | "notes">) => {
   await db.business.create({
     data: {
       name,
-      notes,
       owner: {
         connect: {
           id: ownerId,

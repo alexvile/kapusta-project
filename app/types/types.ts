@@ -34,7 +34,7 @@ export type TransactionType = "expenses" | "incomes";
 //   Expenses,
 //   Incomes,
 // }
-
+export type ModalTarget = "create-business" | "create-service";
 // todo - sort types folder, add separate files for each group
 export interface IPopulatedRecord {
   id: IRecord["id"];

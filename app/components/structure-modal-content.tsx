@@ -1,12 +1,13 @@
+import { ModalTarget } from "~/types/types";
 import { Button } from "./button";
 import { CustomDurationPicker } from "./durationPicker";
 import { FormField } from "./form-field";
 
 // todo - breadcrumbs
 
-export const StructureModalContent = ({ target }: { target: EventTarget }) => {
+export const StructureModalContent = ({ target }: { target: ModalTarget }) => {
   // todo - ts-errors
-  switch (target.name) {
+  switch (target) {
     case "create-business":
       return (
         <>
@@ -30,7 +31,7 @@ export const StructureModalContent = ({ target }: { target: EventTarget }) => {
           <input
             type="hidden"
             name="businessId"
-            value={target.dataset.parentId}
+            // value={target.dataset.parentId}
           />
           <CustomDurationPicker
             hours={[1, 2, 3]}
