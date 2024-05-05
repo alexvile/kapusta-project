@@ -9,7 +9,7 @@ type BusinessProps = IBusinessWithServices & { openModal: IOpenModal };
 
 export const BusinessWithServices = ({ ...props }: BusinessProps) => {
   // todo REFACTOR!!!!!
-  const { name, services, id, openModal } = props;
+  const { name, notes, services, id, openModal } = props;
   const [showCategories, setShowCategories] = useState(true);
   const toggleCategories = () => {
     setShowCategories(!showCategories);
@@ -20,6 +20,7 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
     <li className="pl-3 my-2">
       <div className="flex items-center justify-start">
         {name}
+        {notes}
         {services.length > 0 && (
           <Button onPress={toggleCategories} style="round">
             <span
@@ -34,7 +35,13 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
         <Button
           style="round"
           ariaLabel="Edit business"
-          onPress={() => openModal({ intent: "edit-business", target: id })}
+          onPress={() =>
+            openModal({
+              intent: "edit-business",
+              target: id,
+              fields: { name, notes },
+            })
+          }
         >
           <Icon name="edit" />
         </Button>

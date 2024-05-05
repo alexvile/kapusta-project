@@ -10,7 +10,9 @@ export const StructureModalContent = ({
 }: {
   data: BusinessModalProps;
 }) => {
-  const { intent, target } = data;
+  console.log(data);
+  const { intent, target, fields } = data;
+  // textarea for notes
   switch (intent) {
     case "create-business":
       return (
@@ -43,6 +45,18 @@ export const StructureModalContent = ({
         </>
       );
 
+    case "edit-business":
+      return (
+        <>
+          <input type="hidden" name="businessId" value={target} />
+          <h2>Edit business</h2>
+          <TextField name="name" label="Name" defaultValue={fields.name} />
+          <TextField name="notes" label="Notes" defaultValue={fields.notes} />
+          <Button type="submit" name="intent" value="editBusiness">
+            Submit
+          </Button>
+        </>
+      );
     default:
       return null;
   }

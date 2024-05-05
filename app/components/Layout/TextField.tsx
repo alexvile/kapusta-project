@@ -7,14 +7,18 @@ interface TextFieldProps {
   name: string;
   label?: string;
   value?: any;
+  defaultValue?: any;
   onInputChange?: (...args: any) => any;
 }
 
+// useTextarea
+// multiline == Columns
 export function TextField({
   type = "text",
   name,
   label,
   value,
+  defaultValue,
   onInputChange = () => {},
 }: TextFieldProps) {
   const id = useId();
@@ -30,6 +34,7 @@ export function TextField({
         name={name}
         className="px-3 py-1.5 border border-[#000] rounded-lg text-[14px]"
         value={value}
+        defaultValue={defaultValue}
       />
     </div>
   );
