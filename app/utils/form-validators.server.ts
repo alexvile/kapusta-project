@@ -22,10 +22,10 @@ type IFieldsError = {
   fieldErrors: { [k: string]: string | undefined };
   formError: null;
 };
-type IFormValidatorResponse = {
-  error: IFormError | IFieldsError;
-  status: number;
-};
+// type IFormValidatorResponse = {
+//   error: IFormError | IFieldsError;
+//   status: number;
+// };
 
 type FormData = {
   [k: string]: FormDataEntryValue;

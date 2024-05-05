@@ -84,9 +84,11 @@ export default function Structure() {
     setOpen(!open);
   };
 
-  const openModal = (target: ModalTarget) => {
-    console.log("target", target);
-    setModalTarget(target);
+  const openModal = (event: React.ChangeEvent<HTMLButtonElement>) => {
+    const target = event.target?.name;
+    if (!target || typeof target !== "string") return;
+    // todo ts check
+    setModalTarget(target as ModalTarget);
     handleClick();
   };
 
@@ -105,11 +107,14 @@ export default function Structure() {
     <>
       <button
         type="button"
+        name="create-business"
         className="bg-slate-200 p-2"
-        onClick={() => openModal("create-business")}
+        // todo ts check
+        onClick={openModal}
       >
         add new business category +
       </button>
+      <div>Expand all (close all)</div>
 
       <Modal isOpen={open} onClose={handleClick} type="popup">
         <Form method="post">
@@ -120,7 +125,7 @@ export default function Structure() {
       {businessAndServices.length > 0 && (
         <ul>
           {businessAndServices.map((b: IBusinessWithServices) => (
-            <BusinessWithServices key={b.id} {...b} />
+            <BusinessWithServices key={b.id} {...b} openModal={openModal} />
           ))}
         </ul>
       )}

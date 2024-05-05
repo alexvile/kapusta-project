@@ -1,18 +1,33 @@
 import { IBusinessWithServices } from "~/types/types";
 import { Service } from "./Service";
-
-export const BusinessWithServices = ({ ...props }: IBusinessWithServices) => {
-  const { name, services } = props;
+import { useState } from "react";
+import type { Service as IService } from "@prisma/client";
+export const BusinessWithServices = ({ ...props }: any) => {
+  // todo REFACTOR!!!!!
+  const { name, services, id, openModal } = props;
+  const [showCategories, setShowCategories] = useState(true);
+  const toggleCategories = () => {
+    setShowCategories(!showCategories);
+  };
   return (
     <li className="pl-3 my-2">
       <div className="flex items-center justify-start">
         {name}
+        {services.length > 0 && (
+          <button
+            type="button"
+            className="mx-2 px-2 outline"
+            onClick={toggleCategories}
+          >
+            {showCategories ? "hide" : "show"}
+          </button>
+        )}
         <button
           name="create-service"
           // todo - need refactor
-          // data-parent-id={e.id}
+          data-parent-id={id}
           className="border mx-2 px-2 bg-slate-300"
-          // onClick={(e) => openModal(e.target)}
+          onClick={openModal}
         >
           +
         </button>
@@ -26,9 +41,9 @@ export const BusinessWithServices = ({ ...props }: IBusinessWithServices) => {
         edit
       </button> */}
       </div>
-      {services.length > 0 && (
+      {services.length > 0 && showCategories && (
         <ul>
-          {services.map((s) => (
+          {services.map((s: IService) => (
             <Service key={s.id} {...s} />
           ))}
         </ul>
