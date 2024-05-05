@@ -2,6 +2,8 @@ import { IBusinessWithServices, IOpenModal } from "~/types/types";
 import { Service } from "./Service";
 import { useState } from "react";
 import type { Service as IService } from "@prisma/client";
+import { Button } from "../Layout/Button";
+import { Icon } from "../Layout/Icon";
 
 type BusinessProps = IBusinessWithServices & { openModal: IOpenModal };
 
@@ -12,39 +14,43 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
   const toggleCategories = () => {
     setShowCategories(!showCategories);
   };
+
   return (
     <li className="pl-3 my-2">
       <div className="flex items-center justify-start">
         {name}
         {services.length > 0 && (
-          <button
-            type="button"
-            className="mx-2 px-2 outline"
-            onClick={toggleCategories}
-          >
-            {showCategories ? "hide" : "show"}
-          </button>
+          <Button onPress={toggleCategories} style="round">
+            <span
+              className={`transition-transform block ${
+                showCategories ? "rotate-180" : ""
+              }`}
+            >
+              <Icon name="chevron-down" />
+            </span>
+          </Button>
         )}
-        <button
-          name="create-service"
-          // todo - need refactor
-          className="border mx-2 px-2 bg-slate-300"
-          onClick={() => openModal({ intent: "create-service", target: id })}
+        <Button
+          style="round"
+          ariaLabel="Edit business"
+          onPress={() => openModal({ intent: "edit-business", target: id })}
         >
-          +
-        </button>
-        {/* <button
-        name="edit-business"
-        // todo - need refactor
-        data-parent-id={e.id}
-        className="border mx-2 px-2 bg-slate-300"
-        onClick={(e) => openModal(e.target)}
-      >
-        edit
-      </button> */}
+          <Icon name="edit" />
+        </Button>
+        <Button
+          style="round"
+          ariaLabel="Add service"
+          onPress={() => openModal({ intent: "create-service", target: id })}
+        >
+          <Icon name="plus" />
+        </Button>
       </div>
-      {services.length > 0 && showCategories && (
-        <ul>
+      {services.length > 0 && (
+        <ul
+          className={` ml-6 transition-transform ${
+            showCategories ? "max-h-auto" : "max-h-0 overflow-hidden"
+          }`}
+        >
           {services.map((s: IService) => (
             <Service key={s.id} {...s} openModal={openModal} />
           ))}

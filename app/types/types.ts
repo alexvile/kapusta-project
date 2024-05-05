@@ -64,9 +64,12 @@ export type IBusinessWithServices = Prisma.BusinessGetPayload<{
 // export type IOpenModal = (event: React.ChangeEvent<HTMLButtonElement>) => void;
 
 type ModalIntendWithoutTarget = "create-business";
-type ModalIntendWithTarget = "create-service" | "edit-service";
+type ModalIntendWithTarget =
+  | "create-service"
+  | "edit-service"
+  | "edit-business";
 
-type BusinessModalProps =
+export type BusinessModalProps =
   | { intent: ModalIntendWithoutTarget; target?: never }
   | { intent: ModalIntendWithTarget; target: string };
 

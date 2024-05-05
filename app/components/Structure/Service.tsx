@@ -1,22 +1,33 @@
 import { convertMsToTime } from "~/helpers/calculations";
 import type { Service as IService } from "@prisma/client";
 import { IOpenModal } from "~/types/types";
+import { Button } from "../Layout/Button";
+import { Icon } from "../Layout/Icon";
 
 type ServiceProps = IService & { openModal: IOpenModal };
 export const Service = ({ ...props }: ServiceProps) => {
   const { id, name, price, duration, openModal } = props;
   return (
-    <li className="pl-6 w-fit border">
-      <div>Name: {name}</div>
-      <div>Price: {price}&nbsp;UAH</div>
-      <div>Duration:{convertMsToTime(duration)}</div>
-      <button
-        type="button"
-        className="bg-slate-200 p-2"
-        onClick={() => openModal({ intent: "edit-service", target: id })}
-      >
-        edit
-      </button>
+    <li className="w-fit border flex gap-3 items-center">
+      <div>Icon</div>
+      <div>
+        <div>Name: {name}</div>
+        <div>Price: {price}&nbsp;UAH</div>
+        <div>Duration:{convertMsToTime(duration)}</div>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <Button
+          style="round"
+          onPress={() => openModal({ intent: "edit-service", target: id })}
+        >
+          <Icon name="edit" />
+        </Button>
+        <Button style="round">
+          <Icon name="delete" />
+        </Button>
+      </div>
     </li>
   );
 };
+
+// archive or remove for business and services

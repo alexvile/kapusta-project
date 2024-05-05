@@ -9,13 +9,18 @@ import {
   getAllBusinessesWithServicesByOwnerId,
 } from "~/utils/structure.server";
 
-import { IBusinessWithServices, IOpenModal, ModalTarget } from "~/types/types";
-import { StructureModalContent } from "~/components/structure-modal-content";
+import {
+  BusinessModalProps,
+  IBusinessWithServices,
+  IOpenModal,
+} from "~/types/types";
+import { StructureModalContent } from "~/components/Structure/StructureModalContent";
 import {
   validateStructureBusinessForm,
   validateStructureServicesForm,
 } from "~/utils/form-validators.server";
 import { BusinessWithServices } from "~/components/Structure/BusinessWithServices";
+import { Button } from "~/components/Layout/Button";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
@@ -69,21 +74,16 @@ export default function Structure() {
   // todo - ts warning
   // todo move to types
 
-  const [modalTarget, setModalTarget] = useState();
+  const [modalTarget, setModalTarget] = useState<BusinessModalProps>();
   // const { userId } = useLoaderData();
-  const handleClick = () => {
+  const toggleModal = () => {
     setOpen(!open);
   };
 
   const openModal: IOpenModal = (data) => {
-    console.log(data);
-    // const target = event.target;
-    // if (!target || typeof target !== "string") return;
-    // todo ts check
-    // setModalTarget({ intent, target });
-    // handleClick();
+    setModalTarget(data);
+    toggleModal();
   };
-
   // todo - temporary solution. need fix later
   // todo - popup problem dont close every time, a lot of bugs !!!!!!!!!!!
   useEffect(() => {
@@ -95,26 +95,23 @@ export default function Structure() {
 
   // todo - add feature edit as form fields not a popup (in future !!!!!!!!!!!!!!!)
   // todo - if we edit name and structure of business, old business will not be available
+
   return (
     // todo ts check
 
     <>
-      <button
-        type="button"
-        className="bg-slate-200 p-2"
-        onClick={() => openModal({ intent: "create-business" })}
-      >
-        add new business category +
-      </button>
-      <div>Expand all (close all)</div>
+      <div className="flex items-center justify-between">
+        <Button onPress={() => openModal({ intent: "create-business" })}>
+          Add new business
+        </Button>
+        <Button>Expand all (close all)</Button>
+      </div>
 
-      <h1>sddsf</h1>
-      <Modal isOpen={open} onClose={handleClick} type="popup">
+      <Modal isOpen={open} onClose={toggleModal} type="popup">
         <Form method="post">
-          <StructureModalContent target={modalTarget} />
+          {modalTarget && <StructureModalContent data={modalTarget} />}
         </Form>
       </Modal>
-      <h1>sddsf</h1>
       {/* add accordions */}
       {businessAndServices.length > 0 && (
         <ul>
