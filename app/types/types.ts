@@ -61,3 +61,5 @@ export type IBusinessWithServices = Prisma.BusinessGetPayload<{
 // console.log(g);
 // let g: IBusiness & IService;
 // console.log(g);
+
+export type IOpenModal = (event: React.ChangeEvent<HTMLButtonElement>) => void;

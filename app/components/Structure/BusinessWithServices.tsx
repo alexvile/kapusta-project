@@ -1,8 +1,11 @@
-import { IBusinessWithServices } from "~/types/types";
+import { IBusinessWithServices, IOpenModal } from "~/types/types";
 import { Service } from "./Service";
 import { useState } from "react";
 import type { Service as IService } from "@prisma/client";
-export const BusinessWithServices = ({ ...props }: any) => {
+
+type BusinessProps = IBusinessWithServices & { openModal: IOpenModal };
+
+export const BusinessWithServices = ({ ...props }: BusinessProps) => {
   // todo REFACTOR!!!!!
   const { name, services, id, openModal } = props;
   const [showCategories, setShowCategories] = useState(true);
@@ -44,7 +47,7 @@ export const BusinessWithServices = ({ ...props }: any) => {
       {services.length > 0 && showCategories && (
         <ul>
           {services.map((s: IService) => (
-            <Service key={s.id} {...s} />
+            <Service key={s.id} {...s} openModal={openModal} />
           ))}
         </ul>
       )}

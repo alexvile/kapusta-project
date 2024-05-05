@@ -5,9 +5,10 @@ import { FormField } from "./form-field";
 
 // todo - breadcrumbs
 
-export const StructureModalContent = ({ target }: { target: ModalTarget }) => {
+export const StructureModalContent = ({ target }) => {
+  console.log(222, target);
   // todo - ts-errors
-  switch (target) {
+  switch (target.name) {
     case "create-business":
       return (
         <>
@@ -31,7 +32,7 @@ export const StructureModalContent = ({ target }: { target: ModalTarget }) => {
           <input
             type="hidden"
             name="businessId"
-            // value={target.dataset.parentId}
+            value={target.dataset.parentId}
           />
           <CustomDurationPicker
             hours={[1, 2, 3]}

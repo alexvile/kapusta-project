@@ -78,17 +78,17 @@ export default function Structure() {
   // todo - ts warning
   // todo move to types
 
-  const [modalTarget, setModalTarget] = useState<ModalTarget>();
+  const [modalTarget, setModalTarget] = useState();
   // const { userId } = useLoaderData();
   const handleClick = () => {
     setOpen(!open);
   };
 
   const openModal = (event: React.ChangeEvent<HTMLButtonElement>) => {
-    const target = event.target?.name;
-    if (!target || typeof target !== "string") return;
+    const target = event.target;
+    // if (!target || typeof target !== "string") return;
     // todo ts check
-    setModalTarget(target as ModalTarget);
+    setModalTarget(target);
     handleClick();
   };
 
