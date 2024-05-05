@@ -15,6 +15,7 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
     setShowCategories(!showCategories);
   };
 
+  //  if no icon use random icon
   return (
     <li className="pl-3 my-2">
       <div className="flex items-center justify-start">

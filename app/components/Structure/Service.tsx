@@ -9,7 +9,11 @@ export const Service = ({ ...props }: ServiceProps) => {
   const { id, name, price, duration, openModal } = props;
   return (
     <li className="w-fit border flex gap-3 items-center">
-      <div>Icon</div>
+      <div>
+        {/* by default from settings */}
+        <Icon size="m" name="beauty" />
+        {/* placeholder */}
+      </div>
       <div>
         <div>Name: {name}</div>
         <div>Price: {price}&nbsp;UAH</div>
