@@ -18,9 +18,9 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
   //  if no icon use random icon
   return (
     <li className="pl-3 my-2">
-      <div className="flex items-center justify-start">
-        {name}
-        {notes}
+      <div className="flex items-center justify-start gap-1">
+        <div>{name}</div>
+        <div>{notes}</div>
         {services.length > 0 && (
           <Button onPress={toggleCategories} style="round">
             <span

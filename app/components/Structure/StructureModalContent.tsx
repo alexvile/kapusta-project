@@ -19,7 +19,7 @@ export const StructureModalContent = ({
         <>
           <h2>Creating business</h2>
           <TextField name="name" label="Name" />
-          <TextField name="notes" label="Notes" />
+          <TextField name="notes" label="Notes" multiline={2} />
           <Button type="submit" name="intent" value="createBusiness">
             Submit
           </Button>
@@ -51,7 +51,12 @@ export const StructureModalContent = ({
           <input type="hidden" name="businessId" value={target} />
           <h2>Edit business</h2>
           <TextField name="name" label="Name" defaultValue={fields.name} />
-          <TextField name="notes" label="Notes" defaultValue={fields.notes} />
+          <TextField
+            name="notes"
+            label="Notes"
+            defaultValue={fields.notes}
+            multiline={2}
+          />
           <Button type="submit" name="intent" value="editBusiness">
             Submit
           </Button>

@@ -9,6 +9,7 @@ interface TextFieldProps {
   value?: any;
   defaultValue?: any;
   onInputChange?: (...args: any) => any;
+  multiline?: number;
 }
 
 // useTextarea
@@ -20,6 +21,7 @@ export function TextField({
   value,
   defaultValue,
   onInputChange = () => {},
+  multiline,
 }: TextFieldProps) {
   const id = useId();
   return (
@@ -27,15 +29,26 @@ export function TextField({
       <label htmlFor={id} className="block">
         {label}
       </label>
-      <input
-        type={type}
-        onChange={onInputChange}
-        id={id}
-        name={name}
-        className="px-3 py-1.5 border border-[#000] rounded-lg text-[14px]"
-        value={value}
-        defaultValue={defaultValue}
-      />
+      {multiline ? (
+        <textarea
+          onChange={onInputChange}
+          id={id}
+          name={name}
+          className="px-3 py-1.5 border border-[#000] rounded-lg text-[14px] w-full resize-none"
+        >
+          {value || defaultValue}
+        </textarea>
+      ) : (
+        <input
+          type={type}
+          onChange={onInputChange}
+          id={id}
+          name={name}
+          className="px-3 py-1.5 border border-[#000] rounded-lg text-[14px]"
+          value={value}
+          defaultValue={defaultValue}
+        />
+      )}
     </div>
   );
 }
