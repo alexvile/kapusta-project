@@ -117,7 +117,7 @@ export default function NewClient() {
             <FormField type="text" htmlFor="description" label="Add info" />
             {/* todo - USE TEXTAREA TO BIG TEXTS !!!!!!!!!!!!!!!! */}
 
-            <Button type="submit" label="submit" />
+            <LegacyButton type="submit" label="submit" />
             {/* Reset BTN */}
           </Form>
         </div>

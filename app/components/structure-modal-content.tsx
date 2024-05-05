@@ -1,5 +1,5 @@
 import { ModalTarget } from "~/types/types";
-import { Button } from "./button";
+import { Button, LegacyButton } from "./button";
 import { CustomDurationPicker } from "./durationPicker";
 import { FormField } from "./form-field";
 
@@ -15,7 +15,7 @@ export const StructureModalContent = ({ target }) => {
           <h2>Creating business</h2>
           <FormField type="text" htmlFor="name" label="Name" />
           <FormField type="text" htmlFor="notes" label="Notes" />
-          <Button
+          <LegacyButton
             type="submit"
             label="submit"
             name="intent"
@@ -42,7 +42,7 @@ export const StructureModalContent = ({ target }) => {
             durationInMs={true}
           />
           {/*  // todo - need refactor */}
-          <Button
+          <LegacyButton
             type="submit"
             label="submit"
             name="intent"

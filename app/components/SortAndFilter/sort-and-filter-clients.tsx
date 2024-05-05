@@ -2,7 +2,7 @@ import { Form, useNavigate, useSearchParams } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
 import { SelectBox } from "../select-box";
 import { dirOptions, sortOptionsClients } from "~/utils/constants";
-import { Button } from "../button";
+import { Button, LegacyButton } from "../button";
 
 export function SortAndFilterClients() {
   const [sortOption, setSortOption] = useState();
@@ -75,12 +75,12 @@ export function SortAndFilterClients() {
                 </div>
               </div>
               <div className="actions">
-                <Button
+                <LegacyButton
                   type="submit"
                   label="search"
                   className="w-fit min-w-0"
                 />
-                <Button
+                <LegacyButton
                   type="button"
                   label="clear"
                   className="w-fit min-w-0"

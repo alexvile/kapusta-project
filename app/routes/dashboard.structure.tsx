@@ -9,7 +9,7 @@ import {
   getAllBusinessesWithServicesByOwnerId,
 } from "~/utils/structure.server";
 
-import { IBusinessWithServices, ModalTarget } from "~/types/types";
+import { IBusinessWithServices, IOpenModal, ModalTarget } from "~/types/types";
 import { StructureModalContent } from "~/components/structure-modal-content";
 import {
   validateStructureBusinessForm,
@@ -21,7 +21,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
   return await getAllBusinessesWithServicesByOwnerId(ownerId);
 };
-
+// todo - check if we have this fields in all routes !!!!!!!!!!!!!!
+// todo - validations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! front end + backend
 export const action: ActionFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
   const form = await request.formData();
@@ -39,8 +40,6 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   if (intent === "createService") {
-    // todo - check if we have this fields in all routes !!!!!!!!!!!!!!
-    // todo - validations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! front end + backend
     const response = validateStructureServicesForm({ ...formObject, ownerId });
     if (response.error) {
       const { error, status } = response;
@@ -48,14 +47,6 @@ export const action: ActionFunction = async ({ request }) => {
     }
     await createService(response.validatedData);
     return json({ status: "success" }, { status: 201 });
-
-    // await createService({});
-    // const name = form.get("name");
-    // if (typeof name !== "string" || typeof ownerId !== "string") {
-    //   return json({ error: `Invalid Form Data` }, { status: 400 });
-    // }
-    // await createBusiness({ ownerId, name });
-    // return json("created business");
   }
 
   // todo - return redirects
@@ -84,12 +75,13 @@ export default function Structure() {
     setOpen(!open);
   };
 
-  const openModal = (event: React.ChangeEvent<HTMLButtonElement>) => {
-    const target = event.target;
+  const openModal: IOpenModal = (data) => {
+    console.log(data);
+    // const target = event.target;
     // if (!target || typeof target !== "string") return;
     // todo ts check
-    setModalTarget(target);
-    handleClick();
+    // setModalTarget({ intent, target });
+    // handleClick();
   };
 
   // todo - temporary solution. need fix later
@@ -104,23 +96,25 @@ export default function Structure() {
   // todo - add feature edit as form fields not a popup (in future !!!!!!!!!!!!!!!)
   // todo - if we edit name and structure of business, old business will not be available
   return (
+    // todo ts check
+
     <>
       <button
         type="button"
-        name="create-business"
         className="bg-slate-200 p-2"
-        // todo ts check
-        onClick={openModal}
+        onClick={() => openModal({ intent: "create-business" })}
       >
         add new business category +
       </button>
       <div>Expand all (close all)</div>
 
+      <h1>sddsf</h1>
       <Modal isOpen={open} onClose={handleClick} type="popup">
         <Form method="post">
           <StructureModalContent target={modalTarget} />
         </Form>
       </Modal>
+      <h1>sddsf</h1>
       {/* add accordions */}
       {businessAndServices.length > 0 && (
         <ul>

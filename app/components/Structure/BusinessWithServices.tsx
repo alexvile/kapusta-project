@@ -28,9 +28,8 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
         <button
           name="create-service"
           // todo - need refactor
-          data-parent-id={id}
           className="border mx-2 px-2 bg-slate-300"
-          onClick={openModal}
+          onClick={() => openModal({ intent: "create-service", target: id })}
         >
           +
         </button>

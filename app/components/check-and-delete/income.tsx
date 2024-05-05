@@ -4,6 +4,7 @@ import { Modal } from "./modal";
 import { useState } from "react";
 import { Button } from "./button";
 import { formatIsoUTCStringToLocalWithoutSeconds } from "~/helpers/timeConvertor";
+import { LegacyButton } from "../button";
 // todo - import all types from Prisma. Do not create extra
 export function Income({ ...props }: Partial<IIncome>) {
   const { type, description, createdTime, value, id } = props;
@@ -37,9 +38,14 @@ export function Income({ ...props }: Partial<IIncome>) {
           <div className="flex justify-center gap-4">
             <Form method="post">
               <input type="hidden" name="id" value={id} />
-              <Button label="Yes" type="submit" name="intent" value="delete" />
+              <LegacyButton
+                label="Yes"
+                type="submit"
+                name="intent"
+                value="delete"
+              />
             </Form>
-            <Button
+            <LegacyButton
               label="no"
               type="submit"
               style="secondary"

@@ -9,7 +9,7 @@ import {
 } from "~/utils/constants";
 import { DateInput } from "../date-input";
 import { getLocalDate } from "~/helpers/timeConvertor";
-import { Button } from "../button";
+import { Button, LegacyButton } from "../button";
 import { Svg } from "../Svg";
 import { DirectionHandler } from "./DirectionHandler";
 import { TransactionType } from "~/types/types";
@@ -138,14 +138,14 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
               </div>
 
               <div className="actions">
-                <Button
+                <LegacyButton
                   type="submit"
                   style="custom"
                   className="action-button mb-3"
                   icon="search"
                   ariaLabel="Search"
                 />
-                <Button
+                <LegacyButton
                   type="button"
                   style="custom"
                   className="action-button"

@@ -172,7 +172,7 @@ export default function EditIncome() {
               // error={actionData?.fieldErrors?.email}
             />
 
-            <Button type="submit" label="submit" />
+            <LegacyButton type="submit" label="submit" />
           </Form>
         </div>
       </Modal>

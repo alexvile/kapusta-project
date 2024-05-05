@@ -17,16 +17,20 @@ export default function Abc() {
       <div className="w-full h-full  bg-slate-100 ">
         <div>TEST PAGE</div>
         <div className="m-2">
-          <Button label="LOG IN" type="submit" style="primary-shadowed" />
+          <LegacyButton label="LOG IN" type="submit" style="primary-shadowed" />
         </div>
         <div className="m-2">
-          <Button label="REGISTER" type="submit" style="secondary-shadowed" />
+          <LegacyButton
+            label="REGISTER"
+            type="submit"
+            style="secondary-shadowed"
+          />
         </div>
         <div className="m-2">
-          <Button label="SUBMIT" type="submit" style="primary" />
+          <LegacyButton label="SUBMIT" type="submit" style="primary" />
         </div>
         <div className="m-2">
-          <Button label="SUBMIT" type="submit" style="secondary" />
+          <LegacyButton label="SUBMIT" type="submit" style="secondary" />
         </div>
         <button onClick={handleClick}>Open popup</button>
         <Modal isOpen={open} onClose={handleClick} type="popup">

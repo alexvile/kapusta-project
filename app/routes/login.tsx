@@ -250,13 +250,13 @@ export default function Login() {
                   </>
                 )}
 
-                <Button label="SUBMIT" type="submit" />
+                <LegacyButton label="SUBMIT" type="submit" />
               </Form>
             </div>
             <div className="links">
               <ul>
                 <li>
-                  <Button label="HOME" type="button" style="secondary" />
+                  <LegacyButton label="HOME" type="button" style="secondary" />
                   {/* <Link to="/">Home</Link> */}
                 </li>
               </ul>

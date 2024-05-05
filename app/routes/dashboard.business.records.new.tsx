@@ -230,7 +230,7 @@ export default function NewRecord() {
               value={price}
             />
             <FormField type="text" htmlFor="description" label="Description" />
-            <Button type="submit" label="submit" />
+            <LegacyButton type="submit" label="submit" />
             {/* Reset BTN */}
           </Form>
         </div>

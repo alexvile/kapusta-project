@@ -18,7 +18,7 @@ interface ButtonProps {
 }
 // todo: use Pick to get some of props
 // todo - onPress insteda onClick
-export function Button({
+export function LegacyButton({
   label,
   type = "submit",
   style = "primary",

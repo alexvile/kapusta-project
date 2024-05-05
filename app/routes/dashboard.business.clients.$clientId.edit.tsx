@@ -148,7 +148,7 @@ export default function EditExpense() {
               label="Description"
               defaultValue={clientById?.description}
             />
-            <Button type="submit" label="submit" />
+            <LegacyButton type="submit" label="submit" />
           </Form>
         </div>
       </Modal>

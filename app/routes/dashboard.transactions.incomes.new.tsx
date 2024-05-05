@@ -131,7 +131,7 @@ export default function NewIncome() {
               label="Select value of exp"
               // error={actionData?.fieldErrors?.email}
             />
-            <Button type="submit" label="submit" />
+            <LegacyButton type="submit" label="submit" />
             {/* Reset BTN */}
           </Form>
         </div>

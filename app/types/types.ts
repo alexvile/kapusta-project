@@ -34,7 +34,6 @@ export type TransactionType = "expenses" | "incomes";
 //   Expenses,
 //   Incomes,
 // }
-export type ModalTarget = "create-business" | "create-service";
 // todo - sort types folder, add separate files for each group
 export interface IPopulatedRecord {
   id: IRecord["id"];
@@ -62,4 +61,13 @@ export type IBusinessWithServices = Prisma.BusinessGetPayload<{
 // let g: IBusiness & IService;
 // console.log(g);
 
-export type IOpenModal = (event: React.ChangeEvent<HTMLButtonElement>) => void;
+// export type IOpenModal = (event: React.ChangeEvent<HTMLButtonElement>) => void;
+
+type ModalIntendWithoutTarget = "create-business";
+type ModalIntendWithTarget = "create-service" | "edit-service";
+
+type BusinessModalProps =
+  | { intent: ModalIntendWithoutTarget; target?: never }
+  | { intent: ModalIntendWithTarget; target: string };
+
+export type IOpenModal = (data: BusinessModalProps) => void;

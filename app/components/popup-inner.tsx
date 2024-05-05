@@ -1,4 +1,4 @@
-import { Button } from "./button";
+import { LegacyButton } from "./button";
 
 interface IPopupInner {
   label: string;
@@ -9,8 +9,13 @@ export const PopupInner = ({ label }: IPopupInner) => {
   return (
     <div>
       <p className="pb-5 text-center">{label}</p>
-      <Button className="mr-4" label="yes" type="submit" style="primary" />
-      <Button label="no" type="submit" style="secondary" />
+      <LegacyButton
+        className="mr-4"
+        label="yes"
+        type="submit"
+        style="primary"
+      />
+      <LegacyButton label="no" type="submit" style="secondary" />
     </div>
   );
 };
