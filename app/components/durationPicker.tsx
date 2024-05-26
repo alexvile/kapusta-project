@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { convertMsToTime } from "~/helpers/calculations";
 interface ICustomDurationPicker {
   hours: number[];
   minuts: number[];
@@ -8,6 +9,7 @@ interface ICustomDurationPicker {
   emptyValue?: boolean;
   allowZeroDuration?: boolean;
   durationInMs?: boolean;
+  initialValue?: number;
 }
 export function CustomDurationPicker({
   hours,
@@ -18,8 +20,8 @@ export function CustomDurationPicker({
   zeroOption = true,
   emptyValue = true,
   allowZeroDuration = false,
+  initialValue,
 }: ICustomDurationPicker) {
-  // todo - initial value
   const [duration, setDuration] = useState<number | string>();
   //   temp state
   const [minutsS, setMinutsS] = useState<string>();
@@ -30,9 +32,30 @@ export function CustomDurationPicker({
     const minutsInMs = Number(m) * 60 * 1000;
     return hoursInMs + minutsInMs;
   };
+
+  const convertMsToDuration = (milliseconds: number): string => {
+    let seconds = Math.floor(milliseconds / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    seconds = seconds % 60;
+    minutes = minutes % 60;
+    return `${hours}:${minutes}`;
+  };
+
+  useEffect(() => {
+    // todo - check if string(no ms) or number(ms exp)
+    if (typeof initialValue === "number") {
+      const time = convertMsToDuration(initialValue);
+      const [hour, minuts] = time.split(":");
+      setHoursS(hour);
+      setMinutsS(minuts);
+    }
+  }, []);
+
   useEffect(() => {
     console.log(duration);
   }, [duration]);
+
   useEffect(() => {
     if (!minutsS || !hoursS) {
       console.log("not selected");
