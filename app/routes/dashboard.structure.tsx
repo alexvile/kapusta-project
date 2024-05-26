@@ -7,6 +7,7 @@ import {
   createBusiness,
   createService,
   getAllBusinessesWithServicesByOwnerId,
+  updateBusinessById,
 } from "~/utils/structure.server";
 
 import {
@@ -16,11 +17,13 @@ import {
 } from "~/types/types";
 import { StructureModalContent } from "~/components/Structure/StructureModalContent";
 import {
+  validateStructureBusinessEdit,
   validateStructureBusinessForm,
   validateStructureServicesForm,
 } from "~/utils/form-validators.server";
 import { BusinessWithServices } from "~/components/Structure/BusinessWithServices";
 import { Button } from "~/components/Layout/Button";
+import { Icon } from "~/components/Layout/Icon";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
@@ -53,6 +56,15 @@ export const action: ActionFunction = async ({ request }) => {
     await createService(response.validatedData);
     return json({ status: "success" }, { status: 201 });
   }
+  if (intent === "editBusiness") {
+    const response = validateStructureBusinessEdit({ ...formObject });
+    if (response.error) {
+      const { error, status } = response;
+      return json({ error }, { status });
+    }
+    await updateBusinessById(response.validatedData);
+    return json({ status: "success" }, { status: 200 });
+  }
 
   // todo - return redirects
   // todo snippet for redirects, invalid form data etc
@@ -70,6 +82,8 @@ export default function Structure() {
   // console.log(actionData);
   const businessAndServices = useLoaderData();
   const [open, setOpen] = useState(false);
+  // fix open-close all logic. IF all open or close manually
+  const [allAccOpen, setAllAccOpen] = useState(true);
 
   // todo - ts warning
   // todo move to types
@@ -101,10 +115,20 @@ export default function Structure() {
 
     <>
       <div className="flex items-center justify-between">
-        <Button onPress={() => openModal({ intent: "create-business" })}>
-          Add new business
+        <Button
+          style="action"
+          ariaLabel="Add new business"
+          onPress={() => openModal({ intent: "create-business" })}
+        >
+          Add new business <Icon name="bank" />
         </Button>
-        <Button>Expand all (close all)</Button>
+        <Button
+          style="action"
+          onPress={() => setAllAccOpen(!allAccOpen)}
+          ariaLabel={allAccOpen ? "Close All" : "Expand All"}
+        >
+          {allAccOpen ? "Close All" : "Expand All"}
+        </Button>
       </div>
 
       <Modal isOpen={open} onClose={toggleModal} type="popup">
@@ -116,7 +140,12 @@ export default function Structure() {
       {businessAndServices.length > 0 && (
         <ul>
           {businessAndServices.map((b: IBusinessWithServices) => (
-            <BusinessWithServices key={b.id} {...b} openModal={openModal} />
+            <BusinessWithServices
+              key={b.id}
+              {...b}
+              openModal={openModal}
+              allAccOpen={allAccOpen}
+            />
           ))}
         </ul>
       )}
