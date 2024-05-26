@@ -1,4 +1,5 @@
 import { Svg } from "../Svg";
+import { NewSvg } from "./NewSvg";
 
 type IconProps = {
   name: string;
@@ -20,8 +21,8 @@ export function Icon({ name, size = "s" }: IconProps) {
       break;
   }
   return (
-    <span className={`${c_size} block [&>svg]:w-full [&>svg]:h-full`}>
-      <Svg name={name} />
+    <span className={`${c_size} inline-block [&>svg]:w-full [&>svg]:h-full`}>
+      <NewSvg name={name} />
     </span>
   );
 }
