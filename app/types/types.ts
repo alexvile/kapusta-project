@@ -69,8 +69,15 @@ type ModalIntendWithTarget =
   | "edit-service"
   | "edit-business";
 
+// add new subtype need fields or not
 export type BusinessModalProps =
   | { intent: ModalIntendWithoutTarget; target?: never }
-  | { intent: ModalIntendWithTarget; target: string };
+  | {
+      intent: ModalIntendWithTarget;
+      target: string;
+      fields?: {
+        [key: string]: string | null;
+      };
+    };
 
 export type IOpenModal = (data: BusinessModalProps) => void;

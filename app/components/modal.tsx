@@ -3,6 +3,7 @@
 // If we use modal as separate route we should use navigate to return back.
 // But if we don't use separate route we should use callback to change boolean isOpen.
 // We use Modal or Popup. Modal - for separate route, Popup alerts etc.
+import { Icon } from "./Layout/Icon";
 import { Portal } from "./portal";
 import { useNavigate } from "@remix-run/react";
 
@@ -72,10 +73,12 @@ export const Modal: React.FC<props & ConditionalProps> = ({
               type === "modal" ? navigate(backTo) : onClose();
             }}
           >
-            X
+            <Icon size="m" name="close" />
           </button>
         </div>
       </div>
     </Portal>
   );
 };
+
+// modal appearance animation

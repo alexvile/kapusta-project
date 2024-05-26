@@ -1,6 +1,6 @@
 import { ActionArgs } from "@remix-run/node";
 import { Form, useActionData, useSearchParams } from "@remix-run/react";
-import { Button } from "~/components/button";
+import { LegacyButton } from "~/components/button";
 import { FormField } from "~/components/form-field";
 import { Layout } from "~/components/layout";
 import { db } from "~/utils/db.server";
