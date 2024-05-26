@@ -6,7 +6,6 @@ interface ButtonProps {
   value?: string;
   ariaLabel?: string;
   style?: string;
-  custom?: string;
 }
 
 export function Button({
@@ -16,18 +15,18 @@ export function Button({
   name,
   value,
   ariaLabel,
-  style,
-  custom,
+  style = "",
 }: ButtonProps) {
   // need refactor
-  let st = "";
+  let _style = "";
   switch (style) {
-    case "round":
-      st = "rounded-full p-1.5";
+    case "action":
+      _style = "rounded-lg p-1.5";
       break;
     default:
       break;
   }
+  // add basic animations
   return (
     <button
       type={type}
@@ -35,7 +34,7 @@ export function Button({
       name={name}
       value={value}
       aria-label={ariaLabel}
-      className={`${custom} ${st} bg-slate-200 p-1 hover:opacity-70 mx-1 `}
+      className={`${_style} leading-none bg-slate-200 p-1 hover:opacity-70 transition-opacity mx-1 flex items-center justify-between gap-1 `}
     >
       {children}
     </button>
