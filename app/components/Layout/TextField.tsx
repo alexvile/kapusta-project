@@ -26,7 +26,7 @@ export function TextField({
   const id = useId();
   return (
     <div className="mb-1">
-      <label htmlFor={id} className="block">
+      <label htmlFor={id} id={id + "Label"} className="block">
         {label}
       </label>
       {multiline ? (
@@ -34,15 +34,17 @@ export function TextField({
           onChange={onInputChange}
           id={id}
           name={name}
+          rows={multiline}
           className="px-3 py-1.5 border border-[#000] rounded-lg text-[14px] w-full resize-none"
-        >
-          {value || defaultValue}
-        </textarea>
+          value={value}
+          defaultValue={defaultValue}
+        ></textarea>
       ) : (
         <input
           type={type}
           onChange={onInputChange}
           id={id}
+          aria-labelledby={id + "Label"}
           name={name}
           className="px-3 py-1.5 border border-[#000] rounded-lg text-[14px]"
           value={value}
