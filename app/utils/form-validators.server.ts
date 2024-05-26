@@ -39,7 +39,11 @@ const defaultFormError: IFormError = {
 export const validateStructureBusinessForm = (data: FormData) => {
   const { name, notes, ownerId } = data;
 
-  if (typeof name !== "string" || typeof ownerId !== "string") {
+  if (
+    typeof name !== "string" ||
+    typeof ownerId !== "string" ||
+    typeof notes !== "string"
+  ) {
     return { error: defaultFormError, status: 400 };
   }
 
@@ -55,7 +59,33 @@ export const validateStructureBusinessForm = (data: FormData) => {
     };
     return { error: info, status: 400 };
   }
-  return { error: null, validatedData: { name, ownerId } };
+  return { error: null, validatedData: { name, notes, ownerId } };
+};
+
+export const validateStructureBusinessEdit = (data: FormData) => {
+  const { businessId: id, name, notes } = data;
+
+  if (
+    typeof name !== "string" ||
+    typeof id !== "string" ||
+    typeof notes !== "string"
+  ) {
+    return { error: defaultFormError, status: 400 };
+  }
+
+  const fieldErrors = {
+    name: emptyStringValidate(name),
+  };
+
+  if (Object.values(fieldErrors).some(Boolean)) {
+    const info: IFieldsError = {
+      fieldErrors,
+      fields: { name },
+      formError: null,
+    };
+    return { error: info, status: 400 };
+  }
+  return { error: null, validatedData: { name, notes, id } };
 };
 
 export const validateStructureServicesForm = (data: FormData) => {

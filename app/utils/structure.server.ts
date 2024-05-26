@@ -8,15 +8,33 @@ import type {
 export const createBusiness = async ({
   ownerId,
   name,
-}: Omit<IBusiness, "id" | "icon" | "notes">) => {
+  notes,
+}: Omit<IBusiness, "id" | "icon">) => {
   await db.business.create({
     data: {
       name,
+      notes,
       owner: {
         connect: {
           id: ownerId,
         },
       },
+    },
+  });
+};
+
+export const updateBusinessById = async ({
+  id,
+  name,
+  notes,
+}: Omit<IBusiness, "ownerId" | "icon">) => {
+  return await db.business.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      notes,
     },
   });
 };
