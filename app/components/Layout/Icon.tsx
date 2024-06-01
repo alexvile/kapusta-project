@@ -21,7 +21,9 @@ export function Icon({ name, size = "s" }: IconProps) {
       break;
   }
   return (
-    <span className={`${c_size} inline-block [&>svg]:w-full [&>svg]:h-full`}>
+    <span
+      className={`${c_size} flex-shrink-0 inline-block [&>svg]:w-full [&>svg]:h-full`}
+    >
       <NewSvg name={name} />
     </span>
   );

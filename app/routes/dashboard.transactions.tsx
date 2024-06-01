@@ -20,8 +20,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   // const recipient = await getUserById(userId);
   // const user = await getUser(request);
   // return json({ recipient, user });
-  const allExpenses: number | null = await getAllExpensesByUserId(userId);
-  const allIncomes: number | null = await getAllIncomesByUserId(userId);
+  // const allExpenses: number | null = await getAllExpensesByUserId(userId);
+  // const allIncomes: number | null = await getAllIncomesByUserId(userId);
+  const allExpenses: number | null = 0;
+  const allIncomes: number | null = 0;
   return json({ allExpenses, allIncomes });
   // todo - redirect to some!!!!!!!!!!!!!!!
   // return redirect("expenses");
@@ -29,8 +31,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 // todo: decide if use requireuserID or getUserId
 export default function Transactions() {
-  const location = useLocation();
-
+  // const location = useLocation();
   const {
     allExpenses = 0,
     allIncomes = 0,
@@ -39,20 +40,12 @@ export default function Transactions() {
     allIncomes: number;
   } = useLoaderData();
   const balance: number = allIncomes - allExpenses;
-  // todo - refactor
-  const links = [
-    { to: "expenses", label: "Expenses" },
-    { to: "incomes", label: "Incomes" },
-  ];
+
   return (
     <>
       <TopBar balance={balance} />
       {/* tabs */}
       {/* one of tabs should be opened by default */}
-      {/* todo - temporary Solution !!! */}
-      {!location.pathname.includes("/reports") && (
-        <Navigation navLinks={links} style="submain" />
-      )}
       <Outlet />
     </>
   );

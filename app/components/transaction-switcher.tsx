@@ -18,25 +18,13 @@ import { Graphic } from "./graphic";
 export const TransactionSwitcher = ({
   expenses,
   incomes,
-  cameFrom,
 }: {
   expenses: Pick<IExpense, "value" | "type">[];
   incomes: Pick<IIncome, "value" | "type">[];
-  cameFrom: string | null;
 }) => {
   // todo - need refactor
-  const getState = () => {
-    if (!cameFrom) return "Expenses";
-    const type = cameFrom.split("/transactions/")?.[1];
-    if (type === "incomes") {
-      return "Incomes";
-    } else if (type === "expenses") {
-      return "Expenses";
-    } else {
-      return "Expenses";
-    }
-  };
-  const [transactionType, setTransactionType] = useState(() => getState());
+
+  const [transactionType, setTransactionType] = useState("Incomes");
   const [category, setCategory] = useState("ALL");
   const [calculatedExpenses, setCalculatedExpenses] = useState(() =>
     summarizeTransactionsByGroup(expenses)

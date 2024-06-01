@@ -66,11 +66,17 @@ export default function Index() {
   // const url = `${user.id}/transactions`;
   // console.log("dashboard rerender");
   const links = [
-    { to: "/", label: "Home page", end: false },
-    { to: "structure", label: "Business structure" },
-    { to: "transactions", label: "Transactions" },
-    { to: "business", label: "business(clients/records)" },
+    // { to: "/", label: "Home page", end: false, icon: "home" },
+    { to: "structure", label: "Business structure", icon: "home" },
+    // think about preventing extra fetch by toggling transaction subroutes
+    { to: "transactions/incomes", label: "Incomes", icon: "home" },
+    { to: "transactions/expenses", label: "Expenses", icon: "home" },
+    { to: "transactions/reports", label: "Reports", icon: "home" },
+    { to: "clients", label: "Clients", icon: "home" },
+    { to: "records", label: "Records", icon: "home" },
   ];
+
+  // use styles from dribble !!!!
   return (
     <>
       {/* <Form action="" method="post">
@@ -87,7 +93,10 @@ export default function Index() {
         {/* <Link to="abc" title="" aria-label="" className="outline mr-3">
           &nbsp;* TEST PAGE - link
         </Link> */}
-        <div className="container">
+        <div className="container1 flex-grow">
+          <div className="bg-[#F0F7F4] border-y-2 border-[#E0E9E7] py-3 mb-2">
+            Show active tab
+          </div>
           <Outlet />
         </div>
       </Layout>

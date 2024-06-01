@@ -1,9 +1,11 @@
 import { NavLink } from "@remix-run/react";
+import { Icon } from "../Layout/Icon";
 
 type INavLink = {
   label: string;
   to: string;
   end?: boolean;
+  icon?: string;
 };
 type NavigationProps = {
   navLinks: INavLink[];
@@ -22,7 +24,9 @@ const NavLinks = ({ navLinks }: { navLinks: INavLink[] }) => {
               ` ${isPending ? "pending" : isActive ? "active" : ""}`
             }
           >
-            {el.label}
+            <span className="flex items-center justify-start gap-1">
+              {el.icon && <Icon name={el.icon} />} {el.label}
+            </span>
           </NavLink>
         </li>
       ))}

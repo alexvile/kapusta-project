@@ -103,25 +103,28 @@ th {
 }
 /* main */
 nav.main ul {
-  /* display: flex; */
-  padding-left: 0.5rem;
+  @apply px-2;
 }
 nav.main li {
-  @apply my-1
-  /* @apply rounded-t-3xl;
-  overflow: hidden; */;
+  @apply my-1;
 }
 nav.main a {
   color: var(--aside-text);
-  /* text-align: center;
+  width: 100%;
   display: inline-block;
-  @apply py-4 px-6 min-w-[138px] font-roboto text-label tracking-small font-bold uppercase bg-navLinks-normalBg; */
+  @apply px-1 py-1;
+}
+/* nav.main a:hover:not(.pending) */
+nav.main a:hover:not(.active) {
+  color: red;
 }
 nav.main a.pending {
   /* @apply bg-navLinks-normalBg text-navLinks-pendingText; */
 }
 nav.main a.active {
   color: var(--aside-link-active);
+  background: #263f43;
+  border-radius: 4px;
 
   /* @apply bg-navLinks-activeBg text-navLinks-activeText; */
 }

@@ -65,7 +65,6 @@ export default function Reports() {
   const [month, setMonth] = useState(() => getCurrentIsoYearAndMonth());
   let [searchParams] = useSearchParams();
   const { expenses, incomes } = useLoaderData();
-  const location = useLocation();
 
   const submit = useSubmit();
   const formRef = useRef(null);
@@ -100,11 +99,7 @@ export default function Reports() {
       </div>
 
       <MonthStats expenses={expenses} incomes={incomes} />
-      <TransactionSwitcher
-        expenses={expenses}
-        incomes={incomes}
-        cameFrom={location.state?.from || null}
-      />
+      <TransactionSwitcher expenses={expenses} incomes={incomes} />
       <Outlet />
     </>
   );

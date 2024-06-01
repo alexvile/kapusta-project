@@ -7,7 +7,7 @@ import {
 } from "@remix-run/node";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { useState } from "react";
-import { Button } from "~/components/button";
+import { LegacyButton } from "~/components/button";
 import { DateInput } from "~/components/date-input";
 import { FormField } from "~/components/form-field";
 import { Modal } from "~/components/modal";
