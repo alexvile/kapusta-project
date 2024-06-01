@@ -59,6 +59,24 @@ export const createService = async ({
   });
 };
 
+export const updateServiceById = async ({
+  id,
+  name,
+  price,
+  duration,
+}: Omit<IService, "businessId" | "icon">) => {
+  await db.service.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      price,
+      duration,
+    },
+  });
+};
+
 export const getAllBusinessesWithServicesByOwnerId = async (
   ownerId: IBusiness["ownerId"]
 ) => {

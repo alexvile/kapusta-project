@@ -9,7 +9,7 @@ type ServiceProps = IService & { openModal: IOpenModal };
 export const Service = ({ ...props }: ServiceProps) => {
   const { id, name, price, duration, openModal } = props;
   return (
-    <li className="my-2 w-fit border flex gap-3 items-center bg-white rounded-md p-1 gap-4">
+    <li className="my-2 w-fit border flex items-center bg-white rounded-md p-1 gap-4">
       <div>
         {/* by default from settings */}
         <Icon size="m" name="beauty" />
@@ -24,7 +24,13 @@ export const Service = ({ ...props }: ServiceProps) => {
         <Button
           ariaLabel="Edit service"
           style="action"
-          onPress={() => openModal({ intent: "edit-service", target: id })}
+          onPress={() =>
+            openModal({
+              intent: "edit-service",
+              target: id,
+              fields: { name, price, duration },
+            })
+          }
         >
           <Icon name="edit" />
         </Button>
