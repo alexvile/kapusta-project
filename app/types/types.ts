@@ -64,20 +64,26 @@ export type IBusinessWithServices = Prisma.BusinessGetPayload<{
 // export type IOpenModal = (event: React.ChangeEvent<HTMLButtonElement>) => void;
 
 type ModalIntendWithoutTarget = "create-business";
-type ModalIntendWithTarget =
-  | "create-service"
-  | "edit-service"
-  | "edit-business";
+type ModalIntendWithTargetNoFields = "create-service";
+type ModalIntendWithTargetAndFields = "edit-service" | "edit-business";
 
 // add new subtype need fields or not
 export type BusinessModalProps =
-  | { intent: ModalIntendWithoutTarget; target?: never }
+  | { intent: ModalIntendWithoutTarget; target?: never; fields?: never }
   | {
-      intent: ModalIntendWithTarget;
+      intent: ModalIntendWithTargetNoFields;
       target: string;
-      fields?: {
-        [key: string]: string | null;
+      fields?: never;
+    }
+  | {
+      intent: ModalIntendWithTargetAndFields;
+      target: string;
+      fields: {
+        [key: string]: string | number | null;
       };
     };
 
 export type IOpenModal = (data: BusinessModalProps) => void;
+
+export type SortAndSelectOption = { name: string; value: string };
+export type ISortAndSelectOptions = SortAndSelectOption[];

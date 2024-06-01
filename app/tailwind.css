@@ -96,22 +96,32 @@ th {
   @apply bg-navLinks-activeBg text-navLinks-activeText;
 }
 /* todo - create styles */
+
+:root {
+  --aside-text: #a2aaab;
+  --aside-link-active: #f7f8f8;
+}
 /* main */
-.main ul {
-  display: flex;
+nav.main ul {
+  /* display: flex; */
+  padding-left: 0.5rem;
 }
-.main li {
-  @apply rounded-t-3xl;
-  overflow: hidden;
+nav.main li {
+  @apply my-1
+  /* @apply rounded-t-3xl;
+  overflow: hidden; */;
 }
-.main a {
-  text-align: center;
+nav.main a {
+  color: var(--aside-text);
+  /* text-align: center;
   display: inline-block;
-  @apply py-4 px-6 min-w-[138px] font-roboto text-label tracking-small font-bold uppercase bg-navLinks-normalBg;
+  @apply py-4 px-6 min-w-[138px] font-roboto text-label tracking-small font-bold uppercase bg-navLinks-normalBg; */
 }
-.main a.pending {
-  @apply bg-navLinks-normalBg text-navLinks-pendingText;
+nav.main a.pending {
+  /* @apply bg-navLinks-normalBg text-navLinks-pendingText; */
 }
-.main a.active {
-  @apply bg-navLinks-activeBg text-navLinks-activeText;
+nav.main a.active {
+  color: var(--aside-link-active);
+
+  /* @apply bg-navLinks-activeBg text-navLinks-activeText; */
 }

@@ -1,4 +1,6 @@
-export const ExpenseKinds = [
+import { ISortAndSelectOptions } from "~/types/types";
+
+export const ExpenseKinds: ISortAndSelectOptions = [
   { name: "Rent", value: "RENT" },
   { name: "Communal", value: "COMMUNAL" },
   { name: "Marketing", value: "MARKETING" },
@@ -6,40 +8,40 @@ export const ExpenseKinds = [
   { name: "Other", value: "OTHER" },
 ];
 
-export const IncomeKinds = [
+export const IncomeKinds: ISortAndSelectOptions = [
   { name: "Laser", value: "LASER" },
   { name: "Brows", value: "BROWS" },
   { name: "Other", value: "OTHER" },
 ];
 
-export const ExpenseKindsForFilter = [
+export const ExpenseKindsForFilter: ISortAndSelectOptions = [
   { name: "Expense category", value: "ALL" },
   ...ExpenseKinds,
 ];
 
-export const IncomeKindsForFilter = [
+export const IncomeKindsForFilter: ISortAndSelectOptions = [
   { name: "Income category", value: "ALL" },
   ...IncomeKinds,
 ];
 
-export const ExpenseKindsForRadioButtons = [
+export const ExpenseKindsForRadioButtons: ISortAndSelectOptions = [
   { name: "All", value: "ALL" },
   ...ExpenseKinds,
 ];
 
-export const IncomeKindsForRadioButtons = [
+export const IncomeKindsForRadioButtons: ISortAndSelectOptions = [
   { name: "All", value: "ALL" },
   ...IncomeKinds,
 ];
 
 //   todo - how to synchronize with db ???
 
-export const transactionTypes = [
+export const transactionTypes: ISortAndSelectOptions = [
   { name: "Expenses", value: "Expenses" },
   { name: "Incomes", value: "Incomes" },
 ];
 
-export const sortOptions = [
+export const sortOptionsTransactions: ISortAndSelectOptions = [
   {
     name: "Date",
     value: "date",
@@ -53,7 +55,8 @@ export const sortOptions = [
     value: "category",
   },
 ];
-export const sortOptionsClients = [
+
+export const sortOptionsClients: ISortAndSelectOptions = [
   {
     name: "Name",
     value: "name",

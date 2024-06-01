@@ -1,8 +1,13 @@
-import { FaPencil, FaChevronDown } from "react-icons/fa6";
+import {
+  FaPencil,
+  FaChevronDown,
+  FaArrowUp,
+  FaArrowDown,
+} from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineStop, AiFillBank } from "react-icons/ai";
-
+import { TbArrowsSort } from "react-icons/tb";
 export const NewSvg = ({ name }: { name: string }) => {
   switch (name) {
     case "bank":
@@ -32,7 +37,25 @@ export const NewSvg = ({ name }: { name: string }) => {
       );
     case "close":
       return <AiOutlineClose />;
-
+    case "sort":
+      return <TbArrowsSort />;
+    case "arrow-up":
+      return <FaArrowUp />;
+    case "arrow-down":
+      return <FaArrowDown />;
+    case "filter":
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M9.095 6.25a3.001 3.001 0 0 1 5.81 0h1.345a.75.75 0 0 1 0 1.5h-1.345a3.001 3.001 0 0 1-5.81 0h-5.345a.75.75 0 0 1 0-1.5h5.345Zm1.405.75a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M8 16a3.001 3.001 0 0 0 2.905-2.25h5.345a.75.75 0 0 0 0-1.5h-5.345a3.001 3.001 0 0 0-5.81 0h-1.345a.75.75 0 0 0 0 1.5h1.345a3.001 3.001 0 0 0 2.905 2.25Zm1.5-3a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+          />
+        </svg>
+      );
     default:
       return <AiOutlineStop />;
   }

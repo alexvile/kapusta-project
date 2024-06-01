@@ -5,14 +5,18 @@ import { SelectBox } from "../select-box";
 import {
   ExpenseKindsForFilter,
   IncomeKindsForFilter,
-  sortOptions,
+  sortOptionsTransactions,
 } from "~/utils/constants";
 import { DateInput } from "../date-input";
 import { getLocalDate } from "~/helpers/timeConvertor";
-import { Button, LegacyButton } from "../button";
+import { LegacyButton } from "../button";
 import { Svg } from "../Svg";
 import { DirectionHandler } from "./DirectionHandler";
 import { TransactionType } from "~/types/types";
+import { SortBlock } from "./SortBlock";
+import { Button } from "../Layout/Button";
+import { Icon } from "../Layout/Icon";
+import { FilterBlock } from "./FilterBlock";
 
 interface ISortAndFilter {
   type: TransactionType;
@@ -23,8 +27,6 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
 
-  const [sortOption, setSortOption] = useState(() => searchParams.get("sort"));
-  const [direction, setDirection] = useState(() => searchParams.get("dir"));
   const [timeFrom, setTimeFrom] = useState(
     () => searchParams.get("from") || ""
   );
@@ -54,11 +56,6 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
     // navigate("/dashboard/transactions/expenses");
   };
 
-  useEffect(() => {
-    // todo = at the start value = undefined, need default value
-    // console.log(sortOption, direction);
-  }, [sortOption, direction]);
-
   return (
     <div className="p-2">
       <div className="flex gap-3">
@@ -73,7 +70,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
             <div className="flex gap-4 items-center">
               <div className="flex flex-wrap col-gap-2">
                 <div className="w-full flex border-2 border-inputBorder rounded-tl-xl items-center justify-between gap-2 rounded-tr-xl">
-                  <div className="flex gap-2 items-center justify-start px-2 py-1 border-r-2 border-inputBorder">
+                  {/* <div className="flex gap-2 items-center justify-start px-2 py-1 border-r-2 border-inputBorder">
                     <p>Sort By:</p>
                     <SelectBox
                       name="sort"
@@ -87,7 +84,10 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                       value={direction}
                       setDirection={setDirection}
                     />
-                  </div>
+                  </div> */}
+                  <SortBlock options={sortOptionsTransactions} />
+                  <FilterBlock />
+
                   <div className="px-2 py-1">
                     <input
                       type="text"
@@ -103,7 +103,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     <DateInput
                       name="from"
                       type="date"
-                      label="From"
+                      label="From:"
                       onChange={(e) => {
                         setTimeFrom(e.currentTarget.value);
                       }}
@@ -113,7 +113,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                     <DateInput
                       name="to"
                       type="date"
-                      label="To"
+                      label="To:"
                       onChange={(e) => {
                         setTimeTo(e.currentTarget.value);
                       }}

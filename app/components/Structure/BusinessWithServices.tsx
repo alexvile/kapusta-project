@@ -24,7 +24,7 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
   }, [allAccOpen]);
 
   return (
-    <li className="pl-3 my-2">
+    <li className="my-2">
       {/* <details className="transition-all">
         <summary>Details</summary>
         Something small enough to escape casual notice.
@@ -38,7 +38,7 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
         </div>
 
         {/* actions */}
-        <div className="flex">
+        <div className="flex gap-1.5">
           {services.length > 0 && (
             <AccordionBtn isOpen={showCategories} handler={toggleCategories} />
           )}

@@ -8,7 +8,11 @@ type AccordionBtnProps = {
 // todo - migrate this to Layout
 export const AccordionBtn = ({ isOpen, handler }: AccordionBtnProps) => {
   return (
-    <Button onPress={handler} style="action">
+    <Button
+      onPress={handler}
+      style="action"
+      ariaLabel={isOpen ? "Collapse" : "Expand"}
+    >
       {/* temporary solution */}
       {/* update accordion logic */}
       <span

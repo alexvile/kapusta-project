@@ -43,7 +43,7 @@ export const Modal: React.FC<props & ConditionalProps> = ({
   //  todo: create not modal route, but popup
 
   const popupStyles =
-    "min-w-[380px] min-h-[194px]  flex justify-center flex-col items-center";
+    "min-w-[380px] min-h-[194px]  flex justify-center flex-col items-center p-2";
   const modalStyles = "p-7";
   // const defaultSt = "p-4 bg-gray-200  max-h-screen md:rounded-xl";
 

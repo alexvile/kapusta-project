@@ -19,10 +19,11 @@ export function DateInput({
   const id = useId();
   return (
     <div>
-      <label htmlFor={id} className="block text-[10px]">
+      <label htmlFor={id} className="block text-[12px]">
         {label}
       </label>
       <input
+        className="border rounded-md p-0.5"
         type={type}
         name={name}
         onChange={onChange}

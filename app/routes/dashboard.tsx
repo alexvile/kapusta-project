@@ -79,11 +79,17 @@ export default function Index() {
       {/* todo - vertical side open-close navigation */}
       <Layout user={user}>
         {/* {isLoading && <h1 className="absolute">Loading...</h1>} */}
-        <Navigation navLinks={links} style="main" />
+        {/* better structure */}
+        <aside className="bg-[#001D22]">
+          <div className="text-white bg-gray-400">Logo</div>
+          <Navigation navLinks={links} style="main" />
+        </aside>
         {/* <Link to="abc" title="" aria-label="" className="outline mr-3">
           &nbsp;* TEST PAGE - link
         </Link> */}
-        <Outlet />
+        <div className="container">
+          <Outlet />
+        </div>
       </Layout>
     </>
   );

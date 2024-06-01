@@ -8,6 +8,7 @@ import {
   createService,
   getAllBusinessesWithServicesByOwnerId,
   updateBusinessById,
+  updateServiceById,
 } from "~/utils/structure.server";
 
 import {
@@ -17,9 +18,10 @@ import {
 } from "~/types/types";
 import { StructureModalContent } from "~/components/Structure/StructureModalContent";
 import {
-  validateStructureBusinessEdit,
-  validateStructureBusinessForm,
-  validateStructureServicesForm,
+  validateStructureBusinessCreate,
+  validateStructureBusinessUpdate,
+  validateStructureServicesCreate,
+  validateStructureServicesUpdate,
 } from "~/utils/form-validators.server";
 import { BusinessWithServices } from "~/components/Structure/BusinessWithServices";
 import { Button } from "~/components/Layout/Button";
@@ -27,6 +29,9 @@ import { Icon } from "~/components/Layout/Icon";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const ownerId = await requireUserId(request);
+  // throw new Error(`The intent  is not supported`, {
+  //   status: 400,
+  // });
   return await getAllBusinessesWithServicesByOwnerId(ownerId);
 };
 // todo - check if we have this fields in all routes !!!!!!!!!!!!!!
@@ -36,9 +41,11 @@ export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   const intent = form.get("intent");
   const formObject = Object.fromEntries(form.entries());
-
   if (intent === "createBusiness") {
-    const response = validateStructureBusinessForm({ ...formObject, ownerId });
+    const response = validateStructureBusinessCreate({
+      ...formObject,
+      ownerId,
+    });
     if (response.error) {
       const { error, status } = response;
       return json({ error }, { status });
@@ -46,18 +53,8 @@ export const action: ActionFunction = async ({ request }) => {
     await createBusiness(response.validatedData);
     return json({ status: "success" }, { status: 201 });
   }
-
-  if (intent === "createService") {
-    const response = validateStructureServicesForm({ ...formObject, ownerId });
-    if (response.error) {
-      const { error, status } = response;
-      return json({ error }, { status });
-    }
-    await createService(response.validatedData);
-    return json({ status: "success" }, { status: 201 });
-  }
   if (intent === "editBusiness") {
-    const response = validateStructureBusinessEdit({ ...formObject });
+    const response = validateStructureBusinessUpdate({ ...formObject });
     if (response.error) {
       const { error, status } = response;
       return json({ error }, { status });
@@ -66,6 +63,30 @@ export const action: ActionFunction = async ({ request }) => {
     return json({ status: "success" }, { status: 200 });
   }
 
+  if (intent === "createService") {
+    const response = validateStructureServicesCreate({
+      ...formObject,
+      ownerId,
+    });
+    if (response.error) {
+      const { error, status } = response;
+      return json({ error }, { status });
+    }
+    await createService(response.validatedData);
+    return json({ status: "success" }, { status: 201 });
+  }
+
+  if (intent === "editService") {
+    const response = validateStructureServicesUpdate({
+      ...formObject,
+    });
+    if (response.error) {
+      const { error, status } = response;
+      return json({ error }, { status });
+    }
+    await updateServiceById(response.validatedData);
+    return json({ status: "success" }, { status: 200 });
+  }
   // todo - return redirects
   // todo snippet for redirects, invalid form data etc
   // todo - error boundaries
