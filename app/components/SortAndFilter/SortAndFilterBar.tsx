@@ -7,31 +7,54 @@ import {
   IncomeKindsForFilter,
   sortOptionsTransactions,
 } from "~/utils/constants";
-import { DateInput } from "../date-input";
 import { getLocalDate } from "~/helpers/timeConvertor";
 import { LegacyButton } from "../button";
 import { Svg } from "../Svg";
-import { DirectionHandler } from "./DirectionHandler";
-import { TransactionType } from "~/types/types";
+import { SortAndFilterType } from "~/types/types";
 import { SortBlock } from "./SortBlock";
-import { Button } from "../Layout/Button";
-import { Icon } from "../Layout/Icon";
 import { FilterBlock } from "./FilterBlock";
 
-interface ISortAndFilter {
-  type: TransactionType;
+interface SortAndFilterBarProps {
+  type: SortAndFilterType;
 }
 // need to use as global type !!!
 
-export function SortAndFilterBar({ type }: ISortAndFilter) {
+export function SortAndFilterBar({ type }: SortAndFilterBarProps) {
+  // need refactor
+  const getSortOptions = () => {
+    switch (type) {
+      case "expenses":
+        return sortOptionsTransactions;
+      case "incomes":
+        return sortOptionsTransactions;
+      case "clients":
+        return [];
+      default:
+        return [];
+    }
+  };
+  const getCategories = () => {
+    // need refactor
+    // use only dynamic categories
+    switch (type) {
+      case "expenses":
+        return ExpenseKindsForFilter;
+      case "incomes":
+        return IncomeKindsForFilter;
+      case "clients":
+        return [];
+      default:
+        return [];
+    }
+  };
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
 
-  const [timeFrom, setTimeFrom] = useState(
-    () => searchParams.get("from") || ""
-  );
-  const [timeTo, setTimeTo] = useState(() => searchParams.get("to") || "");
-  const [category, setCategory] = useState(() => searchParams.get("category"));
+  // const [timeFrom, setTimeFrom] = useState(
+  //   () => searchParams.get("from") || ""
+  // );
+  // const [timeTo, setTimeTo] = useState(() => searchParams.get("to") || "");
+  // const [category, setCategory] = useState(() => searchParams.get("category"));
 
   const date = getLocalDate();
   // todo use useRef or useMemo or UseCallback to not rerender date
@@ -70,24 +93,8 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
             <div className="flex gap-4 items-center">
               <div className="flex flex-wrap col-gap-2">
                 <div className="w-full flex border-2 border-inputBorder rounded-tl-xl items-center justify-between gap-2 rounded-tr-xl">
-                  {/* <div className="flex gap-2 items-center justify-start px-2 py-1 border-r-2 border-inputBorder">
-                    <p>Sort By:</p>
-                    <SelectBox
-                      name="sort"
-                      options={sortOptions}
-                      onChange={(e) => {
-                        setSortOption(e.currentTarget.value);
-                      }}
-                      value={sortOption}
-                    />
-                    <DirectionHandler
-                      value={direction}
-                      setDirection={setDirection}
-                    />
-                  </div> */}
-                  <SortBlock options={sortOptionsTransactions} />
-                  <FilterBlock />
-
+                  <SortBlock options={getSortOptions()} />
+                  <FilterBlock categories={getCategories()} />
                   <div className="px-2 py-1">
                     <input
                       type="text"
@@ -97,44 +104,7 @@ export function SortAndFilterBar({ type }: ISortAndFilter) {
                   </div>
                 </div>
 
-                <div className="w-full flex items-center justify-between mt-1 rounded-bl-xl border-2 border-inputBorder rounded-br-xl">
-                  <div className="flex gap-2 px-2 border-r-2 border-inputBorder">
-                    {/* Date filter */}
-                    <DateInput
-                      name="from"
-                      type="date"
-                      label="From:"
-                      onChange={(e) => {
-                        setTimeFrom(e.currentTarget.value);
-                      }}
-                      value={timeFrom}
-                    />
-
-                    <DateInput
-                      name="to"
-                      type="date"
-                      label="To:"
-                      onChange={(e) => {
-                        setTimeTo(e.currentTarget.value);
-                      }}
-                      value={timeTo}
-                    />
-                  </div>
-                  <div className="px-2 py-1">
-                    <SelectBox
-                      name="category"
-                      options={
-                        type === "expenses"
-                          ? ExpenseKindsForFilter
-                          : IncomeKindsForFilter
-                      }
-                      onChange={(e) => {
-                        setCategory(e.currentTarget.value);
-                      }}
-                      value={category}
-                    />
-                  </div>
-                </div>
+                <div className="w-full flex items-center justify-between mt-1 rounded-bl-xl border-2 border-inputBorder rounded-br-xl"></div>
               </div>
 
               <div className="actions">
