@@ -32,7 +32,9 @@ import type {
 // todo - add modal component form remix 3 tutorial
 
 // todo ts interfaces at server part
-export const getAllExpensesByUserId = async (userId: string) => {
+export const getTotalCalculatedExpensesValueByUserId = async (
+  userId: string
+) => {
   const aggregatedExpenseSum = await db.expense.aggregate({
     _sum: { value: true },
     where: {
@@ -42,7 +44,9 @@ export const getAllExpensesByUserId = async (userId: string) => {
   return aggregatedExpenseSum._sum.value;
 };
 
-export const getAllIncomesByUserId = async (userId: string) => {
+export const getTotalCalculatedIncomesValueByUserId = async (
+  userId: string
+) => {
   const aggregatedIncomeSum = await db.income.aggregate({
     _sum: { value: true },
     where: {
