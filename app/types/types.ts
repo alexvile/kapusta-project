@@ -29,6 +29,8 @@ export type MonthTransaction = {
   month: number;
   total: number;
 };
+
+export type SortAndFilterType = "clients" | "expenses" | "incomes";
 export type TransactionType = "expenses" | "incomes";
 // enum transactionType {
 //   Expenses,

@@ -48,7 +48,7 @@ export const DropdownMenu = ({ children, type }: DropdownMenuProps) => {
       <div
         className={`${
           open ? "block" : "hidden"
-        } absolute top-8 left-0 w-44 border bg-white rounded z-10 p-1`}
+        } absolute top-8 left-0 min-w-44 border bg-white rounded z-10 p-3`}
       >
         {children}
       </div>

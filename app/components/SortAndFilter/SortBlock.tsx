@@ -17,6 +17,7 @@ export const SortBlock = ({ options }: SortBlockProps) => {
 
   // const [sortOption, setSortOption] = useState(() => searchParams.get("sort"));
   // const [direction, setDirection] = useState(() => searchParams.get("dir"));
+
   // uncontrolled logic
   const getSortOption = () => {
     return searchParams.get("sort");
@@ -32,7 +33,10 @@ export const SortBlock = ({ options }: SortBlockProps) => {
 
   return (
     <DropdownMenu type="sort">
+      {/* <fieldset></fieldset> */}
+      {/* fieldset and legend here */}
       Sort by
+      {/* use divider or borders ? */}
       <Divider />
       <RadioGroup
         options={options}
