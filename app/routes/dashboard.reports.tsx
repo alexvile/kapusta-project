@@ -17,14 +17,15 @@ import {
 } from "~/helpers/timeConvertor";
 import { getUserId, requireUserId } from "~/utils/session.server";
 import {
+  getAllExpensesByUserId,
+  getAllIncomesByUserId,
   getExpensesForMonth,
   getIncomesForMonth,
+  getTotalCalculatedExpensesValueByUserId,
+  getTotalCalculatedIncomesValueByUserId,
 } from "~/utils/transaction.server";
-import type {
-  Expense as IExpense,
-  Income as IIncome,
-  Prisma,
-} from "@prisma/client";
+import type { Expense as IExpense, Income as IIncome } from "@prisma/client";
+import { TopBar } from "~/components/top-bar";
 
 export const loader: LoaderFunction = async ({ request }) => {
   // const userId = await requireUserId(request);
@@ -34,6 +35,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     return null;
     // status 401
   }
+
+  const allExpenses: number | null =
+    await getTotalCalculatedExpensesValueByUserId(userId);
+  const allIncomes: number | null =
+    await getTotalCalculatedIncomesValueByUserId(userId);
+  const result = { allExpenses, allIncomes };
+
   const url = new URL(request.url);
   const date = url.searchParams.get("date");
 
@@ -56,15 +64,24 @@ export const loader: LoaderFunction = async ({ request }) => {
     incomes = incomesForCurrentMonth;
     // console.log(expenses);
   }
-  return json({ expenses, incomes });
+  return json({ expenses, incomes, result });
 };
 // todo - normal logic at 27-33 lines !!!!!!!!
 
 // todo: decide if use requireuserID or getUserId
 export default function Reports() {
+  // const {
+  //   allExpenses = 0,
+  //   allIncomes = 0,
+  // }: {
+  //   allExpenses: number;
+  //   allIncomes: number;
+  // } = useLoaderData();
+  // const balance: number = allIncomes - allExpenses;
+
   const [month, setMonth] = useState(() => getCurrentIsoYearAndMonth());
   let [searchParams] = useSearchParams();
-  const { expenses, incomes } = useLoaderData();
+  const { expenses, incomes, result } = useLoaderData();
 
   const submit = useSubmit();
   const formRef = useRef(null);
@@ -84,6 +101,7 @@ export default function Reports() {
   return (
     <>
       <div>
+        <TopBar result={result} />
         <Form onChange={handleChange}>
           Current period
           <br />

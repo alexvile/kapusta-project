@@ -69,9 +69,9 @@ export default function Index() {
     // { to: "/", label: "Home page", end: false, icon: "home" },
     { to: "structure", label: "Business structure", icon: "home" },
     // think about preventing extra fetch by toggling transaction subroutes
-    { to: "transactions/incomes", label: "Incomes", icon: "home" },
-    { to: "transactions/expenses", label: "Expenses", icon: "home" },
-    { to: "transactions/reports", label: "Reports", icon: "home" },
+    { to: "incomes", label: "Incomes", icon: "home" },
+    { to: "expenses", label: "Expenses", icon: "home" },
+    { to: "reports", label: "Reports", icon: "chart" },
     { to: "clients", label: "Clients", icon: "home" },
     { to: "records", label: "Records", icon: "home" },
   ];
