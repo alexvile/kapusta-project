@@ -47,13 +47,35 @@ export const NewSvg = ({ name }: { name: string }) => {
       return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M9.095 6.25a3.001 3.001 0 0 1 5.81 0h1.345a.75.75 0 0 1 0 1.5h-1.345a3.001 3.001 0 0 1-5.81 0h-5.345a.75.75 0 0 1 0-1.5h5.345Zm1.405.75a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
           />
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M8 16a3.001 3.001 0 0 0 2.905-2.25h5.345a.75.75 0 0 0 0-1.5h-5.345a3.001 3.001 0 0 0-5.81 0h-1.345a.75.75 0 0 0 0 1.5h1.345a3.001 3.001 0 0 0 2.905 2.25Zm1.5-3a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
           />
+        </svg>
+      );
+    case "chart":
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <g clipPath="url(#clip0_19406_1650)">
+            <path
+              d="M5 9.2H8V19H5V9.2ZM10.6 5H13.4V19H10.6V5ZM16.2 13H19V19H16.2V13Z"
+              fill="currentColor"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_19406_1650">
+              <rect width="24" height="24" fill="white" />
+            </clipPath>
+          </defs>
         </svg>
       );
     default:
