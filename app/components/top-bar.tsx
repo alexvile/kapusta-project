@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { getFullMonthStartEndDays } from "~/helpers/timeConvertor";
 import { Svg } from "./Svg";
 
-export const TopBar = ({ balance }: { balance: number }) => {
+export const TopBar = ({ result }: { result: any }) => {
+  const { allExpenses, allIncomes } = result;
+  const getBalance = (allExpenses = 0, allIncomes = 0) => {
+    return allIncomes - allExpenses;
+  };
   //   const [month, setMonth] = useState("");
   //   const [period, setPeriod] = useState({});
 
@@ -25,7 +29,7 @@ export const TopBar = ({ balance }: { balance: number }) => {
   return (
     <div className=" p-3">
       <div className="flex items-center justify-around">
-        <Balance balance={balance} />
+        <Balance balance={getBalance(allExpenses, allIncomes)} />
       </div>
     </div>
   );

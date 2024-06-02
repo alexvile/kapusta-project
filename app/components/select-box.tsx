@@ -35,9 +35,8 @@ export function SelectBox({
           name={name}
           id={id}
           defaultValue={defaultValue}
-          className="outline1"
           onChange={onChange}
-          value={value || ""}
+          // value={value || ""}
         >
           {hasEmptyOption && <option value="">Please select</option>}
           {options.map((option) => (

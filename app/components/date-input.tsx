@@ -5,7 +5,7 @@ interface IDateInput {
   label?: string;
   defaultValue?: string;
   type?: "datetime-local" | "date";
-  value: string;
+  value?: string;
   onChange?: (...args: any) => any;
 }
 export function DateInput({
@@ -16,6 +16,7 @@ export function DateInput({
   onChange = () => {},
   type = "datetime-local",
 }: IDateInput) {
+  // logic to controlled and uncontrolled
   const id = useId();
   return (
     <div>
@@ -27,7 +28,7 @@ export function DateInput({
         type={type}
         name={name}
         onChange={onChange}
-        value={value || ""}
+        // value={value || ""}
         defaultValue={defaultValue}
       ></input>
     </div>
