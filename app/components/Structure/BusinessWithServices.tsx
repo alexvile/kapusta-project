@@ -43,7 +43,7 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
             <AccordionBtn isOpen={showCategories} handler={toggleCategories} />
           )}
           <Button
-            style="action"
+            style="outlined"
             ariaLabel="Edit business"
             onPress={() =>
               openModal({
@@ -56,7 +56,7 @@ export const BusinessWithServices = ({ ...props }: BusinessProps) => {
             <Icon name="edit" />
           </Button>
           <Button
-            style="action"
+            style="outlined"
             ariaLabel="Add service"
             onPress={() => openModal({ intent: "create-service", target: id })}
           >

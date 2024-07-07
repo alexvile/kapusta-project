@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "../Layout/Button";
+import { Button } from "@material-tailwind/react";
 import { Icon } from "../Layout/Icon";
 
 type DDTypes = "sort" | "filter" | "custom";
@@ -17,14 +17,26 @@ const Activator = ({ type, handler }: ActivatorProps) => {
   switch (type) {
     case "sort":
       return (
-        <Button style="action" ariaLabel="Sort items" onPress={handler}>
+        <Button
+          aria-label="Sort items"
+          onClick={handler}
+          variant="outlined"
+          size="sm"
+          className="flex items-center gap-1"
+        >
           <Icon name="sort" />
           Sort by
         </Button>
       );
     case "filter":
       return (
-        <Button style="action" ariaLabel="Filter items" onPress={handler}>
+        <Button
+          aria-label="Filter items"
+          onClick={handler}
+          variant="outlined"
+          size="sm"
+          className="flex items-center gap-1"
+        >
           <Icon name="filter" />
           Filter
         </Button>

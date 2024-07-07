@@ -1,4 +1,4 @@
-import { Button } from "../Layout/Button";
+import { Button, Textarea, Input } from "@material-tailwind/react";
 import { TextField } from "../Layout/TextField";
 import { CustomDurationPicker } from "../durationPicker";
 import { BusinessModalProps } from "~/types/types";
@@ -18,14 +18,13 @@ export const StructureModalContent = ({
       return (
         <>
           <h2>Creating business</h2>
-          <TextField name="name" label="Name" />
-          <TextField name="notes" label="Notes" multiline={2} />
-          <Button
-            type="submit"
-            style="action"
-            name="intent"
-            value="createBusiness"
-          >
+          <Input
+            name="name"
+            label="Name"
+            containerProps={{ className: "mb-4" }}
+          />
+          <Textarea name="notes" label="Notes" />
+          <Button type="submit" name="intent" value="createBusiness">
             Submit
           </Button>
         </>
@@ -34,8 +33,13 @@ export const StructureModalContent = ({
       return (
         <>
           <h2>Creating service</h2>
-          <TextField type="text" name="name" label="Name" />
-          <TextField type="number" name="price" label="Select price" />
+          <Input
+            type="text"
+            name="name"
+            label="Name"
+            containerProps={{ className: "mb-4" }}
+          />
+          <Input type="number" name="price" label="Select price" />
           <input type="hidden" name="businessId" value={target} />
           <CustomDurationPicker
             hours={[1, 2, 3]}
@@ -44,12 +48,7 @@ export const StructureModalContent = ({
             label="Choose duration"
             durationInMs={true}
           />
-          <Button
-            type="submit"
-            style="action"
-            name="intent"
-            value="createService"
-          >
+          <Button type="submit" name="intent" value="createService">
             Submit
           </Button>
         </>
@@ -60,13 +59,13 @@ export const StructureModalContent = ({
           <input type="hidden" name="businessId" value={target} />
           <h2>Edit business</h2>
 
-          <TextField name="name" label="Name" defaultValue={fields.name} />
-          <TextField
-            name="notes"
-            label="Notes"
-            defaultValue={fields.notes}
-            multiline={4}
+          <Input
+            name="name"
+            label="Name"
+            defaultValue={fields.name}
+            containerProps={{ className: "mb-4" }}
           />
+          <Textarea label="Notes" defaultValue={fields.notes} />
           <Button type="submit" name="intent" value="editBusiness">
             Submit
           </Button>
@@ -77,17 +76,19 @@ export const StructureModalContent = ({
         <>
           <input type="hidden" name="serviceId" value={target} />
           <h2>Editing service</h2>
-          <TextField
+          <Input
             type="text"
             name="name"
             label="Name"
             defaultValue={fields.name}
+            containerProps={{ className: "mb-4" }}
           />
-          <TextField
+          <Input
             type="number"
             name="price"
-            label="Select price"
+            label="Price"
             defaultValue={fields.price}
+            containerProps={{ className: "mb-4" }}
           />
           <CustomDurationPicker
             hours={[1, 2, 3]}
@@ -98,12 +99,7 @@ export const StructureModalContent = ({
             // fix ts error
             initialValue={fields.duration}
           />
-          <Button
-            type="submit"
-            style="action"
-            name="intent"
-            value="editService"
-          >
+          <Button type="submit" name="intent" value="editService">
             Submit
           </Button>
         </>

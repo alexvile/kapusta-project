@@ -10,7 +10,7 @@ export const AccordionBtn = ({ isOpen, handler }: AccordionBtnProps) => {
   return (
     <Button
       onPress={handler}
-      style="action"
+      style="outlined"
       ariaLabel={isOpen ? "Collapse" : "Expand"}
     >
       {/* temporary solution */}

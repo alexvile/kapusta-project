@@ -137,14 +137,14 @@ export default function Structure() {
     <>
       <div className="flex items-center justify-between">
         <Button
-          style="action"
+          style="outlined"
           ariaLabel="Add new business"
           onPress={() => openModal({ intent: "create-business" })}
         >
           Add new business <Icon name="bank" />
         </Button>
         <Button
-          style="action"
+          style="outlined"
           onPress={() => setAllAccOpen(!allAccOpen)}
           ariaLabel={allAccOpen ? "Close All" : "Expand All"}
         >
