@@ -35,16 +35,19 @@ export const RadioGroup = ({
     </fieldset>
   );
 };
-// <div key={index} className="flex gap-1 my-0.5">
-{
-  /* <input
-            type="radio"
-            id={id + index}
-            name={groupName}
-            value={value}
-            defaultChecked={initial === value}
-          />
-          <label htmlFor={id + index}>{name}</label> */
-}
 
-// </div>
+// <fieldset>
+// {/* <legend>Please select your preferred contact method:</legend> */}
+// {options.map(({ name, value }, index) => (
+//   <div key={index} className="flex gap-1 my-0.5">
+//     <input
+//       type="radio"
+//       id={id + index}
+//       name={groupName}
+//       value={value}
+//       defaultChecked={initial === value}
+//     />
+//     <label htmlFor={id + index}>{name}</label>
+//   </div>
+// ))}
+// </fieldset>

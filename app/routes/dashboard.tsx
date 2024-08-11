@@ -1,3 +1,9 @@
+import Button from "@material-tailwind/react/components/Button";
+import IconButton from "@material-tailwind/react/components/IconButton";
+import List from "@material-tailwind/react/components/List";
+import ListItem from "@material-tailwind/react/components/List/ListItem";
+import Radio from "@material-tailwind/react/components/Radio";
+import Switch from "@material-tailwind/react/components/Switch";
 import { User } from "@prisma/client";
 import { LoaderFunction, V2_MetaFunction, json } from "@remix-run/node";
 import {
@@ -6,6 +12,7 @@ import {
   useLocation,
   useNavigation,
 } from "@remix-run/react";
+import { Icon } from "~/components/Layout/Icon";
 import { MainNavigation } from "~/components/Navigation/MainNavigation";
 import { NavLinks, Navigation } from "~/components/Navigation/Navigation";
 import { Layout } from "~/components/layout";

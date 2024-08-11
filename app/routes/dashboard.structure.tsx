@@ -24,7 +24,7 @@ import {
   validateStructureServicesUpdate,
 } from "~/utils/form-validators.server";
 import { BusinessWithServices } from "~/components/Structure/BusinessWithServices";
-import { Button } from "~/components/Layout/Button";
+import { Button } from "@material-tailwind/react";
 import { Icon } from "~/components/Layout/Icon";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -137,16 +137,17 @@ export default function Structure() {
     <>
       <div className="flex items-center justify-between">
         <Button
-          style="outlined"
-          ariaLabel="Add new business"
-          onPress={() => openModal({ intent: "create-business" })}
+          aria-label="Add new business"
+          onClick={() => openModal({ intent: "create-business" })}
+          size="sm"
+          className="flex items-center gap-1"
         >
           Add new business <Icon name="bank" />
         </Button>
         <Button
-          style="outlined"
-          onPress={() => setAllAccOpen(!allAccOpen)}
-          ariaLabel={allAccOpen ? "Close All" : "Expand All"}
+          onClick={() => setAllAccOpen(!allAccOpen)}
+          aria-label={allAccOpen ? "Close All" : "Expand All"}
+          size="sm"
         >
           {allAccOpen ? "Close All" : "Expand All"}
         </Button>

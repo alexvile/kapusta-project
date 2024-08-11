@@ -18,7 +18,6 @@ interface SortAndFilterBarProps {
   type: SortAndFilterType;
 }
 // need to use as global type !!!
-
 export function SortAndFilterBar({ type }: SortAndFilterBarProps) {
   // need refactor
   const getSortOptions = () => {
@@ -50,6 +49,9 @@ export function SortAndFilterBar({ type }: SortAndFilterBarProps) {
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
 
+  useEffect(() => {
+    console.log(1111, searchParams);
+  }, [searchParams]);
   // const [timeFrom, setTimeFrom] = useState(
   //   () => searchParams.get("from") || ""
   // );
