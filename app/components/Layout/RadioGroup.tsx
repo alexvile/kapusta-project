@@ -1,4 +1,3 @@
-import Radio from "@material-tailwind/react/components/Radio";
 import { useId } from "react";
 import { ISortAndSelectOptions } from "~/types/types";
 
@@ -21,33 +20,17 @@ export const RadioGroup = ({
     <fieldset>
       {/* <legend>Please select your preferred contact method:</legend> */}
       {options.map(({ name, value }, index) => (
-        <Radio
-          key={index}
-          name={groupName}
-          label={name}
-          defaultChecked={initial === value}
-          value={value}
-          containerProps={{
-            className: "p-2",
-          }}
-        />
+        <div key={index} className="flex gap-1 my-0.5">
+          <input
+            type="radio"
+            id={id + index}
+            name={groupName}
+            value={value}
+            defaultChecked={initial === value}
+          />
+          <label htmlFor={id + index}>{name}</label>
+        </div>
       ))}
     </fieldset>
   );
 };
-
-// <fieldset>
-// {/* <legend>Please select your preferred contact method:</legend> */}
-// {options.map(({ name, value }, index) => (
-//   <div key={index} className="flex gap-1 my-0.5">
-//     <input
-//       type="radio"
-//       id={id + index}
-//       name={groupName}
-//       value={value}
-//       defaultChecked={initial === value}
-//     />
-//     <label htmlFor={id + index}>{name}</label>
-//   </div>
-// ))}
-// </fieldset>
