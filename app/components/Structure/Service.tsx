@@ -23,7 +23,7 @@ export const Service = ({ ...props }: ServiceProps) => {
       <div className="flex flex-col gap-1.5">
         <Button
           ariaLabel="Edit service"
-          style="action"
+          style="outlined"
           onPress={() =>
             openModal({
               intent: "edit-service",
@@ -34,7 +34,7 @@ export const Service = ({ ...props }: ServiceProps) => {
         >
           <Icon name="edit" />
         </Button>
-        <Button ariaLabel="Delete service" style="action">
+        <Button ariaLabel="Delete service" style="outlined">
           <Icon name="delete" />
         </Button>
       </div>
