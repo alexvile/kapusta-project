@@ -1,14 +1,5 @@
-// /** @type {import('tailwindcss').Config} */
-
-import type { Config } from "tailwindcss";
-
-import withMT from "@material-tailwind/react/utils/withMT";
- 
-export default withMT({
-  // corePlugins: {
-  //   preflight: false,
-  // },
-  // important: "#root",
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -27,7 +18,6 @@ export default withMT({
         },
       },
       colors: {
-        outline: '#75b7ab',
         accent: {
           light: "#fb7c2f33",
           DEFAULT: "#FB7C2F",
@@ -80,8 +70,7 @@ export default withMT({
     },
     plugins: [],
   },
-  plugins: [],
-} satisfies Config)
+};
 
 // todo: remove extend at production
 // todo - lg screen - 1024 for develop, 1280 for prod
