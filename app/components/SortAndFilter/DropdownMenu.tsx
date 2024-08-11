@@ -18,7 +18,7 @@ const Activator = ({ type, handler }: ActivatorProps) => {
     case "sort":
       return (
         <Button
-          aria-label="Sort items"
+          ariaLabel="Sort items"
           onPress={handler}
           style="outlined flex items-center gap-1"
         >
@@ -28,7 +28,7 @@ const Activator = ({ type, handler }: ActivatorProps) => {
       );
     case "filter":
       return (
-        <Button aria-label="Filter items" onPress={handler}>
+        <Button ariaLabel="Filter items" onPress={handler}>
           <Icon name="filter" />
           Filter
         </Button>
